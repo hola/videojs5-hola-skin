@@ -1,0 +1,24 @@
+{
+  "name": "videojs-hola-skin",
+  "version": "0.0.1",
+  "description": "A custom skin for VideoJS",
+  "main": "videojs-hola-skin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache",
+  "devDependencies": {
+    "async": "~0.2.9",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-less": "~1.1.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-watch": "~0.4.0",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-version": "~1.0.0",
+    "load-grunt-tasks": "~0.4.0",
+    "video.js": "~5.0.2"
+  }
+}
