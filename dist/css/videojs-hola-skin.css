@@ -317,3 +317,25 @@
   height: 16px;
   line-height: 16px;
 }
+.vjs5-hola-skin .vjs-rightclick-popup {
+  position: absolute;
+  width: 15em;
+  background-color: #2D2D2D;
+  background-color: rgba(45, 45, 45, 0.7);
+  -webkit-box-shadow: -0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2);
+  -moz-box-shadow: -0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2);
+  box-shadow: -0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2);
+}
+.vjs5-hola-skin .vjs-rightclick-popup .vjs-menu-item {
+  cursor: pointer;
+}
+.vjs5-hola-skin .vjs-rightclick-popup li {
+  text-align: left;
+  padding-left: 0.5em;
+}
+.vjs5-hola-skin .vjs-rightclick-popup li.vjs-menu-label {
+  pointer-events: none;
+}
+.vjs5-hola-skin .vjs-rightclick-popup li.vjs-menu-indent {
+  padding-left: 1.5em;
+}

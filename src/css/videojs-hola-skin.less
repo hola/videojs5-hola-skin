@@ -337,6 +337,25 @@
             line-height: 16px;
         }
     }
+    .vjs-rightclick-popup {
+        position: absolute;
+        width: 15em;
+        .background-color-with-alpha(@control-bg-color, @control-bg-alpha);
+        .box-shadow(-0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2));
+        .vjs-menu-item {
+            cursor: pointer;
+        }
+        li {
+            text-align: left;
+            padding-left: 0.5em;
+            &.vjs-menu-label {
+                pointer-events: none;
+            }
+            &.vjs-menu-indent {
+                padding-left: 1.5em;
+            }
+        }
+    }
 }
 
 
