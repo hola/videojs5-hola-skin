@@ -113,6 +113,9 @@
   border-color: #fff;
   background: #00b7f1;
 }
+.vjs5-hola-skin .vjs-live-control {
+  order: 4;
+}
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level {
   background-color: #00b7f1;
 }
