@@ -14,6 +14,27 @@ function get_class_name(element){
     return element.className.split(/\s+/g);
 }
 
+function add_class_name(element, class_name){
+    var classes = get_class_name(element);
+    if (classes.indexOf(class_name)==-1)
+    {
+        classes.push(class_name);
+        element.className = classes.join(' ');
+        return true;
+    }
+    return false;
+}
+
+function remove_class_name(element, class_name){
+    var classes = get_class_name(element);
+    var class_index = classes.indexOf(class_name);
+    if (class_index>=0)
+    {
+        classes.splice(class_index, 1);
+        element.className = classes.join(' ');
+    }
+}
+
 // main skin code
 
 var HolaSkin = function(video, opt){
@@ -24,18 +45,20 @@ var HolaSkin = function(video, opt){
     this.intv = 0;
     this.stagger = 3;
     this.steptotal = 5;
+    this.classes_added = [];
     this.vjs.on('dispose', function(){ _this.dispose(); });
     this.vjs.on('ready', function(){ _this.init(); });
     this.apply();
 };
 
 HolaSkin.prototype.apply = function(){
-    var classes = get_class_name(this.el);
-    if (classes.indexOf(this.opt.className)==-1)
+    var c, classes = [this.opt.className];
+    if (this.opt.show_controls_before_start)
+        classes.push('vjs-show-controls-before-start');
+    while ((c = classes.shift()))
     {
-        classes.push(this.opt.className);
-        this.class_added = this.opt.className;
-        this.el.className = classes.join(' ');
+        if (add_class_name(this.el, c))
+            this.classes_added.push(c);
     }
 };
 
@@ -151,15 +174,8 @@ HolaSkin.prototype.init = function(){
 };
 
 HolaSkin.prototype.dispose = function(){
-    if (!this.class_added)
-        return;
-    var classes = get_class_name(this.el);
-    var class_index = classes.indexOf(this.class_added);
-    if (class_index>=0)
-    {
-        classes.splice(class_index, 1);
-        this.el.className = classes.join(' ');
-    }
+    while (this.classes_added.length)
+        remove_class_name(this.el, this.classes_added.pop());
 };
 
 var defaults = {
