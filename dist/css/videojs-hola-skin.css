@@ -1,4 +1,5 @@
-.vjs5-hola-skin .vjs-control-bar * {
+.vjs5-hola-skin .vjs-control-bar *,
+.vjs5-hola-skin .vjs-rightclick-popup * {
   color: #fff;
 }
 .vjs5-hola-skin .vjs-big-play-button,
