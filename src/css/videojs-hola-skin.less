@@ -261,7 +261,9 @@
             left: -6em;
             z-index: 2;
             visibility: hidden;
-            transition: visibility 300ms step-end;
+            &:not(.vjs-menu-popup-on-click) {
+                transition: visibility 300ms step-end;
+            }
             ul {
                 bottom: 3em;
                 li {
@@ -276,7 +278,8 @@
                 }
             }
         }
-        &:hover .vjs-menu {
+        &:hover .vjs-menu:not(.vjs-menu-popup-on-click),
+        & .vjs-menu.vjs-menu-popup-on-click.vjs-lock-showing {
             visibility: visible;
             transition: visibility 1ms;
         }
