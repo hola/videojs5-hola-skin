@@ -54,12 +54,12 @@
 }
 .vjs5-hola-skin.vjs-playing .vjs-big-play-button {
   opacity: 0;
-  transition: opacity 400ms ease, background-color 0;
-  transition-delay: 100ms, 0;
+  transition: opacity 400ms ease, background-color 0ms;
+  transition-delay: 100ms, 0ms;
 }
 .vjs5-hola-skin.vjs-paused.vjs-has-started .vjs-big-play-button {
   opacity: 1;
-  transition: opacity 0 linear, background-color 400ms ease;
+  transition: opacity 0ms linear, background-color 400ms ease;
   transition-delay: 0ms, 100ms;
   background-color: #2D2D2D;
   background-color: rgba(45, 45, 45, 0);
