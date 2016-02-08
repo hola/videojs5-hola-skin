@@ -52,9 +52,15 @@
             stroke: white;
             opacity: 0.7;
             transition: opacity 200ms ease;
+            g#move{
+                transition: transform 300ms cubic-bezier(0.25, 0.1, 0.6, 1.49);
+            }
         }
         &:hover>svg {
             opacity: 1;
+            g#move{
+                transform: translateX(23px);
+            }
         }
         &.vjs-playing:before,
         &.vjs-paused:before,
@@ -90,6 +96,7 @@
     &.vjs-paused.vjs-ended .vjs-big-play-button {
         .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
         &>svg, &:before { opacity: 0.8; }
+        display: block;
     }
 
     .vjs-progress-control {
@@ -103,6 +110,27 @@
             rgba(0,0,0,0.2) 67%, rgba(0,0,0,00) 67%);
         &>.vjs-progress-holder {
             margin: 0 10px;
+            &:before {
+                position: absolute;
+                top: 0;
+                left: -0.15em;
+                width: 0.16em;
+                height: 100%;
+                display: block;
+                background: #00b7f1;
+                content: '';
+                border-radius: 0.15em 0 0 0.15em;
+            }
+            &:after {
+                position: absolute;
+                height: 100%;
+                top: 0;
+                width: 0.16em;
+                right: -0.15em;
+                background: rgba(115, 133, 159, 0.5);
+                content: '';
+                border-radius: 0 0.15em 0.15em 0;
+            }
             &>.vjs-play-progress.vjs-slider-bar {
                 background: #00b7f1;
                 &:before {
