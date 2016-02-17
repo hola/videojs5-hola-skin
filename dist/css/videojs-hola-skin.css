@@ -39,14 +39,8 @@
   opacity: 0.7;
   transition: opacity 200ms ease;
 }
-.vjs5-hola-skin .vjs-play-control > svg g#move {
-  transition: transform 300ms cubic-bezier(0.25, 0.1, 0.6, 1.49);
-}
 .vjs5-hola-skin .vjs-play-control:hover > svg {
   opacity: 1;
-}
-.vjs5-hola-skin .vjs-play-control:hover > svg g#move {
-  transform: translateX(23px);
 }
 .vjs5-hola-skin .vjs-play-control.vjs-playing:before,
 .vjs5-hola-skin .vjs-play-control.vjs-paused:before,
