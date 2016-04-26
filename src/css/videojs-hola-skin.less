@@ -15,8 +15,8 @@
 
 .vjs5-hola-skin {
     // css reset
-    .vjs-control-bar *,
-    .vjs-rightclick-popup * {
+    .vjs-control-bar,
+    .vjs-rightclick-popup {
         color: #fff;
     }
     // big play button
@@ -42,12 +42,18 @@
             opacity: 0.8;
         }
     }
+    .vjs-control {
+        width: 3em;
+        margin: 0;
+        padding: 0;
+    }
     // play control morph
     .vjs-play-control {
-        width: 5em;
-        margin: 0 0.5em;
         cursor: pointer;
         &>svg {
+            position: absolute;
+            left: 0;
+            top: 0;
             fill: white;
             stroke: white;
             opacity: 0.7;
@@ -100,6 +106,8 @@
         width: auto;
         top: -20px;
         height: 30px;
+        margin: 0;
+        padding: 0;
         background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,
             rgba(0,0,0,0.2) 67%, rgba(0,0,0,00) 67%);
         &>.vjs-progress-holder {
@@ -177,6 +185,9 @@
             top: -0.7em;
         }
     }
+    .vjs-volume-menu-button {
+        width: 4em;
+    }
     .vjs-volume-menu-button.vjs-volume-menu-button-horizontal {
         &:before {
             content: '';
@@ -201,6 +212,12 @@
         }
         order: 1;
     }
+    & .vjs-menu-button-inline, &.vjs-no-flex {
+        &:hover, &:focus, &.vjs-slider-active,  {
+            width: 10em;
+        }
+    }
+
     .vjs-settings-button {
         &:before {
             content: '';
@@ -243,9 +260,20 @@
     .vjs-time-control.vjs-duration,
     .vjs-time-control.vjs-current-time,
     .vjs-time-control.vjs-time-divider {
-        display: block;
+        display: inline-block;
+        width: auto;
+        font-size: 1.2em;
+        line-height: 2.5em;
+        color: #bbb;
     }
-    .vjs-time-control.vjs-current-time { order: 2; }
+    .vjs-time-control.vjs-duration,
+    .vjs-time-control.vjs-current-time {
+        padding: 0 5px;
+    }
+    .vjs-time-control.vjs-current-time {
+        color: #fff;
+        order: 2;
+    }
     .vjs-time-control.vjs-time-divider { order: 3; }
     .vjs-time-control.vjs-duration { order: 4; }
 
