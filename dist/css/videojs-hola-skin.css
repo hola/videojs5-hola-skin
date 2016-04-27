@@ -1,3 +1,14 @@
+.vjs5-hola-skin .hola-circle-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #fff;
+  background: #00b7f1;
+}
 .vjs5-hola-skin .vjs-control-bar,
 .vjs5-hola-skin .vjs-rightclick-popup {
   color: #fff;
@@ -96,44 +107,9 @@
   padding: 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 67%, rgba(0, 0, 0, 0) 67%);
 }
-.vjs5-hola-skin .vjs-progress-control > .vjs-progress-holder {
-  margin: 0 10px;
-}
-.vjs5-hola-skin .vjs-progress-control > .vjs-progress-holder:before {
-  position: absolute;
-  top: 0;
-  left: -0.15em;
-  width: 0.16em;
-  height: 100%;
-  display: block;
-  background: #00b7f1;
-  content: '';
-  border-radius: 0.15em 0 0 0.15em;
-}
-.vjs5-hola-skin .vjs-progress-control > .vjs-progress-holder:after {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  width: 0.16em;
-  right: -0.15em;
-  background: rgba(115, 133, 159, 0.5);
-  content: '';
-  border-radius: 0 0.15em 0.15em 0;
-}
-.vjs5-hola-skin .vjs-progress-control > .vjs-progress-holder > .vjs-play-progress.vjs-slider-bar {
-  background: #00b7f1;
-}
-.vjs5-hola-skin .vjs-progress-control > .vjs-progress-holder > .vjs-play-progress.vjs-slider-bar:before {
+.vjs5-hola-skin .vjs-progress-control .vjs-play-progress:before,
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:before {
   content: none;
-}
-.vjs5-hola-skin .vjs-progress-control > .vjs-progress-holder > .vjs-play-progress.vjs-slider-bar:after {
-  display: none;
-}
-.vjs5-hola-skin .vjs-progress-control > .vjs-progress-holder > .vjs-mouse-display:after {
-  pointer-events: none;
-}
-.vjs5-hola-skin .vjs-progress-control:hover > .vjs-progress-holder > .vjs-play-progress.vjs-slider-bar:before {
-  content: '';
   display: block;
   width: 1em;
   height: 1em;
@@ -144,6 +120,66 @@
   border-color: #fff;
   background: #00b7f1;
 }
+.vjs5-hola-skin .vjs-progress-control .vjs-play-progress:after,
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:after {
+  display: none;
+  padding: 0.2em 0.5em 0.5em;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-play-progress {
+  background: #00b7f1;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display {
+  background: transparent;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:before {
+  position: absolute;
+  top: -0.33333333em;
+  right: -0.5em;
+  font-size: 0.9em;
+  background: #bbb;
+  opacity: 0.7;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:after {
+  pointer-events: none;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-progress-holder {
+  margin: 0 10px;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-progress-holder:before {
+  position: absolute;
+  top: 0;
+  left: -0.15em;
+  width: 0.16em;
+  height: 100%;
+  display: block;
+  background: #00b7f1;
+  content: '';
+  border-radius: 0.15em 0 0 0.15em;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-progress-holder:after {
+  position: absolute;
+  height: 100%;
+  pading-top: 0;
+  top: 0;
+  width: 0.16em;
+  right: -0.15em;
+  background: rgba(115, 133, 159, 0.5);
+  content: '';
+  border-radius: 0 0.15em 0.15em 0;
+}
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-play-progress:before,
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display:before {
+  content: '';
+}
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-play-progress:after {
+  display: none;
+}
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display {
+  display: transparent;
+}
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display:after {
+  display: block;
+}
 .vjs5-hola-skin .vjs-live-control {
   order: 4;
 }
@@ -151,17 +187,25 @@
   order: 0;
   line-height: 3em;
 }
+.vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal {
+  margin-top: 1.33em;
+}
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level {
   background-color: #00b7f1;
 }
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before {
-  content: '';
   display: block;
-  width: 0.6em;
-  height: 2em;
-  background-color: #fff;
-  right: -0.3em;
-  top: -0.7em;
+  width: 1em;
+  height: 1em;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #fff;
+  background: #00b7f1;
+  content: '';
+  top: -0.41em;
+  font-size: 1.2em;
 }
 .vjs5-hola-skin .vjs-volume-menu-button {
   width: 4em;
