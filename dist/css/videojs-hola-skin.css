@@ -197,6 +197,9 @@
   order: 0;
   line-height: 3em;
 }
+.vjs5-hola-skin .vjs-volume-bar {
+  margin: 1.35em 0.45em 1.35em 1em;
+}
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal {
   margin-top: 1.33em;
 }
@@ -234,6 +237,11 @@
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover:before {
   opacity: 1;
 }
+.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover .vjs-menu-content,
+.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal .vjs-lock-showing .vjs-menu-content,
+.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-slider-active .vjs-menu-content {
+  width: 8em;
+}
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-vol-3:before {
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI0NXB4Ig0KCSBoZWlnaHQ9IjQ1cHgiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDUgNDUiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTEuOCwxNC4zSDQuM2MtMC4zLDAtMC41LDAuMi0wLjUsMC41djE0LjljMCwwLjMsMC4yLDAuNSwwLjUsMC41aDcuNWMwLjEsMCwwLjMsMC4xLDAuNCwwLjJsMTAuNiwxMS4xDQoJCQljMC4zLDAuMywwLjksMC4xLDAuOS0wLjRWMy45YzAtMC41LTAuNi0wLjctMC45LTAuNEwxMi4yLDE0LjFDMTIuMSwxNC4yLDExLjksMTQuMywxMS44LDE0LjN6Ii8+DQoJPC9nPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMzQuOCwzNS4yYy0wLjUsMC0xLTAuMi0xLjQtMC42Yy0wLjgtMC44LTAuOC0yLDAtMi44YzUuMS01LjEsNS4xLTEzLjUsMC0xOC43Yy0wLjgtMC44LTAuOC0yLDAtMi44DQoJCQljMC44LTAuOCwyLTAuOCwyLjgsMGM2LjcsNi43LDYuNywxNy42LDAsMjQuM0MzNS44LDM1LDM1LjMsMzUuMiwzNC44LDM1LjJ6Ii8+DQoJPC9nPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMjkuNiwyOGMtMC41LDAtMS0wLjItMS40LTAuNmMtMC44LTAuOC0wLjgtMiwwLTIuOGMwLjYtMC42LDAuOS0xLjQsMC45LTIuMmMwLTAuOC0wLjMtMS42LTAuOS0yLjINCgkJCWMtMC44LTAuOC0wLjgtMiwwLTIuOGMwLjgtMC44LDItMC44LDIuOCwwYzEuMywxLjMsMi4xLDMuMSwyLjEsNWMwLDEuOS0wLjcsMy43LTIuMSw1QzMwLjYsMjcuOCwzMC4xLDI4LDI5LjYsMjh6Ii8+DQoJPC9nPg0KPC9zdmc+);
 }
@@ -246,12 +254,12 @@
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDVweCIgaGVpZ2h0PSI0NXB4IiB2aWV3Qm94PSIwIDAgNDUgNDUiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQ1IDQ1IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCg0KCTxnPg0KDQoJCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xMS43LDE0LjNIMy44Yy0wLjEsMC0wLjIsMC4xLTAuMiwwLjJWMzBjMCwwLjEsMC4xLDAuMiwwLjIsMC4yaDcuOWMwLjEsMCwwLjEsMCwwLjIsMC4xTDIzLjEsNDIgYzAuMSwwLjEsMC40LDAsMC40LTAuMlYzLjJjMC0wLjItMC4yLTAuMy0wLjQtMC4yTDExLjksMTQuMkMxMS44LDE0LjIsMTEuOCwxNC4zLDExLjcsMTQuM3oiLz4NCg0KCTwvZz4NCg0KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik00MSwyNi4zbC0zLjktMy44bDMuOC0zLjhjMC41LTAuNSwwLjUtMS4zLDAtMS44Yy0wLjUtMC41LTEuMy0wLjUtMS44LDBsLTMuOCwzLjhsLTMuOC0zLjggYy0wLjUtMC41LTEuMy0wLjUtMS44LDBjLTAuNSwwLjUtMC41LDEuMywwLDEuOGwzLjgsMy44bC0zLjgsMy44Yy0wLjUsMC41LTAuNSwxLjMsMCwxLjhjMC4yLDAuMiwwLjYsMC40LDAuOSwwLjQNCg0KCQljMC40LDAsMC43LTAuMSwwLjktMC40bDMuOC0zLjhsMy44LDMuOGMwLjIsMC4yLDAuNiwwLjQsMC45LDAuNGMwLjQsMCwwLjctMC4xLDAuOS0wLjRjMC4zLTAuMiwwLjQtMC42LDAuNC0wLjkNCg0KCQlDNDEuNCwyNi45LDQxLjMsMjYuNiw0MSwyNi4zeiIvPg0KDQo8L3N2Zz4=);
 }
 .vjs5-hola-skin .vjs-menu-button-inline:hover,
-.vjs5-hola-skin.vjs-no-flex:hover,
+.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline:hover,
 .vjs5-hola-skin .vjs-menu-button-inline:focus,
-.vjs5-hola-skin.vjs-no-flex:focus,
+.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline:focus,
 .vjs5-hola-skin .vjs-menu-button-inline.vjs-slider-active,
-.vjs5-hola-skin.vjs-no-flex.vjs-slider-active {
-  width: 10em;
+.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active {
+  width: 11em;
 }
 .vjs5-hola-skin .vjs-settings-button {
   order: 6;
@@ -370,6 +378,9 @@
 .vjs5-hola-skin .vjs-menu-button-popup .vjs-menu.vjs-menu-popup-on-click.vjs-lock-showing {
   visibility: visible;
   transition: visibility 1ms;
+}
+.vjs5-hola-skin .vjs-menu-button-inline .vjs-menu {
+  left: 3.5em;
 }
 .vjs5-hola-skin .vjs-info-overlay {
   position: absolute;

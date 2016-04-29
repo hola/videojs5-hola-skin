@@ -208,6 +208,9 @@
         order: 0;
         line-height: 3em;
     }
+    .vjs-volume-bar {
+        margin: 1.35em 0.45em 1.35em 1em;
+    }
     .vjs-volume-bar.vjs-slider-horizontal {
         margin-top: 1.33em;
         .vjs-volume-level {
@@ -235,6 +238,15 @@
         &:hover:before {
             opacity: 1;
         }
+        &:hover,
+        .vjs-lock-showing,
+        &.vjs-slider-active {
+             .vjs-menu-content {
+                width: 8em;
+             }
+        }
+
+
         &.vjs-vol-3:before {
             background-image: url(@volume-high-glyph);
         }
@@ -245,11 +257,12 @@
         &.vjs-vol-0:before {
             background-image: url(@volume-muted-glyph);
         }
+
         order: 1;
     }
-    & .vjs-menu-button-inline, &.vjs-no-flex {
+    .vjs-menu-button-inline, &.vjs-no-flex .vjs-menu-button-inline {
         &:hover, &:focus, &.vjs-slider-active,  {
-            width: 10em;
+            width: 11em;
         }
     }
 
@@ -375,6 +388,11 @@
         & .vjs-menu.vjs-menu-popup-on-click.vjs-lock-showing {
             visibility: visible;
             transition: visibility 1ms;
+        }
+    }
+    .vjs-menu-button-inline {
+        .vjs-menu {
+            left: 3.5em;
         }
     }
     .vjs-info-overlay {
