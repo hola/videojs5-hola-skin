@@ -215,13 +215,34 @@
         margin-top: 1.33em;
         .vjs-volume-level {
             background-color: #00b7f1;
-            &:before {
-                .hola-circle-icon;
-                content: '';
-                top: -0.41em;
-                font-size: 1.2em;
-            }
         }
+    }
+    .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before,
+    .vjs-volume-bar .vjs-volume-display:before {
+        .hola-circle-icon;
+        top: -0.41em;
+        font-size: 1.2em;
+    }
+    .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before {
+        content: '';
+    }
+    .vjs-volume-bar .vjs-volume-display {
+        background: transparent;
+        &:before {
+            content: '';
+            position: absolute;
+            left: -0.5em;
+            z-index: 1;
+            background: #bbb;
+            opacity: 0.5;
+        }
+    }
+    .vjs-volume-bar .vjs-volume-display,
+    &.vjs-user-inactive .vjs-volume-bar .vjs-volume-display {
+        display: none;
+    }
+    .vjs-volume-bar:hover .vjs-volume-display {
+        display: block;
     }
     .vjs-volume-menu-button {
         width: 4em;

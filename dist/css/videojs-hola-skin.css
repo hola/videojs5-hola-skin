@@ -206,7 +206,8 @@
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level {
   background-color: #00b7f1;
 }
-.vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before {
+.vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before,
+.vjs5-hola-skin .vjs-volume-bar .vjs-volume-display:before {
   display: block;
   width: 1em;
   height: 1em;
@@ -216,9 +217,29 @@
   border-width: 3px;
   border-color: #fff;
   background: #00b7f1;
-  content: '';
   top: -0.41em;
   font-size: 1.2em;
+}
+.vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before {
+  content: '';
+}
+.vjs5-hola-skin .vjs-volume-bar .vjs-volume-display {
+  background: transparent;
+}
+.vjs5-hola-skin .vjs-volume-bar .vjs-volume-display:before {
+  content: '';
+  position: absolute;
+  left: -0.5em;
+  z-index: 1;
+  background: #bbb;
+  opacity: 0.5;
+}
+.vjs5-hola-skin .vjs-volume-bar .vjs-volume-display,
+.vjs5-hola-skin.vjs-user-inactive .vjs-volume-bar .vjs-volume-display {
+  display: none;
+}
+.vjs5-hola-skin .vjs-volume-bar:hover .vjs-volume-display {
+  display: block;
 }
 .vjs5-hola-skin .vjs-volume-menu-button {
   width: 4em;
