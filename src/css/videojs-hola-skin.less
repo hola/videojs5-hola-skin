@@ -126,9 +126,14 @@
                 content: none;
                 .hola-circle-icon;
             }
-            &:after {
+            &:after,
+            &>.vjs-time-tooltip, {
                 display: none;
                 padding: 0.2em 0.5em 0.5em;
+            }
+            &.vjs-keep-tooltips-inside:after {
+                display: none !important;
+                content: none !important;
             }
         }
         .vjs-play-progress {
@@ -144,7 +149,8 @@
                 background: #bbb;
                 opacity: 0.7;
             }
-            &:after {
+            &:after,
+            &>.vjs-time-tooltip {
                 pointer-events: none;
             }
         }
@@ -181,12 +187,14 @@
                 content: '';
             }
         }
-        .vjs-play-progress:after {
-            display: none;
+        .vjs-play-progress:after,
+        .vjs-tooltip-progress-bar {
+            display: none !important;
         }
         .vjs-mouse-display {
             display: transparent;
-            &:after {
+            &:after,
+            &>.vjs-time-tooltip {
                 display: block;
             }
         }
@@ -289,6 +297,8 @@
     .vjs-time-control.vjs-time-divider {
         display: inline-block;
         width: auto;
+        min-width: 0;
+        padding: 0;
         font-size: 1.2em;
         line-height: 2.5em;
         color: #bbb;

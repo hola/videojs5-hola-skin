@@ -121,9 +121,16 @@
   background: #00b7f1;
 }
 .vjs5-hola-skin .vjs-progress-control .vjs-play-progress:after,
-.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:after {
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:after,
+.vjs5-hola-skin .vjs-progress-control .vjs-play-progress > .vjs-time-tooltip,
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display > .vjs-time-tooltip {
   display: none;
   padding: 0.2em 0.5em 0.5em;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-play-progress.vjs-keep-tooltips-inside:after,
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display.vjs-keep-tooltips-inside:after {
+  display: none !important;
+  content: none !important;
 }
 .vjs5-hola-skin .vjs-progress-control .vjs-play-progress {
   background: #00b7f1;
@@ -139,7 +146,8 @@
   background: #bbb;
   opacity: 0.7;
 }
-.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:after {
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:after,
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display > .vjs-time-tooltip {
   pointer-events: none;
 }
 .vjs5-hola-skin .vjs-progress-control .vjs-progress-holder {
@@ -171,13 +179,15 @@
 .vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display:before {
   content: '';
 }
-.vjs5-hola-skin .vjs-progress-control:hover .vjs-play-progress:after {
-  display: none;
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-play-progress:after,
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-tooltip-progress-bar {
+  display: none !important;
 }
 .vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display {
   display: transparent;
 }
-.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display:after {
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display:after,
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display > .vjs-time-tooltip {
   display: block;
 }
 .vjs5-hola-skin .vjs-live-control {
@@ -285,6 +295,8 @@
 .vjs5-hola-skin .vjs-time-control.vjs-time-divider {
   display: inline-block;
   width: auto;
+  min-width: 0;
+  padding: 0;
   font-size: 1.2em;
   line-height: 2.5em;
   color: #bbb;
