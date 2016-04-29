@@ -473,3 +473,30 @@
 .vjs5-hola-skin .vjs-rightclick-popup li.vjs-menu-indent {
   padding-left: 1.5em;
 }
+.vjs5-hola-skin .vjs-button .vjs-control-text {
+  position: absolute;
+  top: -3em;
+  left: 0;
+  z-index: 2;
+  display: none;
+  min-width: 100%;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 3px;
+  border-radius: .3em;
+  text-align: center;
+  background: #000;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 1em;
+  font-family: Arial, Helvetica, sans-serif;
+  clip: auto;
+}
+.vjs5-hola-skin .vjs-button:last-child .vjs-control-text {
+  left: auto;
+  right: 0;
+}
+.vjs5-hola-skin .vjs-button:hover .vjs-control-text {
+  display: block;
+}
