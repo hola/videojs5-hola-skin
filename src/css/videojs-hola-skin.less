@@ -367,17 +367,22 @@
         line-height: 2.5em;
         color: #bbb;
     }
-    .vjs-time-control.vjs-duration,
     .vjs-time-control.vjs-current-time {
-        padding: 0 5px;
-    }
-    .vjs-time-control.vjs-current-time {
+        padding-left: 5px;
         color: #fff;
         font-weight: bold;
         order: 2;
     }
-    .vjs-time-control.vjs-time-divider { order: 3; }
-    .vjs-time-control.vjs-duration { order: 4; }
+    .vjs-time-control.vjs-time-divider {
+        order: 3;
+        span:before, span:after {
+            content: '\00a0';
+        }
+    }
+    .vjs-time-control.vjs-duration {
+        padding-right: 5px;
+        order: 4;
+    }
 
     .vjs-time-control.vjs-remaining-time {
         display: none;
