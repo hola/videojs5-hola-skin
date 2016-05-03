@@ -202,6 +202,10 @@ HolaSkin.prototype.init = function(){
         _this.set_play_button_state(morph, true, true);
     });
     _this.set_play_button_state(morph, player.paused());
+    var volume_button = player.controlBar.volumeMenuButton.el();
+    var volume_icon = document.createElement('div');
+    volume_icon.setAttribute('class', 'vjs-volume-icon');
+    volume_button.insertBefore(volume_icon, volume_button.firstChild);
 };
 
 HolaSkin.prototype.dispose = function(){
@@ -212,7 +216,7 @@ HolaSkin.prototype.dispose = function(){
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
-    ver: 'ver=0.0.2-7'
+    ver: 'ver=0.0.2-8'
 };
 
 // VideoJS plugin register
