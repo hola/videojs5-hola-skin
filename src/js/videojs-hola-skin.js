@@ -202,6 +202,10 @@ HolaSkin.prototype.init = function(){
         _this.set_play_button_state(morph, true, true);
     });
     _this.set_play_button_state(morph, player.paused());
+    var volume_button = player.controlBar.volumeMenuButton.el();
+    var volume_icon = document.createElement('div');
+    volume_icon.setAttribute('class', 'vjs-volume-icon');
+    volume_button.insertBefore(volume_icon, volume_button.firstChild);
 };
 
 HolaSkin.prototype.dispose = function(){

@@ -1,3 +1,4 @@
+@font-family: Arial,Helvetica,sans-serif;
 @control-bg-color: #2D2D2D;
 @control-bg-alpha: 0.7;
 @big-play-bg-color: @control-bg-color;
@@ -14,6 +15,10 @@
 @cog-glyph: ~'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI0NXB4Ig0KCSBoZWlnaHQ9IjQ1cHgiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDUgNDUiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik00Mi44LDI0Ljd2LTQuNWgtNS4yYy0wLjQtMi41LTEuNC00LjgtMi44LTYuOGwzLjctMy43bC0zLjItMy4ybC0zLjcsMy43Yy0yLTEuNS00LjMtMi40LTYuOC0yLjhWMi4yaC00LjUNCgkJdjUuMmMtMi41LDAuNC00LjgsMS40LTYuOCwyLjhMOS44LDYuNkw2LjYsOS44bDMuNywzLjdjLTEuNSwyLTIuNCw0LjMtMi44LDYuOEgyLjJ2NC41aDUuMmMwLjQsMi41LDEuNCw0LjgsMi44LDYuOGwtMy43LDMuNw0KCQlsMy4yLDMuMmwzLjctMy43YzIsMS41LDQuMywyLjQsNi44LDIuOHY1LjJoNC41di01LjJjMi41LTAuNCw0LjgtMS40LDYuOC0yLjhsMy43LDMuN2wzLjItMy4ybC0zLjctMy43YzEuNS0yLDIuNC00LjMsMi44LTYuOA0KCQlINDIuOHogTTMyLDIyLjVjMCw1LjItNC4yLDkuNS05LjUsOS41UzEzLDI3LjcsMTMsMjIuNXM0LjItOS41LDkuNS05LjVTMzIsMTcuMywzMiwyMi41eiIvPg0KPC9zdmc+';
 
 .vjs5-hola-skin {
+    &, & * {
+        font-family: @font-family;
+    }
+
     .hola-circle-icon {
         display: block;
         width: 1em;
@@ -122,6 +127,7 @@
             rgba(0,0,0,0.2) 67%, rgba(0,0,0,00) 67%);
         .vjs-play-progress,
         .vjs-mouse-display {
+            font-family: @font-family;
             &:before {
                 content: none;
                 .hola-circle-icon;
@@ -136,22 +142,27 @@
                 content: none !important;
             }
         }
-        .vjs-play-progress {
-            background: #00b7f1;
-        }
-        .vjs-mouse-display {
-            background: transparent;
-            &:before {
-                position: absolute;
-                top: -0.333333333333333em;
-                right: -0.5em;
-                font-size: 0.9em;
-                background: #bbb;
-                opacity: 0.7;
+        &:hover {
+            .vjs-play-progress {
+                background: #00b7f1;
             }
-            &:after,
-            &>.vjs-time-tooltip {
-                pointer-events: none;
+            .vjs-mouse-display {
+                background: transparent;
+                &:before {
+                    position: absolute;
+                    top: -0.333333333333333em;
+                    right: -0.5em;
+                    font-size: 0.9em;
+                    background: #bbb;
+                    opacity: 0.7;
+                }
+                &:after,
+                &>.vjs-time-tooltip {
+                    top: -2.1em;
+                    font-family: @font-family;
+                    font-size: 0.7em;
+                    pointer-events: none;
+                }
             }
         }
         .vjs-progress-holder {
@@ -237,6 +248,10 @@
             opacity: 0.5;
         }
     }
+    .vjs-volume-display-tooltip {
+        top: -1.2em;
+        font-size: 1.2em;
+    }
     .vjs-volume-bar .vjs-volume-display,
     &.vjs-user-inactive .vjs-volume-bar .vjs-volume-display {
         display: none;
@@ -245,18 +260,34 @@
         display: block;
     }
     .vjs-volume-menu-button {
-        width: 4em;
+        &, .vjs-volume-icon {
+            width: 4em;
+        }
+        overflow: visible;
+        &.vjs-button>.vjs-control-text {
+            min-width: 4em;
+        }
+        &.vjs-button:hover>.vjs-control-text {
+            display: none;
+        }
+        &.vjs-button>.vjs-volume-icon:hover ~ .vjs-control-text {
+            display: block;
+        }
     }
     .vjs-volume-menu-button.vjs-volume-menu-button-horizontal {
         &:before {
-            content: '';
+            content: none;
+            display: none;
+        }
+        &>.vjs-volume-icon {
+            height: 100%;
             background-size: 55%;
             background-repeat: no-repeat;
             background-position: center;
             opacity: 0.7;
             transition: opacity 200ms ease;
         }
-        &:hover:before {
+        &:hover>.vjs-volume-icon {
             opacity: 1;
         }
         &:hover,
@@ -267,15 +298,14 @@
              }
         }
 
-
-        &.vjs-vol-3:before {
+        &.vjs-vol-3>.vjs-volume-icon {
             background-image: url(@volume-high-glyph);
         }
-        &.vjs-vol-2:before, &.vjs-vol-1:before {
+        &.vjs-vol-2>.vjs-volume-icon, &.vjs-vol-1>.vjs-volume-icon {
             background-image: url(@volume-low-glyph);
             background-position: 40% center;
         }
-        &.vjs-vol-0:before {
+        &.vjs-vol-0>.vjs-volume-icon {
             background-image: url(@volume-muted-glyph);
         }
 
@@ -502,7 +532,7 @@
 
     .vjs-button .vjs-control-text {
         position: absolute;
-        top: -3em;
+        top: -2.6em;
         left: 0;
         z-index: 2;
         display: none;
@@ -516,8 +546,7 @@
         background: #000;
         background: rgba(0,0,0,0.8);
         color: #fff;
-        font-size: 1em;
-        font-family: Arial,Helvetica,sans-serif;
+        font-size: 1.2em;
         clip: auto;
     }
 
