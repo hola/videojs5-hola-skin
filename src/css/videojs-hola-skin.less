@@ -132,8 +132,7 @@
                 content: none;
                 .hola-circle-icon;
             }
-            &:after,
-            &>.vjs-time-tooltip, {
+            &:after {
                 display: none;
                 padding: 0.2em 0.5em 0.5em;
             }
@@ -141,6 +140,10 @@
                 display: none !important;
                 content: none !important;
             }
+        }
+        .vjs-mouse-display-tooltip {
+            display: none;
+            padding: 0.5em;
         }
         &:hover {
             .vjs-play-progress {
@@ -156,13 +159,11 @@
                     background: #bbb;
                     opacity: 0.7;
                 }
-                &:after,
-                &>.vjs-time-tooltip {
-                    top: -2.1em;
-                    font-family: @font-family;
-                    font-size: 0.7em;
-                    pointer-events: none;
-                }
+            }
+            .vjs-mouse-display-tooltip {
+                font-family: @font-family;
+                font-size: 1.2em;
+                pointer-events: none;
             }
         }
         .vjs-progress-holder {
@@ -204,10 +205,9 @@
         }
         .vjs-mouse-display {
             display: transparent;
-            &:after,
-            &>.vjs-time-tooltip {
-                display: block;
-            }
+        }
+        .vjs-mouse-display-tooltip {
+            display: block;
         }
     }
 

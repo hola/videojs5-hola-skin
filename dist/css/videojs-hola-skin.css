@@ -129,9 +129,7 @@
   background: #00b7f1;
 }
 .vjs5-hola-skin .vjs-progress-control .vjs-play-progress:after,
-.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:after,
-.vjs5-hola-skin .vjs-progress-control .vjs-play-progress > .vjs-time-tooltip,
-.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display > .vjs-time-tooltip {
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display:after {
   display: none;
   padding: 0.2em 0.5em 0.5em;
 }
@@ -139,6 +137,10 @@
 .vjs5-hola-skin .vjs-progress-control .vjs-mouse-display.vjs-keep-tooltips-inside:after {
   display: none !important;
   content: none !important;
+}
+.vjs5-hola-skin .vjs-progress-control .vjs-mouse-display-tooltip {
+  display: none;
+  padding: 0.5em;
 }
 .vjs5-hola-skin .vjs-progress-control:hover .vjs-play-progress {
   background: #00b7f1;
@@ -154,11 +156,9 @@
   background: #bbb;
   opacity: 0.7;
 }
-.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display:after,
-.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display > .vjs-time-tooltip {
-  top: -2.1em;
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display-tooltip {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.7em;
+  font-size: 1.2em;
   pointer-events: none;
 }
 .vjs5-hola-skin .vjs-progress-control .vjs-progress-holder {
@@ -197,8 +197,7 @@
 .vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display {
   display: transparent;
 }
-.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display:after,
-.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display > .vjs-time-tooltip {
+.vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display-tooltip {
   display: block;
 }
 .vjs5-hola-skin .vjs-live-control {
