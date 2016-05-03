@@ -260,10 +260,14 @@
         display: block;
     }
     .vjs-volume-menu-button {
+        cursor: default;
+        overflow: visible;
         &, .vjs-volume-icon {
             width: 4em;
         }
-        overflow: visible;
+        .vjs-volume-icon {
+            cursor: pointer;
+        }
         &.vjs-button>.vjs-control-text {
             min-width: 4em;
         }
