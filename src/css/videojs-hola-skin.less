@@ -229,11 +229,21 @@
         margin-bottom: 0.8em;
         padding: 0.7em 0;
         background: transparent;
+        &:before {
+            content: '';
+            background: #73859f;
+            background: rgba(115, 133, 159, 0.5);
+        }
+        &:before,
         .vjs-volume-level {
+            position: absolute;
+            left: 0;
             top: 50%;
-            bottom: auto;
             margin-top: -0.15em;
             height: 0.3em;
+            width: 100%;
+        }
+        .vjs-volume-level {
             background-color: #00b7f1;
         }
     }
