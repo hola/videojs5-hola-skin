@@ -333,6 +333,7 @@
   opacity: 1;
 }
 .vjs5-hola-skin .vjs-fullscreen-control {
+  width: 4em;
   order: 7;
 }
 .vjs5-hola-skin .vjs-fullscreen-control:before {
