@@ -230,6 +230,7 @@
         padding: 0.7em 0;
         background: transparent;
         &:before {
+            display: none;
             content: '';
             background: #73859f;
             background: rgba(115, 133, 159, 0.5);
@@ -288,6 +289,10 @@
         &, .vjs-volume-icon {
             width: 4em;
         }
+        .vjs-menu-content {
+            width: 0;
+            transition: width 200ms ease;
+        }
         .vjs-volume-icon {
             cursor: pointer;
         }
@@ -320,9 +325,9 @@
         &:hover,
         .vjs-lock-showing,
         &.vjs-slider-active {
-             .vjs-menu-content {
+            .vjs-menu-content {
                 width: 8em;
-             }
+            }
         }
 
         &.vjs-vol-3>.vjs-volume-icon {
