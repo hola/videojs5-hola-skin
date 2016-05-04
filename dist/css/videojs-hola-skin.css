@@ -219,7 +219,6 @@
   background: transparent;
 }
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal:before {
-  display: none;
   content: '';
   background: #73859f;
   background: rgba(115, 133, 159, 0.5);
