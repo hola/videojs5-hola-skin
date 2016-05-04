@@ -218,11 +218,21 @@
   padding: 0.7em 0;
   background: transparent;
 }
+.vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal:before {
+  content: '';
+  background: #73859f;
+  background: rgba(115, 133, 159, 0.5);
+}
+.vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal:before,
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level {
+  position: absolute;
+  left: 0;
   top: 50%;
-  bottom: auto;
   margin-top: -0.15em;
   height: 0.3em;
+  width: 100%;
+}
+.vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level {
   background-color: #00b7f1;
 }
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before,
