@@ -143,7 +143,7 @@
   top: -1.5em;
   padding: 0.5em;
 }
-.vjs5-hola-skin .vjs-progress-control:hover .vjs-play-progress {
+.vjs5-hola-skin .vjs-progress-control .vjs-play-progress {
   background: #00b7f1;
 }
 .vjs5-hola-skin .vjs-progress-control:hover .vjs-mouse-display {
