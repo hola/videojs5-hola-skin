@@ -212,9 +212,17 @@
   margin: 1.35em 0.45em 1.35em 1em;
 }
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal {
-  margin-top: 1.33em;
+  height: 0.5em;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+  padding: 0.7em 0;
+  background: transparent;
 }
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level {
+  top: 50%;
+  bottom: auto;
+  margin-top: -0.15em;
+  height: 0.3em;
   background-color: #00b7f1;
 }
 .vjs5-hola-skin .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before,
@@ -235,12 +243,16 @@
   content: '';
 }
 .vjs5-hola-skin .vjs-volume-bar .vjs-volume-display {
+  top: 0;
   background: transparent;
 }
 .vjs5-hola-skin .vjs-volume-bar .vjs-volume-display:before {
   content: '';
   position: absolute;
   left: -0.5em;
+  top: 50%;
+  margin-top: -0.5em;
+  height: 1em;
   z-index: 1;
   background: #bbb;
   opacity: 0.5;
