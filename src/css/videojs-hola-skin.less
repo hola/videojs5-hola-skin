@@ -294,6 +294,18 @@
         }
         .vjs-volume-icon {
             cursor: pointer;
+            &>svg {
+                position: absolute;
+                left: 0;
+                top: 0;
+                fill: white;
+                stroke: white;
+                opacity: 0.7;
+                transition: opacity 200ms ease;
+            }
+            &:hover>svg {
+                opacity: 1;
+            }
         }
         &.vjs-button>.vjs-control-text {
             min-width: 4em;
@@ -317,6 +329,10 @@
             background-position: center;
             opacity: 0.7;
             transition: opacity 200ms ease;
+            path, .volume-level-0 {
+                opacity: 0;
+                transition: opacity 400ms ease;
+            }
         }
         &:hover>.vjs-volume-icon {
             opacity: 1;
@@ -329,15 +345,20 @@
             }
         }
 
-        &.vjs-vol-3>.vjs-volume-icon {
-            background-image: url(@volume-high-glyph);
-        }
-        &.vjs-vol-2>.vjs-volume-icon, &.vjs-vol-1>.vjs-volume-icon {
-            background-image: url(@volume-low-glyph);
-            background-position: 40% center;
-        }
         &.vjs-vol-0>.vjs-volume-icon {
-            background-image: url(@volume-muted-glyph);
+            .volume-level-0 { opacity: 1; }
+        }
+        &.vjs-vol-1>.vjs-volume-icon {
+            .volume-level-1 { opacity: 1; }
+        }
+        &.vjs-vol-2>.vjs-volume-icon {
+            .volume-level-1 { opacity: 1; }
+            .volume-level-2 { opacity: 1; }
+        }
+        &.vjs-vol-3>.vjs-volume-icon {
+            .volume-level-1 { opacity: 1; }
+            .volume-level-2 { opacity: 1; }
+            .volume-level-3 { opacity: 1; }
         }
 
         order: 1;
