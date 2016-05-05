@@ -103,7 +103,10 @@ var volume_icon_svg = '<svg height="3em" width="3em" viewBox="-6 -6 30 30">'
     +'</g>'
 +'</svg>';
 
-HolaSkin.prototype.set_play_button_state = function(btn_svg, paused, ended){
+HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
+    if (this.play_state==state)
+        return;
+    this.play_state = state;
     var intv = this.intv;
     var _this = this;
     var steptotal = this.steptotal;
@@ -138,7 +141,7 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, paused, ended){
     var stepcnt = 0, stepcnt1 = 0;
     if (intv)
         clearInterval(intv);
-    if (ended)
+    if (state=='ended')
     {
         bars[0].setAttribute('transform', 'translate(16.3, 16.5)');
         bars[0].setAttribute('d', replay);
@@ -152,7 +155,7 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, paused, ended){
     // replay icon to animated pause icon
     if (is_transformed)
         bars[0].setAttribute('d', '');
-    if (paused)
+    if (state=='paused')
     {
         var mk_path3 = mk_transform(play2, play1, steptotal);
         var mk_path4 = mk_transform(pause2, pause1, steptotal);
@@ -168,24 +171,23 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, paused, ended){
                 _this.intv = 0;
             }
         }, 20);
+        return;
     }
-    else
-    {
-        var mk_path1 = mk_transform(play1, play2, steptotal);
-        var mk_path2 = mk_transform(pause1, pause2, steptotal);
-        this.intv = setInterval(function(){
-            if (stepcnt < steptotal)
-                bars[0].setAttribute('d', mk_path1());
-            if (stepcnt >= stagger)
-                bars[1].setAttribute('d', mk_path2());
-            stepcnt++;
-            if (stepcnt >= steptotal+stagger)
-            {
-                clearInterval(_this.intv);
-                _this.intv = 0;
-            }
-        }, 20);
-    }
+
+    var mk_path1 = mk_transform(play1, play2, steptotal);
+    var mk_path2 = mk_transform(pause1, pause2, steptotal);
+    this.intv = setInterval(function(){
+        if (stepcnt < steptotal)
+            bars[0].setAttribute('d', mk_path1());
+        if (stepcnt >= stagger)
+            bars[1].setAttribute('d', mk_path2());
+        stepcnt++;
+        if (stepcnt >= steptotal+stagger)
+        {
+            clearInterval(_this.intv);
+            _this.intv = 0;
+        }
+    }, 20);
 };
 
 HolaSkin.prototype.init = function(){
@@ -203,15 +205,18 @@ HolaSkin.prototype.init = function(){
     player.bigPlayButton.el().insertAdjacentHTML('beforeend', umorph_html);
     var morph = document.getElementById('morph');
     player.on('play', function(){
-        _this.set_play_button_state(morph, false);
+        _this.set_play_button_state(morph, 'playing');
     })
     .on('pause', function(){
-        _this.set_play_button_state(morph, true);
+        _this.set_play_button_state(morph, 'paused');
     })
     .on('ended', function(){
-        _this.set_play_button_state(morph, true, true);
+        _this.set_play_button_state(morph, 'ended');
+    })
+    .on('seeked', function(){
+        _this.set_play_button_state(morph, player.paused() ? 'paused' : 'playing');
     });
-    _this.set_play_button_state(morph, player.paused());
+    _this.set_play_button_state(morph, player.paused() ? 'paused' : 'playing');
     var volume_button = player.controlBar.volumeMenuButton.el();
     var volume_icon = document.createElement('div');
     volume_icon.setAttribute('class', 'vjs-volume-icon');
