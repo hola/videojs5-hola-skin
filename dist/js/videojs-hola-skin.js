@@ -93,6 +93,16 @@ var umorph_html = [
         '<use id="umorph" xlink:href="#morph" x="0" y="0"/>',
     '</svg>'].join('');
 
+var volume_icon_svg = '<svg height="3em" width="3em" viewBox="-6 -6 30 30">'
+    +'<polygon points="10,0 10,18 4.5,13 0,13 0,5 4.5,5"/>'
+    +'<polygon class="volume-level-0" points="20.5,6.2 19.1,4.8 16.2,7.6 13.4,4.8 12,6.2 14.8,9 12,11.8 13.4,13.2 16.2,10.4 19.1,13.2 20.5,11.8 17.7,9"/>'
+    +'<g>'
+        +'<path class="volume-level-1" d="M 13.6,6.3 L 12,7.7 C 12.3,8,12.5,8.5,12.5,9 s -0.2,1 -0.5,1.3 l 1.6,1.3 c 0.6 -0.7,1 -1.6,1 -2.7  C 14.6,8,14.2,7.1,13.6,6.3 z"/>'
+        +'<path class="volume-level-2" d="M 16.8,3.7 L 15.2,5 c 0.9,1.1,1.5,2.5,1.5,4 s -0.6,2.9 -1.5,4 l 1.6,1.3 c 1.3 -1.4,2 -3.3,2 -5.3 S 18,5.1,16.8,3.7 z"/>'
+        +'<path class="volume-level-3" d="M 20,1 l -1.6,1.3 c 1.6,1.8,2.5,4.1,2.5,6.7 s -1,4.9 -2.5,6.7 L 20,17 c 1.9 -2.2,3 -4.9,3 -8 C 23,5.9,21.9,3.2,20,1 z"/>'
+    +'</g>'
++'</svg>';
+
 HolaSkin.prototype.set_play_button_state = function(btn_svg, paused, ended){
     var intv = this.intv;
     var _this = this;
@@ -205,6 +215,7 @@ HolaSkin.prototype.init = function(){
     var volume_button = player.controlBar.volumeMenuButton.el();
     var volume_icon = document.createElement('div');
     volume_icon.setAttribute('class', 'vjs-volume-icon');
+    volume_icon.innerHTML = volume_icon_svg;
     volume_button.insertBefore(volume_icon, volume_button.firstChild);
 };
 
@@ -216,7 +227,7 @@ HolaSkin.prototype.dispose = function(){
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
-    ver: 'ver=0.0.2-17'
+    ver: 'ver=0.0.2-18'
 };
 
 // VideoJS plugin register
