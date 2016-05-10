@@ -288,9 +288,11 @@
   overflow: visible;
 }
 .vjs5-hola-skin .vjs-volume-menu-button,
-.vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon,
-.vjs5-hola-skin .vjs-volume-menu-button.vjs-button > .vjs-control-text {
+.vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon {
   width: 4.5em;
+}
+.vjs5-hola-skin .vjs-volume-menu-button.vjs-button > .vjs-control-text {
+  min-width: 4.5em;
 }
 .vjs5-hola-skin .vjs-volume-menu-button .vjs-menu-content {
   width: 0;
@@ -409,6 +411,10 @@
 .vjs5-hola-skin .vjs-fullscreen-control:hover:before {
   opacity: 1;
   background-size: 70%;
+}
+.vjs5-hola-skin .vjs-fullscreen-control .vjs-control-text {
+  left: auto;
+  right: 0;
 }
 .vjs5-hola-skin.vjs-fullscreen .vjs-fullscreen-control:before {
   content: '';
@@ -617,10 +623,6 @@
   color: #fff;
   font-size: 1.2em;
   clip: auto;
-}
-.vjs5-hola-skin .vjs-button:last-child .vjs-control-text {
-  left: auto;
-  right: 0;
 }
 .vjs5-hola-skin .vjs-button:hover .vjs-control-text {
   display: block;
