@@ -338,13 +338,6 @@
         &:hover>.vjs-volume-icon {
             opacity: 1;
         }
-        &:hover,
-        .vjs-lock-showing,
-        &.vjs-slider-active {
-            .vjs-menu-content {
-                width: 8em;
-            }
-        }
 
         &.vjs-vol-0>.vjs-volume-icon {
             .volume-level-0 { opacity: 1; }
@@ -364,10 +357,34 @@
 
         order: 1;
     }
-    .vjs-menu-button-inline, &.vjs-no-flex .vjs-menu-button-inline {
-        &:hover, &:focus, &.vjs-slider-active,  {
-            width: 11em;
+
+    .vjs-menu-button-inline:hover,
+    .vjs-menu-button-inline:focus,
+    .vjs-menu-button-inline.vjs-slider-active,
+    &.vjs-fullscreen .vjs-menu-button-inline {
+        .vjs-menu {
+            display: block;
+            opacity: 1;
         }
+    }
+
+    .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover,
+    .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-slider-active,
+    .vjs-volume-menu-button.vjs-volume-menu-button-horizontal .vjs-lock-showing,
+    &.vjs-fullscreen .vjs-volume-menu-button.vjs-volume-menu-button-horizontal {
+        .vjs-menu-content {
+            width: 8em;
+        }
+    }
+
+    .vjs-menu-button-inline:hover,
+    .vjs-menu-button-inline:focus,
+    .vjs-menu-button-inline.vjs-slider-active,
+    &.vjs-no-flex .vjs-menu-button-inline:hover,
+    &.vjs-no-flex .vjs-menu-button-inline:focus,
+    &.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active,
+    &.vjs-fullscreen .vjs-menu-button-inline {
+        width: 11em;
     }
 
     .vjs-settings-button {
