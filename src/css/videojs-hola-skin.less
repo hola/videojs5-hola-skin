@@ -70,6 +70,29 @@
     .vjs-control:focus .vjs-menu {
         text-shadow: none;
     }
+    .vjs-button .vjs-control-text {
+        position: absolute;
+        top: -3.1em;
+        left: 0;
+        z-index: 10;
+        display: none;
+        min-width: 100%;
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 0.5em;
+        border-radius: .3em;
+        text-align: center;
+        background: #000;
+        background: rgba(0,0,0,0.8);
+        color: @text-color-main;
+        font-size: 1.2em;
+        text-shadow: none;
+        clip: auto;
+    }
+    .vjs-button:hover .vjs-control-text {
+        display: block;
+    }
     // play control morph
     .vjs-play-control {
         width: 3.3em;
@@ -298,6 +321,7 @@
         }
         &.vjs-button>.vjs-control-text {
             min-width: 4.5em;
+            margin-left: -2.2em;
         }
         .vjs-menu-content {
             width: 0;
@@ -404,6 +428,9 @@
         }
         &:hover .vjs-settings-icon {
             opacity: 1;
+        }
+        .vjs-control-text {
+            margin-left: -1.5em;
         }
         &.vjs-button:hover>.vjs-control-text {
             display: none;
@@ -627,30 +654,6 @@
                 padding-left: 1.5em;
             }
         }
-    }
-
-    .vjs-button .vjs-control-text {
-        position: absolute;
-        top: -3.1em;
-        left: 0;
-        z-index: 10;
-        display: none;
-        min-width: 100%;
-        width: auto;
-        height: auto;
-        margin: 0;
-        padding: 0.5em;
-        border-radius: .3em;
-        text-align: center;
-        background: #000;
-        background: rgba(0,0,0,0.8);
-        color: @text-color-main;
-        font-size: 1.2em;
-        clip: auto;
-    }
-
-    .vjs-button:hover .vjs-control-text {
-        display: block;
     }
 }
 
