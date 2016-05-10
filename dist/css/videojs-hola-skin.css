@@ -298,6 +298,7 @@
 }
 .vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon {
   cursor: pointer;
+  opacity: 0.7;
 }
 .vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon > svg {
   position: absolute;
@@ -305,10 +306,9 @@
   top: 0;
   fill: white;
   stroke: white;
-  opacity: 0.7;
   transition: opacity 200ms ease;
 }
-.vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon:hover > svg {
+.vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon:hover {
   opacity: 1;
 }
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-button:hover > .vjs-control-text {
@@ -329,16 +329,12 @@
   background-size: 55%;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.7;
   transition: opacity 200ms ease;
 }
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal > .vjs-volume-icon path,
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal > .vjs-volume-icon .volume-level-0 {
   opacity: 0;
   transition: opacity 400ms ease;
-}
-.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover > .vjs-volume-icon {
-  opacity: 1;
 }
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-vol-0 > .vjs-volume-icon .volume-level-0 {
   opacity: 1;

@@ -232,7 +232,7 @@ HolaSkin.prototype.dispose = function(){
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
-    ver: 'ver=0.0.2-24'
+    ver: 'ver=0.0.2-25'
 };
 
 // VideoJS plugin register
