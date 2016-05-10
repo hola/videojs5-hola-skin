@@ -338,11 +338,6 @@
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover > .vjs-volume-icon {
   opacity: 1;
 }
-.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover .vjs-menu-content,
-.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal .vjs-lock-showing .vjs-menu-content,
-.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-slider-active .vjs-menu-content {
-  width: 8em;
-}
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-vol-0 > .vjs-volume-icon .volume-level-0 {
   opacity: 1;
 }
@@ -364,12 +359,26 @@
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-vol-3 > .vjs-volume-icon .volume-level-3 {
   opacity: 1;
 }
+.vjs5-hola-skin .vjs-menu-button-inline:hover .vjs-menu,
+.vjs5-hola-skin .vjs-menu-button-inline:focus .vjs-menu,
+.vjs5-hola-skin .vjs-menu-button-inline.vjs-slider-active .vjs-menu,
+.vjs5-hola-skin.vjs-fullscreen .vjs-menu-button-inline .vjs-menu {
+  display: block;
+  opacity: 1;
+}
+.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover .vjs-menu-content,
+.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-slider-active .vjs-menu-content,
+.vjs5-hola-skin .vjs-volume-menu-button.vjs-volume-menu-button-horizontal .vjs-lock-showing .vjs-menu-content,
+.vjs5-hola-skin.vjs-fullscreen .vjs-volume-menu-button.vjs-volume-menu-button-horizontal .vjs-menu-content {
+  width: 8em;
+}
 .vjs5-hola-skin .vjs-menu-button-inline:hover,
-.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline:hover,
 .vjs5-hola-skin .vjs-menu-button-inline:focus,
-.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline:focus,
 .vjs5-hola-skin .vjs-menu-button-inline.vjs-slider-active,
-.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active {
+.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline:hover,
+.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline:focus,
+.vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active,
+.vjs5-hola-skin.vjs-fullscreen .vjs-menu-button-inline {
   width: 11em;
 }
 .vjs5-hola-skin .vjs-settings-button {
