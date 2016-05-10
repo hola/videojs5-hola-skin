@@ -582,6 +582,7 @@
 }
 .vjs5-hola-skin .vjs-rightclick-popup {
   position: absolute;
+  z-index: 5;
   width: 15em;
   background-color: #2D2D2D;
   background-color: rgba(45, 45, 45, 0.7);
