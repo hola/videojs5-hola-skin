@@ -48,7 +48,11 @@
   margin: 0;
   padding: 0;
 }
+.vjs5-hola-skin .vjs-control:focus .vjs-menu {
+  text-shadow: none;
+}
 .vjs5-hola-skin .vjs-play-control {
+  width: 3.3em;
   cursor: pointer;
   order: 0;
 }
@@ -284,8 +288,9 @@
   overflow: visible;
 }
 .vjs5-hola-skin .vjs-volume-menu-button,
-.vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon {
-  width: 4em;
+.vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon,
+.vjs5-hola-skin .vjs-volume-menu-button.vjs-button > .vjs-control-text {
+  width: 4.2em;
 }
 .vjs5-hola-skin .vjs-volume-menu-button .vjs-menu-content {
   width: 0;
@@ -305,9 +310,6 @@
 }
 .vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon:hover > svg {
   opacity: 1;
-}
-.vjs5-hola-skin .vjs-volume-menu-button.vjs-button > .vjs-control-text {
-  min-width: 4em;
 }
 .vjs5-hola-skin .vjs-volume-menu-button.vjs-button:hover > .vjs-control-text {
   display: none;
@@ -379,7 +381,7 @@
 .vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline:focus,
 .vjs5-hola-skin.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active,
 .vjs5-hola-skin.vjs-fullscreen .vjs-menu-button-inline {
-  width: 11em;
+  width: 12em;
 }
 .vjs5-hola-skin .vjs-settings-button {
   order: 6;
@@ -431,7 +433,7 @@
   color: #bbb;
 }
 .vjs5-hola-skin .vjs-time-control.vjs-current-time {
-  padding-left: 5px;
+  padding-left: 0;
   color: #fff;
   font-weight: bold;
   order: 2;
