@@ -293,9 +293,11 @@
     .vjs-volume-menu-button {
         cursor: default;
         overflow: visible;
-        &, .vjs-volume-icon,
-        &.vjs-button>.vjs-control-text {
+        &, .vjs-volume-icon {
             width: 4.5em;
+        }
+        &.vjs-button>.vjs-control-text {
+            min-width: 4.5em;
         }
         .vjs-menu-content {
             width: 0;
@@ -418,6 +420,11 @@
             background-size: 70%;
         }
         order: 7;
+        .vjs-control-text {
+            // need to set for a button with the highest order
+            left: auto;
+            right: 0;
+        }
     }
     &.vjs-fullscreen .vjs-fullscreen-control {
         &:before {
@@ -631,11 +638,6 @@
         color: @text-color-main;
         font-size: 1.2em;
         clip: auto;
-    }
-
-    .vjs-button:last-child .vjs-control-text {
-        left: auto;
-        right: 0;
     }
 
     .vjs-button:hover .vjs-control-text {
