@@ -64,8 +64,12 @@
         margin: 0;
         padding: 0;
     }
+    .vjs-control:focus .vjs-menu {
+        text-shadow: none;
+    }
     // play control morph
     .vjs-play-control {
+        width: 3.3em;
         cursor: pointer;
         &>svg {
             position: absolute;
@@ -286,8 +290,9 @@
     .vjs-volume-menu-button {
         cursor: default;
         overflow: visible;
-        &, .vjs-volume-icon {
-            width: 4em;
+        &, .vjs-volume-icon,
+        &.vjs-button>.vjs-control-text {
+            width: 4.2em;
         }
         .vjs-menu-content {
             width: 0;
@@ -307,9 +312,6 @@
             &:hover>svg {
                 opacity: 1;
             }
-        }
-        &.vjs-button>.vjs-control-text {
-            min-width: 4em;
         }
         &.vjs-button:hover>.vjs-control-text {
             display: none;
@@ -384,7 +386,7 @@
     &.vjs-no-flex .vjs-menu-button-inline:focus,
     &.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active,
     &.vjs-fullscreen .vjs-menu-button-inline {
-        width: 11em;
+        width: 12em;
     }
 
     .vjs-settings-button {
@@ -439,7 +441,7 @@
         color: #bbb;
     }
     .vjs-time-control.vjs-current-time {
-        padding-left: 5px;
+        padding-left: 0;
         color: #fff;
         font-weight: bold;
         order: 2;
