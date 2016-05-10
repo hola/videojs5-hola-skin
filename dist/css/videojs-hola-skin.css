@@ -16,6 +16,7 @@
 .vjs5-hola-skin .vjs-control-bar,
 .vjs5-hola-skin .vjs-rightclick-popup {
   color: #fff;
+  z-index: 2;
 }
 .vjs5-hola-skin .vjs-big-play-button,
 .vjs5-hola-skin:hover .vjs-big-play-button {
