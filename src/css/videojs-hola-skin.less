@@ -14,6 +14,9 @@
 // settings icon glyph
 @cog-glyph: ~'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI0NXB4Ig0KCSBoZWlnaHQ9IjQ1cHgiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDUgNDUiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik00Mi44LDI0Ljd2LTQuNWgtNS4yYy0wLjQtMi41LTEuNC00LjgtMi44LTYuOGwzLjctMy43bC0zLjItMy4ybC0zLjcsMy43Yy0yLTEuNS00LjMtMi40LTYuOC0yLjhWMi4yaC00LjUNCgkJdjUuMmMtMi41LDAuNC00LjgsMS40LTYuOCwyLjhMOS44LDYuNkw2LjYsOS44bDMuNywzLjdjLTEuNSwyLTIuNCw0LjMtMi44LDYuOEgyLjJ2NC41aDUuMmMwLjQsMi41LDEuNCw0LjgsMi44LDYuOGwtMy43LDMuNw0KCQlsMy4yLDMuMmwzLjctMy43YzIsMS41LDQuMywyLjQsNi44LDIuOHY1LjJoNC41di01LjJjMi41LTAuNCw0LjgtMS40LDYuOC0yLjhsMy43LDMuN2wzLjItMy4ybC0zLjctMy43YzEuNS0yLDIuNC00LjMsMi44LTYuOA0KCQlINDIuOHogTTMyLDIyLjVjMCw1LjItNC4yLDkuNS05LjUsOS41UzEzLDI3LjcsMTMsMjIuNXM0LjItOS41LDkuNS05LjVTMzIsMTcuMywzMiwyMi41eiIvPg0KPC9zdmc+';
 
+@text-color-main: #fff;
+@text-color-minor: #bbb;
+
 .vjs5-hola-skin {
     &, & * {
         font-family: @font-family;
@@ -33,7 +36,7 @@
     // css reset
     .vjs-control-bar,
     .vjs-rightclick-popup {
-        color: #fff;
+        color: @text-color-main;
         z-index: 2;
     }
     // big play button
@@ -292,7 +295,7 @@
         overflow: visible;
         &, .vjs-volume-icon,
         &.vjs-button>.vjs-control-text {
-            width: 4.2em;
+            width: 4.5em;
         }
         .vjs-menu-content {
             width: 0;
@@ -438,11 +441,11 @@
         padding: 0;
         font-size: 1.2em;
         line-height: 2.5em;
-        color: #bbb;
+        color: @text-color-minor;
     }
     .vjs-time-control.vjs-current-time {
         padding-left: 0;
-        color: #fff;
+        color: @text-color-main;
         font-weight: bold;
         order: 2;
     }
@@ -530,18 +533,17 @@
         left: 1em;
         z-index: 3;
         display: inline-block;
-        margin-bottom: 3em;
-        padding-bottom: 10px;
-        border-left: 2em solid transparent;
-        border-right: 2em solid transparent;
-        border-top: 1.55em solid rgb(0, 0, 0); /* Same width top as ul bottom */
-        border-top-color: rgba(7, 40, 50, 0.5); /* Same as ul background */
+        padding: 10px;
+        border: 1px solid #072832;
+        border-color: rgba(7, 40, 50, 0.5);
+        font-size: 1.2em;
         .border-radius();
         .background-color-with-alpha(@control-bg-color, @control-bg-alpha);
         .box-shadow(-0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2));
         &.vjs-notify-overlay {
             bottom: 50%;
             top: auto;
+            z-index: 4;
             margin-bottom: -3em;
             left: 50%;
             margin-left: -8.5em;
@@ -555,16 +557,16 @@
     }
     .vjs-info-overlay-title {
         margin-bottom: 10px;
-        font-size: 1.5em;
+        font-size: 1.2em;
     }
     .vjs-info-overlay-x {
         position: absolute;
-        top: -1em;
-        right: 0;
+        top: 10px;
+        right: 10px;
         transition: color 200ms ease;
         cursor: pointer;
         &:hover {
-            color: #fff;
+            color: @text-color-main;
         }
     }
     .vjs-notify-overlay-title {
@@ -575,17 +577,23 @@
         text-align: center;
     }
 
-    .vjs-info-overlay ul {
+    .vjs-info-overlay-list {
         list-style: none;
         position: relative;
         margin: 0;
         padding: 0;
-
-        li {
-            padding: 0;
-            margin: 0;
-            height: 16px;
-            line-height: 16px;
+    }
+    .vjs-info-overlay-list-item {
+        padding: 0;
+        margin: 0;
+        height: 16px;
+        line-height: 16px;
+        strong {
+            font-weight: 500;
+            color: @text-color-main;
+        }
+        span {
+            color: @text-color-minor;
         }
     }
     .vjs-rightclick-popup {
@@ -623,7 +631,7 @@
         text-align: center;
         background: #000;
         background: rgba(0,0,0,0.8);
-        color: #fff;
+        color: @text-color-main;
         font-size: 1.2em;
         clip: auto;
     }
