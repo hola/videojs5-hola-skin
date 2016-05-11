@@ -206,20 +206,17 @@ HolaSkin.prototype.init = function(){
     var play_button = player.controlBar.playToggle.el();
     play_button.insertAdjacentHTML('beforeend', morph_html);
     player.bigPlayButton.el().insertAdjacentHTML('beforeend', umorph_html);
-    var morph = document.getElementById('morph');
     player.on('play', function(){
-        _this.set_play_button_state(morph, 'playing');
+        _this.is_ended = false;
+        _this.update_state(player);
     })
-    .on('pause', function(){
-        _this.set_play_button_state(morph, 'paused');
-    })
+    .on('pause', function(){ _this.update_state(player); })
     .on('ended', function(){
-        _this.set_play_button_state(morph, 'ended');
+        _this.is_ended = true;
+        _this.update_state(player);
     })
-    .on('seeked', function(){
-        _this.set_play_button_state(morph, player.paused() ? 'paused' : 'playing');
-    });
-    _this.set_play_button_state(morph, player.paused() ? 'paused' : 'playing');
+    .on('seeked', function(){ _this.update_state(player); });
+    this.update_state(player);
     var volume_button = player.controlBar.volumeMenuButton.el();
     var volume_icon = document.createElement('div');
     volume_icon.setAttribute('class', 'vjs-volume-icon');
@@ -231,6 +228,11 @@ HolaSkin.prototype.init = function(){
     progress_holder.insertAdjacentHTML('beforeend', slider_gaps);
 };
 
+HolaSkin.prototype.update_state = function(player){
+    this.set_play_button_state(document.getElementById('morph'),
+        this.is_ended ? 'ended' : player.paused() ? 'paused' : 'playing');
+};
+
 HolaSkin.prototype.dispose = function(){
     while (this.classes_added.length)
         remove_class_name(this.el, this.classes_added.pop());
@@ -239,7 +241,7 @@ HolaSkin.prototype.dispose = function(){
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
-    ver: 'ver=0.0.2-33'
+    ver: 'ver=0.0.2-34'
 };
 
 // VideoJS plugin register
