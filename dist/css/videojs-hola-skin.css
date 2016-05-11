@@ -196,7 +196,7 @@
 .vjs5-hola-skin .vjs-progress-control .vjs-progress-holder:before {
   position: absolute;
   top: 0;
-  left: -0.15em;
+  left: -0.16em;
   width: 0.16em;
   height: 100%;
   display: block;
@@ -210,7 +210,7 @@
   pading-top: 0;
   top: 0;
   width: 0.16em;
-  right: -0.15em;
+  right: -0.16em;
   background: rgba(115, 133, 159, 0.5);
   content: '';
   border-radius: 0 0.15em 0.15em 0;
