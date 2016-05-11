@@ -39,9 +39,13 @@
 }
 .vjs5-hola-skin .vjs-big-play-button > svg,
 .vjs5-hola-skin:hover .vjs-big-play-button > svg {
-  fill: white;
-  stroke: white;
+  fill: #fff;
+  stroke: #fff;
   opacity: 0.8;
+}
+.vjs5-hola-skin .vjs-big-play-button.vjs-play-control-replay > svg,
+.vjs5-hola-skin:hover .vjs-big-play-button.vjs-play-control-replay > svg {
+  stroke: none;
 }
 .vjs5-hola-skin .vjs-control {
   width: 3em;
@@ -83,10 +87,13 @@
   position: absolute;
   left: 0;
   top: 0;
-  fill: white;
-  stroke: white;
+  fill: #fff;
+  stroke: #fff;
   opacity: 0.7;
   transition: opacity 200ms ease;
+}
+.vjs5-hola-skin .vjs-play-control.vjs-play-control-replay > svg {
+  stroke: none;
 }
 .vjs5-hola-skin .vjs-play-control:hover > svg {
   opacity: 1;
@@ -351,8 +358,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  fill: white;
-  stroke: white;
+  fill: #fff;
   transition: opacity 200ms ease;
 }
 .vjs5-hola-skin .vjs-volume-menu-button .vjs-volume-icon:hover {

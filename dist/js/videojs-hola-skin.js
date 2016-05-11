@@ -89,7 +89,7 @@ var morph_html = [
         '</g>',
     '</svg>'].join('');
 var umorph_html = [
-    '<svg width="100%" height="100%" viewBox="5 5 40 40">',
+    '<svg width="100%" height="100%" viewBox="10 10 30 30">',
         '<use id="umorph" xlink:href="#morph" x="0" y="0"/>',
     '</svg>'].join('');
 
@@ -229,6 +229,19 @@ HolaSkin.prototype.init = function(){
 };
 
 HolaSkin.prototype.update_state = function(player){
+    var play_button = player.controlBar.playToggle.el();
+    var big_play_button = player.bigPlayButton.el();
+    var replay_classname = 'vjs-play-control-replay';
+    if (this.is_ended)
+    {
+        add_class_name(play_button, replay_classname);
+        add_class_name(big_play_button, replay_classname);
+    }
+    else
+    {
+        remove_class_name(play_button, replay_classname);
+        remove_class_name(big_play_button, replay_classname);
+    }
     this.set_play_button_state(document.getElementById('morph'),
         this.is_ended ? 'ended' : player.paused() ? 'paused' : 'playing');
 };
