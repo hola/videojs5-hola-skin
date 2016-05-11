@@ -57,9 +57,12 @@
             content: '';
         }
         &>svg {
-            fill: white;
-            stroke: white;
+            fill: #fff;
+            stroke: #fff;
             opacity: 0.8;
+        }
+        &.vjs-play-control-replay>svg {
+            stroke: none;
         }
     }
     .vjs-control {
@@ -101,10 +104,13 @@
             position: absolute;
             left: 0;
             top: 0;
-            fill: white;
-            stroke: white;
+            fill: #fff;
+            stroke: #fff;
             opacity: 0.7;
             transition: opacity 200ms ease;
+        }
+        &.vjs-play-control-replay>svg {
+            stroke: none;
         }
         &:hover>svg {
             opacity: 1;
@@ -359,8 +365,7 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                fill: white;
-                stroke: white;
+                fill: #fff;
                 transition: opacity 200ms ease;
             }
             &:hover {
