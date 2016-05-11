@@ -103,6 +103,9 @@ var volume_icon_svg = '<svg height="3em" width="3em" viewBox="-6 -6 30 30">'
     +'</g>'
 +'</svg>';
 
+var gap_name = 'vjs-slider-gap';
+var slider_gaps = '<div class="'+gap_name+'-left"></div><div class="'+gap_name+'-right"></div>';
+
 HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
     if (this.play_state==state)
         return;
@@ -222,6 +225,10 @@ HolaSkin.prototype.init = function(){
     volume_icon.setAttribute('class', 'vjs-volume-icon');
     volume_icon.innerHTML = volume_icon_svg;
     volume_button.insertBefore(volume_icon, volume_button.firstChild);
+    var volume_slider = player.controlBar.volumeMenuButton.volumeBar.el();
+    volume_slider.insertAdjacentHTML('beforeend', slider_gaps);
+    var progress_holder = player.controlBar.progressControl.seekBar.el();
+    progress_holder.insertAdjacentHTML('beforeend', slider_gaps);
 };
 
 HolaSkin.prototype.dispose = function(){
@@ -232,7 +239,7 @@ HolaSkin.prototype.dispose = function(){
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
-    ver: 'ver=0.0.2-32'
+    ver: 'ver=0.0.2-33'
 };
 
 // VideoJS plugin register
