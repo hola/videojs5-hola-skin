@@ -199,7 +199,8 @@
             }
         }
         .vjs-progress-holder {
-            margin: 0 10px;
+            @gap-size: 10px;
+            margin: 0 @gap-size;
             &:before {
                 position: absolute;
                 top: 0;
@@ -221,6 +222,19 @@
                 background: rgba(115, 133, 159, 0.5);
                 content: '';
                 border-radius: 0 0.15em 0.15em 0;
+            }
+            .vjs-progress-holder-gap-left,
+            .vjs-progress-holder-gap-right {
+                position: absolute;
+                top: 0;
+                width: @gap-size;
+                height: 100%;
+            }
+            .vjs-progress-holder-gap-left {
+                left: -@gap-size;
+            }
+            .vjs-progress-holder-gap-right {
+                right: -@gap-size;
             }
         }
     }

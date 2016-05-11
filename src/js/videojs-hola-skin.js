@@ -103,6 +103,9 @@ var volume_icon_svg = '<svg height="3em" width="3em" viewBox="-6 -6 30 30">'
     +'</g>'
 +'</svg>';
 
+var gap_name = 'vjs-progress-holder-gap';
+var progress_gaps = '<div class="'+gap_name+'-left"></div><div class="'+gap_name+'-right"></div>';
+
 HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
     if (this.play_state==state)
         return;
@@ -222,6 +225,8 @@ HolaSkin.prototype.init = function(){
     volume_icon.setAttribute('class', 'vjs-volume-icon');
     volume_icon.innerHTML = volume_icon_svg;
     volume_button.insertBefore(volume_icon, volume_button.firstChild);
+    var progress_holder = player.controlBar.progressControl.seekBar.el();
+    progress_holder.insertAdjacentHTML('beforeend', progress_gaps);
 };
 
 HolaSkin.prototype.dispose = function(){
