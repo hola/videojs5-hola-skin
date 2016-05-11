@@ -215,7 +215,11 @@ HolaSkin.prototype.init = function(){
         _this.is_ended = true;
         _this.update_state(player);
     })
-    .on('seeked', function(){ _this.update_state(player); });
+    .on('seeked', function(){
+        if (player.currentTime())
+            _this.is_ended = false;
+        _this.update_state(player);
+    });
     this.update_state(player);
     var volume_button = player.controlBar.volumeMenuButton.el();
     var volume_icon = document.createElement('div');
