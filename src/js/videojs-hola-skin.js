@@ -218,7 +218,7 @@ HolaSkin.prototype.init = function(){
         _this.is_ended = true;
         _this.update_state(player);
     })
-    .on('seeked', function(){
+    .on('seeking', function(){
         // hide replay button if it's not rewind to the start (cur time == 0)
         if (player.currentTime())
             _this.is_ended = false;
