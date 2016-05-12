@@ -140,20 +140,23 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
             });
         }());
     }
+    var umorph = document.getElementById('umorph');
     var bars = btn_svg.getElementsByTagName('path');
     var stepcnt = 0, stepcnt1 = 0;
     if (intv)
         clearInterval(intv);
     if (state=='ended')
     {
-        bars[0].setAttribute('transform', 'translate(16.3, 16.5)');
+        umorph.setAttribute('transform', 'translate(16.3, 16.5)');
+        btn_svg.parentNode.setAttribute('transform', 'translate(16.3, 16.5)');
         bars[0].setAttribute('d', replay);
         bars[1].setAttribute('display', 'none');
         return;
     }
     bars[1].removeAttribute('display');
-    var is_transformed = bars[0].getAttribute('transform');
-    bars[0].removeAttribute('transform');
+    var is_transformed = btn_svg.parentNode.getAttribute('transform');
+    btn_svg.parentNode.removeAttribute('transform');
+    umorph.removeAttribute('transform');
     // need to clear the attribute to avoid glitch with transition from
     // replay icon to animated pause icon
     if (is_transformed)
@@ -216,6 +219,7 @@ HolaSkin.prototype.init = function(){
         _this.update_state(player);
     })
     .on('seeked', function(){
+        // hide replay button if it's not rewind to the start (cur time == 0)
         if (player.currentTime())
             _this.is_ended = false;
         _this.update_state(player);
@@ -258,7 +262,7 @@ HolaSkin.prototype.dispose = function(){
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
-    ver: 'ver=0.0.2-34'
+    ver: 'ver=0.0.2-35'
 };
 
 // VideoJS plugin register
