@@ -225,11 +225,6 @@ HolaSkin.prototype.init = function(){
         _this.update_state(player);
     });
     this.update_state(player);
-    var volume_button = player.controlBar.volumeMenuButton.el();
-    var volume_icon = document.createElement('div');
-    volume_icon.setAttribute('class', 'vjs-volume-icon');
-    volume_icon.innerHTML = volume_icon_svg;
-    volume_button.insertBefore(volume_icon, volume_button.firstChild);
     var volume_slider = player.controlBar.volumeMenuButton.volumeBar.el();
     volume_slider.insertAdjacentHTML('beforeend', slider_gaps);
     var progress_holder = player.controlBar.progressControl.seekBar.el();
@@ -259,10 +254,29 @@ HolaSkin.prototype.dispose = function(){
         remove_class_name(this.el, this.classes_added.pop());
 };
 
+// update some vjs controls
+
+var MenuButton = vjs.getComponent('MenuButton');
+var VolumeMenuButton = vjs.getComponent('VolumeMenuButton');
+VolumeMenuButton.prototype.createEl = function(){
+    var el = MenuButton.prototype.createEl.call(this);
+
+    var icon = this.icon_ = document.createElement('div');
+    icon.setAttribute('class', 'vjs-volume-icon');
+    icon.innerHTML = volume_icon_svg;
+    el.insertBefore(icon, el.firstChild);
+
+    return el;
+};
+
+VolumeMenuButton.prototype.tooltipHandler = function(){
+    return this.icon_;
+};
+
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
-    ver: 'ver=0.0.2-35'
+    ver: 'ver=0.0.2-36'
 };
 
 // VideoJS plugin register
