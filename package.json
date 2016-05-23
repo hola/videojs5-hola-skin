@@ -1,6 +1,6 @@
 {
   "name": "videojs-hola-skin",
-  "version": "0.0.3-1",
+  "version": "0.0.3-2",
   "description": "A custom skin for VideoJS",
   "main": "videojs-hola-skin.js",
   "scripts": {
@@ -12,6 +12,13 @@
     "type": "git",
     "url": "git+https://github.com/hola/videojs5-hola-skin.git"
   },
+  "files": [
+    "dist/",
+    "src/",
+    "examples/",
+    "Gruntfile.js",
+    ".jshintrc"
+  ],
   "devDependencies": {
     "async": "~0.2.9",
     "grunt": "~0.4.1",
