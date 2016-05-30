@@ -4,6 +4,7 @@
   "description": "A custom skin for VideoJS",
   "main": "videojs-hola-skin.js",
   "scripts": {
+    "build": "grunt",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -30,6 +31,6 @@
     "grunt-contrib-clean": "~0.4.0",
     "grunt-version": "~1.0.0",
     "load-grunt-tasks": "~0.4.0",
-    "video.js": "git+https://github.com/hola/video.js"
+    "video.js": "hola/video.js#v5.10.2-6"
   }
 }

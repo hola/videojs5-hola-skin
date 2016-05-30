@@ -17,6 +17,8 @@
 @text-color-main: #fff;
 @text-color-minor: #bbb;
 
+@progress-gap-size: 10px;
+
 .vjs5-hola-skin {
     &, & * {
         font-family: @font-family;
@@ -113,6 +115,9 @@
         &:before {
             content: '';
         }
+        .vjs-tooltip {
+            margin-left: @progress-gap-size - 2px;
+        }
         order: 0;
     }
     // big play button "blink" effect on play/pause after movie has started
@@ -198,8 +203,7 @@
             }
         }
         .vjs-progress-holder {
-            @gap-size: 10px;
-            margin: 0 @gap-size;
+            margin: 0 @progress-gap-size;
             &:before {
                 position: absolute;
                 top: 0;
@@ -247,19 +251,19 @@
         order: 4;
     }
     .vjs-slider {
-        @gap-size: 10px;
+        @progress-gap-size: 10px;
         .vjs-slider-gap-left,
         .vjs-slider-gap-right {
             position: absolute;
             top: 0;
-            width: @gap-size;
+            width: @progress-gap-size;
             height: 100%;
         }
         .vjs-slider-gap-left {
-            left: -@gap-size;
+            left: -@progress-gap-size;
         }
         .vjs-slider-gap-right {
-            right: -@gap-size;
+            right: -@progress-gap-size;
         }
     }
 
@@ -462,6 +466,9 @@
         &:hover:before {
             opacity: 1;
             background-size: 70%;
+        }
+        .vjs-tooltip {
+            margin-left: -(@progress-gap-size - 2px);
         }
         order: 7;
     }
