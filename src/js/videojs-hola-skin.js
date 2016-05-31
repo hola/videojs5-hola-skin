@@ -262,7 +262,7 @@ VolumeMenuButton.prototype.createEl = function(){
     var el = MenuButton.prototype.createEl.call(this);
 
     var icon = this.icon_ = document.createElement('div');
-    icon.setAttribute('class', 'vjs-volume-icon');
+    icon.setAttribute('class', 'vjs-button-icon');
     icon.innerHTML = volume_icon_svg;
     el.insertBefore(icon, el.firstChild);
 
@@ -271,6 +271,18 @@ VolumeMenuButton.prototype.createEl = function(){
 
 VolumeMenuButton.prototype.tooltipHandler = function(){
     return this.icon_;
+};
+
+var Button = vjs.getComponent('Button');
+var FullscreenToggle = vjs.getComponent('FullscreenToggle');
+FullscreenToggle.prototype.createEl = function(){
+    var el = Button.prototype.createEl.call(this);
+
+    var icon = this.icon_ = document.createElement('div');
+    icon.setAttribute('class', 'vjs-button-icon');
+    el.insertBefore(icon, el.firstChild);
+
+    return el;
 };
 
 var defaults = {

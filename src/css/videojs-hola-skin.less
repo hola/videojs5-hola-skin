@@ -19,6 +19,13 @@
 
 @progress-gap-size: 10px;
 
+// controls sizing
+@control-width: 30px;
+@controls-margin: 10px;
+
+@control-width-big: @control-width * 2;
+@controls-margin-big: @controls-margin * 2;
+
 .vjs5-hola-skin {
     &, & * {
         font-family: @font-family;
@@ -68,9 +75,21 @@
         }
     }
     .vjs-control {
-        width: 3em;
+        width: auto;
         margin: 0;
         padding: 0;
+
+        text-align: left;
+
+        &>svg,
+        &>.vjs-button-icon {
+            position: relative;
+
+            display: inline-block;
+            width: @control-width;
+            margin: 0 @controls-margin;
+            padding: 0;
+        }
     }
     .vjs-control:focus .vjs-menu {
         text-shadow: none;
@@ -93,10 +112,8 @@
     }
     // play control morph
     .vjs-play-control {
-        width: 3.3em;
         cursor: pointer;
         &>svg {
-            position: absolute;
             left: 0;
             top: 0;
             fill: #fff;
@@ -344,9 +361,7 @@
     .vjs-volume-menu-button {
         cursor: default;
         overflow: visible;
-        &, .vjs-volume-icon {
-            width: 4.5em;
-        }
+        width: @control-width + @controls-margin * 2;
         .vjs-tooltip {
             margin-left: -0.5em;
         }
@@ -354,7 +369,8 @@
             width: 0;
             transition: width 200ms ease;
         }
-        .vjs-volume-icon {
+        &>.vjs-button-icon {
+            width: @control-width;
             cursor: pointer;
             opacity: 0.7;
             &>svg {
@@ -374,7 +390,7 @@
             content: none;
             display: none;
         }
-        &>.vjs-volume-icon {
+        &>.vjs-button-icon {
             height: 100%;
             background-size: 55%;
             background-repeat: no-repeat;
@@ -386,17 +402,17 @@
             }
         }
 
-        &.vjs-vol-0>.vjs-volume-icon {
+        &.vjs-vol-0>.vjs-button-icon {
             .volume-level-0 { opacity: 1; }
         }
-        &.vjs-vol-1>.vjs-volume-icon {
+        &.vjs-vol-1>.vjs-button-icon {
             .volume-level-1 { opacity: 1; }
         }
-        &.vjs-vol-2>.vjs-volume-icon {
+        &.vjs-vol-2>.vjs-button-icon {
             .volume-level-1 { opacity: 1; }
             .volume-level-2 { opacity: 1; }
         }
-        &.vjs-vol-3>.vjs-volume-icon {
+        &.vjs-vol-3>.vjs-button-icon {
             .volume-level-1 { opacity: 1; }
             .volume-level-2 { opacity: 1; }
             .volume-level-3 { opacity: 1; }
@@ -436,10 +452,7 @@
     }
 
     .vjs-settings-button {
-        &, .vjs-settings-icon {
-            width: 3em;
-        }
-        .vjs-settings-icon {
+        &>.vjs-button-icon {
             height: 100%;
             background: url(@cog-glyph) no-repeat;
             background-size: 60%;
@@ -447,15 +460,22 @@
             opacity: 0.7;
             transition: opacity 200ms ease;
         }
-        &:hover .vjs-settings-icon {
+        &:hover>.vjs-button-icon {
             opacity: 1;
         }
         order: 6;
     }
     .vjs-fullscreen-control {
-        width: 4em;
+        width: auto;
         &:before {
             content: '';
+            display: none;
+        }
+        .vjs-button-icon {
+            position: relative;
+            width: @control-width + 5px;
+            height: 100%;
+            margin: 0 10px;
             background-image: url(@fullscreen-enter-glyph);
             background-repeat: no-repeat;
             background-size: 65%;
@@ -463,7 +483,7 @@
             opacity: 0.7;
             transition: opacity 200ms ease;
         }
-        &:hover:before {
+        &:hover .vjs-button-icon {
             opacity: 1;
             background-size: 70%;
         }
@@ -493,7 +513,7 @@
         color: @text-color-minor;
     }
     .vjs-time-control.vjs-current-time {
-        padding-left: 0;
+        padding-left: @controls-margin;
         color: @text-color-main;
         font-weight: bold;
         order: 2;
@@ -505,7 +525,7 @@
         }
     }
     .vjs-time-control.vjs-duration {
-        padding-right: 5px;
+        padding-right: @controls-margin;
         order: 4;
     }
 
