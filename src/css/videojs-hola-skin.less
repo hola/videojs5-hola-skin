@@ -21,10 +21,10 @@
 
 // controls sizing
 @control-width: 30px;
-@controls-margin: 10px;
+@controls-padding: 10px;
 
 @control-width-big: @control-width * 2;
-@controls-margin-big: @controls-margin * 2;
+@controls-padding-big: @controls-padding * 2;
 
 .vjs5-hola-skin {
     &, & * {
@@ -85,10 +85,11 @@
         &>.vjs-button-icon {
             position: relative;
 
+            box-sizing: content-box;
             display: inline-block;
             width: @control-width;
-            margin: 0 @controls-margin;
-            padding: 0;
+            margin: 0;
+            padding: 0 @controls-padding;
         }
     }
     .vjs-control:focus .vjs-menu {
@@ -114,6 +115,7 @@
     .vjs-play-control {
         cursor: pointer;
         &>svg {
+            padding: 0 5px;
             left: 0;
             top: 0;
             fill: #fff;
@@ -361,10 +363,8 @@
     .vjs-volume-menu-button {
         cursor: default;
         overflow: visible;
-        width: @control-width + @controls-margin * 2;
-        .vjs-tooltip {
-            margin-left: -0.5em;
-        }
+        width: @control-width + @controls-padding * 2;
+
         .vjs-menu-content {
             width: 0;
             transition: width 200ms ease;
@@ -375,7 +375,7 @@
             opacity: 0.7;
             &>svg {
                 position: absolute;
-                left: 0;
+                left: @controls-padding;
                 top: 0;
                 fill: #fff;
                 transition: opacity 200ms ease;
@@ -454,8 +454,9 @@
     .vjs-settings-button {
         &>.vjs-button-icon {
             height: 100%;
+            width: @control-width - 10px;
             background: url(@cog-glyph) no-repeat;
-            background-size: 60%;
+            background-size: 100%;
             background-position: center;
             opacity: 0.7;
             transition: opacity 200ms ease;
@@ -473,19 +474,17 @@
         }
         .vjs-button-icon {
             position: relative;
-            width: @control-width + 5px;
             height: 100%;
-            margin: 0 10px;
             background-image: url(@fullscreen-enter-glyph);
             background-repeat: no-repeat;
-            background-size: 65%;
+            background-size: 50%;
             background-position: center;
             opacity: 0.7;
             transition: opacity 200ms ease;
         }
         &:hover .vjs-button-icon {
             opacity: 1;
-            background-size: 70%;
+            background-size: 60%;
         }
         .vjs-tooltip {
             margin-left: -(@progress-gap-size - 2px);
@@ -513,7 +512,7 @@
         color: @text-color-minor;
     }
     .vjs-time-control.vjs-current-time {
-        padding-left: @controls-margin;
+        padding-left: @controls-padding;
         color: @text-color-main;
         font-weight: bold;
         order: 2;
@@ -525,7 +524,7 @@
         }
     }
     .vjs-time-control.vjs-duration {
-        padding-right: @controls-margin;
+        padding-right: @controls-padding;
         order: 4;
     }
 
@@ -593,7 +592,7 @@
     }
     .vjs-menu-button-inline {
         .vjs-menu {
-            left: 3.5em;
+            left: @control-width + @controls-padding;
         }
     }
     .vjs-info-overlay {
