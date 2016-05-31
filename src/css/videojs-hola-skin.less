@@ -115,7 +115,8 @@
     .vjs-play-control {
         cursor: pointer;
         &>svg {
-            padding: 0 5px;
+            @padding: @controls-padding - 5px;
+            padding: 0 @padding 0 (@padding + 10px);
             left: 0;
             top: 0;
             fill: #fff;
@@ -375,7 +376,7 @@
             opacity: 0.7;
             &>svg {
                 position: absolute;
-                left: @controls-padding;
+                left: @controls-padding - 1;
                 top: 0;
                 fill: #fff;
                 transition: opacity 200ms ease;
@@ -476,6 +477,7 @@
         .vjs-button-icon {
             position: relative;
             height: 100%;
+            padding-right: @controls-padding + 10px;
             background-image: url(@fullscreen-enter-glyph);
             background-repeat: no-repeat;
             background-size: @control-width * 0.9;

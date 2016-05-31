@@ -85,7 +85,6 @@ var morph_html = [
                 '<path d="M 19.5,18 22.5,18 22.5,32 19.5,32 Z"/>',
                 '<path d="M 27.5,18 30.5,18 30.5,32 27.5,32 Z"/>',
             '</g>',
-            '<use xlink:href="#morph" x="-30" y="0"/>',
         '</g>',
     '</svg>'].join('');
 var umorph_html = [
@@ -93,7 +92,7 @@ var umorph_html = [
         '<use id="umorph" xlink:href="#morph" x="0" y="0"/>',
     '</svg>'].join('');
 
-var volume_icon_svg = '<svg height="3em" width="3em" viewBox="-6 -6 30 30">'
+var volume_icon_svg = '<svg height="3em" width="3em" viewBox="-3 -6 30 30">'
     +'<polygon points="10,0 10,18 4.5,13 0,13 0,5 4.5,5"/>'
     +'<polygon class="volume-level-0" points="20.5,6.2 19.1,4.8 16.2,7.6 13.4,4.8 12,6.2 14.8,9 12,11.8 13.4,13.2 16.2,10.4 19.1,13.2 20.5,11.8 17.7,9"/>'
     +'<g>'
