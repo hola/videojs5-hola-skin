@@ -453,10 +453,11 @@
 
     .vjs-settings-button {
         &>.vjs-button-icon {
+            @cog-width: @control-width - 10px;
             height: 100%;
-            width: @control-width - 10px;
+            width: @cog-width;
             background: url(@cog-glyph) no-repeat;
-            background-size: 100%;
+            background-size: @cog-width;
             background-position: center;
             opacity: 0.7;
             transition: opacity 200ms ease;
@@ -477,14 +478,14 @@
             height: 100%;
             background-image: url(@fullscreen-enter-glyph);
             background-repeat: no-repeat;
-            background-size: 50%;
+            background-size: @control-width * 0.9;
             background-position: center;
             opacity: 0.7;
             transition: opacity 200ms ease;
         }
         &:hover .vjs-button-icon {
             opacity: 1;
-            background-size: 60%;
+            background-size: @control-width;
         }
         .vjs-tooltip {
             margin-left: -(@progress-gap-size - 2px);
