@@ -17,11 +17,11 @@
 @text-color-main: #fff;
 @text-color-minor: #bbb;
 
-@progress-gap-size: 10px;
+@progress-gap-size: 1em;
 
 // controls sizing
-@control-width: 30px;
-@controls-padding: 10px;
+@control-width: 3em;
+@controls-padding: 1em;
 
 @control-width-big: @control-width * 2;
 @controls-padding-big: @controls-padding * 2;
@@ -38,7 +38,7 @@
         box-sizing: border-box;
         border-radius: 50%;
         border-style: solid;
-        border-width: 3px;
+        border-width: 0.3em;
         border-color: #fff;
         background: #00b7f1;
     }
@@ -88,22 +88,36 @@
             box-sizing: content-box;
             display: inline-block;
             width: @control-width;
+            height: 100%;
             margin: 0;
             padding: 0 @controls-padding;
         }
     }
-    .vjs-control-bar>.vjs-control {
-        margin-top: -3px;
-    }
-    .vjs-control-bar>.vjs-progress-control,
-    &.vjs-live .vjs-control-bar>.vjs-control {
-        margin-top: 0;
-    }
     .vjs-control:focus .vjs-menu {
         text-shadow: none;
     }
+    .vjs-control-bar {
+        height: @control-width;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,
+            rgba(0,0,0,0.65) 100%);
+        // spacer to keep fullscreen button on right
+        &>.vjs-spacer {
+            display: block;
+            flex-grow: 1;
+            order: 5;
+        }
+        &>.vjs-control {
+            margin-top: -3px;
+        }
+        &>.vjs-progress-control {
+            margin-top: 0;
+        }
+    }
+    &.vjs-live .vjs-control-bar>.vjs-control {
+        margin-top: 0;
+    }
     .vjs-tooltip {
-        top: -3.3em;
+        top: -3em;
         left: 0;
         width: auto;
         height: auto;
@@ -146,7 +160,7 @@
             content: '';
         }
         .vjs-tooltip {
-            margin-left: @progress-gap-size - 2px;
+            margin-left: @progress-gap-size - 0.2em;
         }
         order: 0;
     }
@@ -282,7 +296,7 @@
         order: 4;
     }
     .vjs-slider {
-        @progress-gap-size: 10px;
+        @progress-gap-size: 1em;
         .vjs-slider-gap-left,
         .vjs-slider-gap-right {
             position: absolute;
@@ -387,8 +401,11 @@
             opacity: 0.7;
             &>svg {
                 position: absolute;
-                left: @controls-padding - 1;
+                left: @controls-padding - 0.1em;
                 top: 0;
+                display: block;
+                width: @control-width;
+                height: 100%;
                 fill: #fff;
                 transition: opacity 200ms ease;
             }
@@ -465,7 +482,7 @@
 
     .vjs-settings-button {
         &>.vjs-button-icon {
-            @cog-width: @control-width - 10px;
+            @cog-width: @control-width - 1em;
             height: 100%;
             width: @cog-width;
             background: url(@cog-glyph) no-repeat;
@@ -488,7 +505,7 @@
         .vjs-button-icon {
             position: relative;
             height: 100%;
-            padding-right: @controls-padding + 10px;
+            padding-right: @controls-padding + 1em;
             background-image: url(@fullscreen-enter-glyph);
             background-repeat: no-repeat;
             background-size: @control-width * 0.9;
@@ -501,7 +518,7 @@
             background-size: @control-width;
         }
         .vjs-tooltip {
-            margin-left: -(@progress-gap-size - 2px);
+            margin-left: -(@progress-gap-size - 0.2em);
         }
         order: 7;
     }
@@ -544,16 +561,6 @@
 
     .vjs-time-control.vjs-remaining-time {
         display: none;
-    }
-    .vjs-control-bar {
-        background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,
-            rgba(0,0,0,0.65) 100%);
-        // spacer to keep fullscreen button on right
-        &>.vjs-spacer {
-            display: block;
-            flex-grow: 1;
-            order: 5;
-        }
     }
     &.vjs-show-controls-before-start .vjs-control-bar {
         display: -webkit-box;
@@ -696,6 +703,20 @@
             &.vjs-menu-indent {
                 padding-left: 1.5em;
             }
+        }
+    }
+
+    &.vjs-large,
+    &.vjs-fullscreen {
+        .vjs-control-bar {
+            font-size: 150%;
+        }
+        .vjs-volume-display-tooltip {
+            top: -2.4em;
+        }
+
+        .vjs-menu, .vjs-menu-content {
+            transition: opacity 200ms;
         }
     }
 }

@@ -48,7 +48,11 @@ var HolaSkin = function(video, opt){
     this.classes_added = [];
     this.vjs.on('dispose', function(){ _this.dispose(); });
     this.vjs.on('ready', function(){ _this.init(); });
+    this._resize = this.resize.bind(this);
+    this.vjs.on('resize', this._resize);
+    window.addEventListener('resize', this._resize);
     this.apply();
+    this.resize();
 };
 
 HolaSkin.prototype.apply = function(){
@@ -60,6 +64,14 @@ HolaSkin.prototype.apply = function(){
         if (add_class_name(this.el, c))
             this.classes_added.push(c);
     }
+};
+
+HolaSkin.prototype.resize = function(){
+    var vjs_large = 'vjs-large';
+    if (this.el.offsetWidth>=768)
+        add_class_name(this.el, vjs_large);
+    else
+        remove_class_name(this.el, vjs_large);
 };
 
 // XXX michaelg: taken from mp_video.js but play mode adjusted 2px right
@@ -251,6 +263,7 @@ HolaSkin.prototype.update_state = function(player){
 HolaSkin.prototype.dispose = function(){
     while (this.classes_added.length)
         remove_class_name(this.el, this.classes_added.pop());
+    window.removeEventListener('resize', this._resize);
 };
 
 // update some vjs controls
