@@ -92,6 +92,12 @@
             padding: 0 @controls-padding;
         }
     }
+    .vjs-control-bar>.vjs-control {
+        margin-top: -3px;
+    }
+    .vjs-control-bar>.vjs-progress-control {
+        margin-top: 0;
+    }
     .vjs-control:focus .vjs-menu {
         text-shadow: none;
     }
@@ -173,6 +179,7 @@
         position: absolute;
         left: 0;
         right: 0;
+        z-index: 10;
         width: auto;
         top: -15px;
         height: 15px;
