@@ -645,13 +645,13 @@
         }
     }
     .vjs-info-overlay-title {
-        margin-bottom: 10px;
+        margin-bottom: 1em;
         font-size: 1.2em;
     }
     .vjs-info-overlay-x {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 1em;
+        right: 1em;
         transition: color 200ms ease;
         cursor: pointer;
         &:hover {
@@ -659,7 +659,7 @@
         }
     }
     .vjs-notify-overlay-title {
-        margin-bottom: 10px;
+        margin-bottom: 1em;
         font-size: 1.5em;
     }
     .vjs-notify-overlay-content {
@@ -675,8 +675,8 @@
     .vjs-info-overlay-list-item {
         padding: 0;
         margin: 0;
-        height: 16px;
-        line-height: 16px;
+        height: 1.6em;
+        line-height: 1.6em?;
         strong {
             font-weight: 500;
             color: @text-color-main;
@@ -708,13 +708,14 @@
 
     &.vjs-large,
     &.vjs-fullscreen {
-        .vjs-control-bar {
+        .vjs-control-bar,
+        .vjs-rightclick-popup,
+        .vjs-info-overlay {
             font-size: 150%;
         }
         .vjs-volume-display-tooltip {
             top: -2.4em;
         }
-
         .vjs-menu, .vjs-menu-content {
             transition: opacity 200ms;
         }
