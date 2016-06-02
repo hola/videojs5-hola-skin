@@ -132,6 +132,28 @@
         text-shadow: none;
         clip: auto;
     }
+    .vjs-menu li {
+        text-align: left;
+        padding-left: 0.5em;
+        text-transform: none;
+        &.vjs-menu-label {
+            pointer-events: none;
+        }
+        &.vjs-menu-indent {
+            padding-left: 1.5em;
+        }
+        &.vjs-menu-item-link {
+            padding: 0;
+        }
+    }
+    .vjs-menu-item-link>.vjs-menu-link {
+        display: block;
+        padding: 0.2em 0 0.2em 0.5em;
+        color: inherit;
+        text-decoration: inherit;
+        text-transform: inherit;
+        white-space: nowrap;
+    }
     .vjs-menu-button[aria-expanded="true"]>.vjs-tooltip-active {
         display: none;
     }
@@ -593,16 +615,6 @@
             }
             ul {
                 bottom: 3em;
-                li {
-                    text-align: left;
-                    padding-left: 0.5em;
-                    &.vjs-menu-label {
-                        pointer-events: none;
-                    }
-                    &.vjs-menu-indent {
-                        padding-left: 1.5em;
-                    }
-                }
             }
         }
         &:hover .vjs-menu:not(.vjs-menu-popup-on-click),
@@ -688,21 +700,11 @@
     .vjs-rightclick-popup {
         position: absolute;
         z-index: 5;
-        width: 15em;
+        width: 16em;
         .background-color-with-alpha(@control-bg-color, @control-bg-alpha);
         .box-shadow(-0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2));
         .vjs-menu-item {
             cursor: pointer;
-        }
-        li {
-            text-align: left;
-            padding-left: 0.5em;
-            &.vjs-menu-label {
-                pointer-events: none;
-            }
-            &.vjs-menu-indent {
-                padding-left: 1.5em;
-            }
         }
     }
 
