@@ -31,6 +31,6 @@
     "grunt-contrib-clean": "~0.4.0",
     "grunt-version": "~1.0.0",
     "load-grunt-tasks": "~0.4.0",
-    "video.js": "hola/video.js#v5.10.2-6"
+    "video.js": "hola/video.js#v5.10.2-7"
   }
 }

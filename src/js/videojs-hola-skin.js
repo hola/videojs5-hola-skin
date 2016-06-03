@@ -287,6 +287,7 @@ VolumeMenuButton.prototype.tooltipHandler = function(){
 
 var Button = vjs.getComponent('Button');
 var FullscreenToggle = vjs.getComponent('FullscreenToggle');
+FullscreenToggle.prototype.controlText_ = 'Full screen';
 FullscreenToggle.prototype.createEl = function(){
     var el = Button.prototype.createEl.call(this);
 
@@ -295,6 +296,13 @@ FullscreenToggle.prototype.createEl = function(){
     el.insertBefore(icon, el.firstChild);
 
     return el;
+};
+FullscreenToggle.prototype.updateHint = function(){
+    if (this.player_.isFullscreen()) {
+        this.controlText('Exit full screen');
+    } else {
+        this.controlText('Full screen');
+    }
 };
 
 var defaults = {
