@@ -1,6 +1,6 @@
 @font-family: Arial,Helvetica,sans-serif;
 @control-bg-color: #2D2D2D;
-@control-bg-alpha: 0.7;
+@control-bg-alpha: 0.8;
 @big-play-bg-color: @control-bg-color;
 @big-play-bg-alpha: 0.6;
 // Volume icon glyphs
@@ -700,20 +700,28 @@
     .vjs-rightclick-popup {
         position: absolute;
         z-index: 5;
-        width: 16em;
+        width: auto;
+        padding: 1em 0;
+        font-size: 150%;
         .background-color-with-alpha(@control-bg-color, @control-bg-alpha);
-        .box-shadow(-0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2));
+        .box-shadow(0.2em 0.2em 0.3em rgba(0, 0, 0, 0.5));
         .vjs-menu-item {
             cursor: pointer;
+        }
+        .vjs-menu-item,
+        .vjs-menu-item>.vjs-menu-link {
+            padding: 0.2em 1em;
         }
     }
 
     &.vjs-large,
     &.vjs-fullscreen {
         .vjs-control-bar,
-        .vjs-rightclick-popup,
         .vjs-info-overlay {
             font-size: 150%;
+        }
+        .vjs-rightclick-popup {
+            font-size: 200%;
         }
         .vjs-volume-display-tooltip {
             top: -2.4em;
@@ -723,7 +731,6 @@
         }
     }
 }
-
 
 .background-color-with-alpha (@color, @alpha) {
     @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
