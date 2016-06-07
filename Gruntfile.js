@@ -16,10 +16,20 @@ module.exports = function(grunt) {
       all: ['src/**/*.js']
     },
     less: {
+      options: {
+        paths: ['src/css/']
+      },
       all: {
-        files: {
-          'dist/css/videojs-hola-skin.css': ['src/**/*.less']
-        }
+        files: [
+          {
+            nonull: true,
+            dest: 'dist/css/videojs-hola-skin.css',
+            src: [
+              'src/**/*.less',
+              'node_modules/videojs-settings/src/videojs-settings.less'
+            ]
+          }
+        ]
       }
     },
     concat: {
