@@ -1,6 +1,6 @@
 {
   "name": "videojs-hola-skin",
-  "version": "0.0.5-3",
+  "version": "0.0.5-4",
   "description": "A custom skin for VideoJS",
   "main": "videojs-hola-skin.js",
   "scripts": {
@@ -21,7 +21,7 @@
     ".jshintrc"
   ],
   "dependencies": {
-    "videojs-settings": "hola/videojs5-settings#v0.0.3-3"
+    "videojs-settings": "hola/videojs5-settings#v0.0.3-7"
   },
   "devDependencies": {
     "async": "~0.2.9",
