@@ -1,36 +1,10 @@
-@font-family: Arial,Helvetica,sans-serif;
-@control-bg-color: #2D2D2D;
-@control-bg-alpha: 0.8;
-@big-play-bg-color: @control-bg-color;
-@big-play-bg-alpha: 0.6;
-// Volume icon glyphs
-@volume-muted-glyph: ~'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDVweCIgaGVpZ2h0PSI0NXB4IiB2aWV3Qm94PSIwIDAgNDUgNDUiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQ1IDQ1IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCg0KCTxnPg0KDQoJCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xMS43LDE0LjNIMy44Yy0wLjEsMC0wLjIsMC4xLTAuMiwwLjJWMzBjMCwwLjEsMC4xLDAuMiwwLjIsMC4yaDcuOWMwLjEsMCwwLjEsMCwwLjIsMC4xTDIzLjEsNDIgYzAuMSwwLjEsMC40LDAsMC40LTAuMlYzLjJjMC0wLjItMC4yLTAuMy0wLjQtMC4yTDExLjksMTQuMkMxMS44LDE0LjIsMTEuOCwxNC4zLDExLjcsMTQuM3oiLz4NCg0KCTwvZz4NCg0KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik00MSwyNi4zbC0zLjktMy44bDMuOC0zLjhjMC41LTAuNSwwLjUtMS4zLDAtMS44Yy0wLjUtMC41LTEuMy0wLjUtMS44LDBsLTMuOCwzLjhsLTMuOC0zLjggYy0wLjUtMC41LTEuMy0wLjUtMS44LDBjLTAuNSwwLjUtMC41LDEuMywwLDEuOGwzLjgsMy44bC0zLjgsMy44Yy0wLjUsMC41LTAuNSwxLjMsMCwxLjhjMC4yLDAuMiwwLjYsMC40LDAuOSwwLjQNCg0KCQljMC40LDAsMC43LTAuMSwwLjktMC40bDMuOC0zLjhsMy44LDMuOGMwLjIsMC4yLDAuNiwwLjQsMC45LDAuNGMwLjQsMCwwLjctMC4xLDAuOS0wLjRjMC4zLTAuMiwwLjQtMC42LDAuNC0wLjkNCg0KCQlDNDEuNCwyNi45LDQxLjMsMjYuNiw0MSwyNi4zeiIvPg0KDQo8L3N2Zz4=';
-@volume-low-glyph: ~'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI0NXB4IiBoZWlnaHQ9IjQ1cHgiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDUgNDUiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTYsMTQuM0g4LjFjLTAuMSwwLTAuMiwwLjEtMC4yLDAuMlYzMGMwLDAuMSwwLjEsMC4yLDAuMiwwLjJIMTZjMC4xLDAsMC4xLDAsMC4yLDAuMUwyNy4zLDQyDQoJCQljMC4xLDAuMSwwLjQsMCwwLjQtMC4yVjMuMmMwLTAuMi0wLjItMC4zLTAuNC0wLjJMMTYuMiwxNC4yQzE2LjEsMTQuMiwxNi4xLDE0LjMsMTYsMTQuM3oiLz4NCgk8L2c+DQoJPGc+DQoJCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0zMy43LDI4Yy0wLjUsMC0xLTAuMi0xLjQtMC42Yy0wLjgtMC44LTAuOC0yLDAtMi44YzAuNi0wLjYsMC45LTEuNCwwLjktMi4yYzAtMC44LTAuMy0xLjYtMC45LTIuMg0KCQkJYy0wLjgtMC44LTAuOC0yLDAtMi44YzAuOC0wLjgsMi0wLjgsMi44LDBjMS4zLDEuMywyLjEsMy4xLDIuMSw1YzAsMS45LTAuNywzLjctMi4xLDVDMzQuNywyNy44LDM0LjIsMjgsMzMuNywyOHoiLz4NCgk8L2c+DQo8L3N2Zz4=';
-@volume-high-glyph: ~'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI0NXB4Ig0KCSBoZWlnaHQ9IjQ1cHgiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDUgNDUiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTEuOCwxNC4zSDQuM2MtMC4zLDAtMC41LDAuMi0wLjUsMC41djE0LjljMCwwLjMsMC4yLDAuNSwwLjUsMC41aDcuNWMwLjEsMCwwLjMsMC4xLDAuNCwwLjJsMTAuNiwxMS4xDQoJCQljMC4zLDAuMywwLjksMC4xLDAuOS0wLjRWMy45YzAtMC41LTAuNi0wLjctMC45LTAuNEwxMi4yLDE0LjFDMTIuMSwxNC4yLDExLjksMTQuMywxMS44LDE0LjN6Ii8+DQoJPC9nPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMzQuOCwzNS4yYy0wLjUsMC0xLTAuMi0xLjQtMC42Yy0wLjgtMC44LTAuOC0yLDAtMi44YzUuMS01LjEsNS4xLTEzLjUsMC0xOC43Yy0wLjgtMC44LTAuOC0yLDAtMi44DQoJCQljMC44LTAuOCwyLTAuOCwyLjgsMGM2LjcsNi43LDYuNywxNy42LDAsMjQuM0MzNS44LDM1LDM1LjMsMzUuMiwzNC44LDM1LjJ6Ii8+DQoJPC9nPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMjkuNiwyOGMtMC41LDAtMS0wLjItMS40LTAuNmMtMC44LTAuOC0wLjgtMiwwLTIuOGMwLjYtMC42LDAuOS0xLjQsMC45LTIuMmMwLTAuOC0wLjMtMS42LTAuOS0yLjINCgkJCWMtMC44LTAuOC0wLjgtMiwwLTIuOGMwLjgtMC44LDItMC44LDIuOCwwYzEuMywxLjMsMi4xLDMuMSwyLjEsNWMwLDEuOS0wLjcsMy43LTIuMSw1QzMwLjYsMjcuOCwzMC4xLDI4LDI5LjYsMjh6Ii8+DQoJPC9nPg0KPC9zdmc+';
-
-// fullscreen icon glyphs
-@fullscreen-enter-glyph: ~'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI1NnB4Ig0KCSBoZWlnaHQ9IjQ0LjhweCIgdmlld0JveD0iMCAwIDU2IDQ0LjgiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDU2IDQ0LjgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KDQoJPGc+DQoJCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0zOCwzM0gxOGMtMC4zLDAtMC42LTAuMy0wLjYtMC42di0yMGMwLTAuMywwLjMtMC42LDAuNi0wLjZoMjBjMC4zLDAsMC42LDAuMywwLjYsMC42djIwDQoJCQlDMzguNiwzMi43LDM4LjMsMzMsMzgsMzN6Ii8+DQoJPC9nPg0KCTxnPg0KCQk8cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjYuOCwxMy41IDIuNiwxMy41IDIuNiwzLjQgMTIuOCwzLjQgMTIuOCw3LjYgNi44LDcuNiIvPg0KCTwvZz4NCgk8Zz4NCgkJPHBvbHlnb24gZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI1My40LDEzLjUgNDkuMiwxMy41IDQ5LjIsNy42IDQzLjIsNy42IDQzLjIsMy40IDUzLjQsMy40Ii8+DQoJPC9nPg0KCTxnPg0KCQk8cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjUzLjQsNDEuNCA0My4yLDQxLjQgNDMuMiwzNy4yIDQ5LjIsMzcuMiA0OS4yLDMxLjMgNTMuNCwzMS4zIi8+DQoJPC9nPg0KCTxnPg0KCQk8cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjEyLjgsNDEuNCAyLjYsNDEuNCAyLjYsMzEuMyA2LjgsMzEuMyA2LjgsMzcuMiAxMi44LDM3LjIiLz4NCgk8L2c+DQo8L3N2Zz4=';
-@fullscreen-exit-glyph: ~'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI1NnB4Ig0KCSBoZWlnaHQ9IjQ0LjhweCIgdmlld0JveD0iMCAwIDU2IDQ0LjgiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDU2IDQ0LjgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMzgsMzNIMThjLTAuMywwLTAuNi0wLjMtMC42LTAuNlYxMi40YzAtMC4zLDAuMy0wLjYsMC42LTAuNkgzOGMwLjMsMCwwLjYsMC4zLDAuNiwwLjZ2MjAuMQ0KCQkJQzM4LjYsMzIuOCwzOC40LDMzLDM4LDMzeiIvPg0KCTwvZz4NCgk8cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjguNSwzLjMgMTIuNywzLjMgMTIuNywxMy41IDIuNSwxMy41IDIuNSw5LjIgOC41LDkuMiAJIi8+DQoJPHBvbHlnb24gZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI0My4zLDMuMyA0Ny41LDMuMyA0Ny41LDkuMiA1My41LDkuMiA1My41LDEzLjUgNDMuMywxMy41IAkiLz4NCgk8cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjQzLjMsMzEuMyA1My41LDMxLjMgNTMuNSwzNS42IDQ3LjUsMzUuNiA0Ny41LDQxLjUgNDMuMyw0MS41IAkiLz4NCgk8cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjIuNSwzMS4zIDEyLjcsMzEuMyAxMi43LDQxLjUgOC41LDQxLjUgOC41LDM1LjYgMi41LDM1LjYgCSIvPg0KPC9zdmc+';
-// settings icon glyph
-@cog-glyph: ~'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI0NXB4Ig0KCSBoZWlnaHQ9IjQ1cHgiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDUgNDUiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik00Mi44LDI0Ljd2LTQuNWgtNS4yYy0wLjQtMi41LTEuNC00LjgtMi44LTYuOGwzLjctMy43bC0zLjItMy4ybC0zLjcsMy43Yy0yLTEuNS00LjMtMi40LTYuOC0yLjhWMi4yaC00LjUNCgkJdjUuMmMtMi41LDAuNC00LjgsMS40LTYuOCwyLjhMOS44LDYuNkw2LjYsOS44bDMuNywzLjdjLTEuNSwyLTIuNCw0LjMtMi44LDYuOEgyLjJ2NC41aDUuMmMwLjQsMi41LDEuNCw0LjgsMi44LDYuOGwtMy43LDMuNw0KCQlsMy4yLDMuMmwzLjctMy43YzIsMS41LDQuMywyLjQsNi44LDIuOHY1LjJoNC41di01LjJjMi41LTAuNCw0LjgtMS40LDYuOC0yLjhsMy43LDMuN2wzLjItMy4ybC0zLjctMy43YzEuNS0yLDIuNC00LjMsMi44LTYuOA0KCQlINDIuOHogTTMyLDIyLjVjMCw1LjItNC4yLDkuNS05LjUsOS41UzEzLDI3LjcsMTMsMjIuNXM0LjItOS41LDkuNS05LjVTMzIsMTcuMywzMiwyMi41eiIvPg0KPC9zdmc+';
-
-@text-color-main: #fff;
-@text-color-minor: #bbb;
-
-@progress-gap-size: 1em;
-
-// controls sizing
-@control-width: 3em;
-@controls-padding: 1em;
-
-@control-width-big: @control-width * 2;
-@controls-padding-big: @controls-padding * 2;
+@import url('variables.less');
+@import url('utils.less');
 
 .vjs5-hola-skin {
     &, & * {
         font-family: @font-family;
     }
-
     .hola-circle-icon {
         display: block;
         width: 1em;
@@ -43,8 +17,7 @@
         background: #00b7f1;
     }
     // css reset
-    .vjs-control-bar,
-    .vjs-rightclick-popup {
+    .vjs-control-bar {
         color: @text-color-main;
         z-index: 2;
     }
@@ -502,22 +475,6 @@
         width: 11.5em;
     }
 
-    .vjs-settings-button {
-        &>.vjs-button-icon {
-            @cog-width: @control-width - 1em;
-            height: 100%;
-            width: @cog-width;
-            background: url(@cog-glyph) no-repeat;
-            background-size: @cog-width;
-            background-position: center;
-            opacity: 0.7;
-            transition: opacity 200ms ease;
-        }
-        &:hover>.vjs-button-icon {
-            opacity: 1;
-        }
-        order: 6;
-    }
     .vjs-fullscreen-control {
         width: auto;
         &:before {
@@ -628,100 +585,11 @@
             left: @control-width + @controls-padding;
         }
     }
-    .vjs-info-overlay {
-        position: absolute;
-        top: 1em;
-        left: 1em;
-        z-index: 3;
-        display: inline-block;
-        padding: 10px;
-        border: 1px solid #072832;
-        border-color: rgba(7, 40, 50, 0.5);
-        font-size: 1.2em;
-        .border-radius();
-        .background-color-with-alpha(@control-bg-color, @control-bg-alpha);
-        .box-shadow(-0.2em -0.2em 0.3em rgba(255, 255, 255, 0.2));
-        &.vjs-notify-overlay {
-            bottom: 50%;
-            top: auto;
-            z-index: 4;
-            margin-bottom: -3em;
-            left: 50%;
-            margin-left: -8.5em;
-            opacity: 1;
-            &.vjs-notify-flash {
-                transition: opacity 500ms ease;
-                transition-delay: 2500ms;
-                opacity: 0;
-            }
-        }
-    }
-    .vjs-info-overlay-title {
-        margin-bottom: 1em;
-        font-size: 1.2em;
-    }
-    .vjs-info-overlay-x {
-        position: absolute;
-        top: 1em;
-        right: 1em;
-        transition: color 200ms ease;
-        cursor: pointer;
-        &:hover {
-            color: @text-color-main;
-        }
-    }
-    .vjs-notify-overlay-title {
-        margin-bottom: 1em;
-        font-size: 1.5em;
-    }
-    .vjs-notify-overlay-content {
-        text-align: center;
-    }
-
-    .vjs-info-overlay-list {
-        list-style: none;
-        position: relative;
-        margin: 0;
-        padding: 0;
-    }
-    .vjs-info-overlay-list-item {
-        padding: 0;
-        margin: 0;
-        height: 1.6em;
-        line-height: 1.6em?;
-        strong {
-            font-weight: 500;
-            color: @text-color-main;
-        }
-        span {
-            color: @text-color-minor;
-        }
-    }
-    .vjs-rightclick-popup {
-        position: absolute;
-        z-index: 5;
-        width: auto;
-        padding: 1em 0;
-        font-size: 150%;
-        .background-color-with-alpha(@control-bg-color, @control-bg-alpha);
-        .box-shadow(0.2em 0.2em 0.3em rgba(0, 0, 0, 0.5));
-        .vjs-menu-item {
-            cursor: pointer;
-        }
-        .vjs-menu-item,
-        .vjs-menu-item>.vjs-menu-link {
-            padding: 0.2em 1em;
-        }
-    }
 
     &.vjs-large,
     &.vjs-fullscreen {
-        .vjs-control-bar,
-        .vjs-info-overlay {
+        .vjs-control-bar {
             font-size: 150%;
-        }
-        .vjs-rightclick-popup {
-            font-size: 200%;
         }
         .vjs-volume-display-tooltip {
             top: -2.4em;
@@ -730,28 +598,4 @@
             transition: opacity 200ms;
         }
     }
-}
-
-.background-color-with-alpha (@color, @alpha) {
-    @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
-    background-color: @color;
-    background-color: @rgba;
-}
-
-.border-color-with-alpha (@color, @alpha) {
-    @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
-    border-color: @color;
-    border-color: @rgba;
-}
-
-.border-radius (@string: 5px) {
-  -webkit-border-radius: @string;
-     -moz-border-radius: @string;
-          border-radius: @string;
-}
-
-.box-shadow (@string: 0 0 1em rgba(0, 0, 0, 0.25)) {
-  -webkit-box-shadow: @string;
-     -moz-box-shadow: @string;
-          box-shadow: @string;
 }

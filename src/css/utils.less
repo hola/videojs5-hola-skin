@@ -1,0 +1,23 @@
+.background-color-with-alpha (@color, @alpha) {
+    @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
+    background-color: @color;
+    background-color: @rgba;
+}
+
+.border-color-with-alpha (@color, @alpha) {
+    @rgba: rgba(red(@color), green(@color), blue(@color), @alpha);
+    border-color: @color;
+    border-color: @rgba;
+}
+
+.border-radius (@string: 5px) {
+  -webkit-border-radius: @string;
+     -moz-border-radius: @string;
+          border-radius: @string;
+}
+
+.box-shadow (@string: 0 0 1em rgba(0, 0, 0, 0.25)) {
+  -webkit-box-shadow: @string;
+     -moz-box-shadow: @string;
+          box-shadow: @string;
+}
