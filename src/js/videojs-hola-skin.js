@@ -93,7 +93,7 @@ var replay = 'M8.661,0.001c0.006,0,0.01,0,0.01,0c0.007,0,0.007,0,0.011,'
 var morph_html = [
     '<svg height="3em" width="3em" viewBox="10 10 30 30">',
         '<g id="move">',
-            '<g id="morph">',
+            '<g id="{morph}">',
                 '<path d="M 19.5,18 22.5,18 22.5,32 19.5,32 Z"/>',
                 '<path d="M 27.5,18 30.5,18 30.5,32 27.5,32 Z"/>',
             '</g>',
@@ -101,7 +101,7 @@ var morph_html = [
     '</svg>'].join('');
 var umorph_html = [
     '<svg width="100%" height="100%" viewBox="10 10 30 30">',
-        '<use id="umorph" xlink:href="#morph" x="0" y="0"/>',
+        '<use id="u{morph}" xlink:href="#{morph}" x="0" y="0"/>',
     '</svg>'].join('');
 
 var volume_icon_svg = '<svg height="3em" width="3em" viewBox="-3 -6 30 30">'
@@ -151,7 +151,7 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
             });
         }());
     }
-    var umorph = document.getElementById('umorph');
+    var umorph = document.getElementById('umorph_'+this.vjs.id());
     var bars = btn_svg.getElementsByTagName('path');
     var stepcnt = 0, stepcnt1 = 0;
     if (intv)
@@ -218,8 +218,10 @@ HolaSkin.prototype.init = function(){
         this.stagger = 0;
     }
     var play_button = player.controlBar.playToggle.el();
-    play_button.insertAdjacentHTML('beforeend', morph_html);
-    player.bigPlayButton.el().insertAdjacentHTML('beforeend', umorph_html);
+    play_button.insertAdjacentHTML('beforeend',
+        morph_html.replace(/{morph}/g, 'morph_'+player.id()));
+    player.bigPlayButton.el().insertAdjacentHTML('beforeend',
+        umorph_html.replace(/{morph}/g, 'morph_'+player.id()));
     player.on('play', function(){
         _this.is_ended = false;
         _this.update_state(player);
@@ -256,7 +258,7 @@ HolaSkin.prototype.update_state = function(player){
         remove_class_name(play_button, replay_classname);
         remove_class_name(big_play_button, replay_classname);
     }
-    this.set_play_button_state(document.getElementById('morph'),
+    this.set_play_button_state(document.getElementById('morph_'+player.id()),
         this.is_ended ? 'ended' : player.paused() ? 'paused' : 'playing');
 };
 
