@@ -295,7 +295,8 @@
         width: 0.16em;
         height: 100%;
         display: block;
-        background: rgba(115, 133, 159, 0.5);
+        // 0.75 opacity to match vjs-load-progress background
+        background: rgba(115, 133, 159, 0.75);
         content: '';
         border-radius: 0.15em 0 0 0.15em;
     }
@@ -313,6 +314,7 @@
             border-radius: 0 0.15em 0.15em 0;
         }
     }
+    .vjs-volume-level:after,
     &.vjs-played .vjs-progress-holder:before,
     &.vjs-ended .vjs-progress-holder:after {
         background: @active-color;
