@@ -228,6 +228,7 @@ HolaSkin.prototype.init = function(){
         this.steptotal = 1;
         this.stagger = 0;
     }
+    this.has_played = false;
     var play_button = player.controlBar.playToggle.el();
     play_button.insertAdjacentHTML('beforeend',
         morph_html.replace(/{morph}/g, 'morph_'+player.id()));
@@ -245,7 +246,19 @@ HolaSkin.prototype.init = function(){
     .on('seeking', function(){
         // hide replay button if it's not rewind to the start (cur time == 0)
         if (player.currentTime())
+        {
             _this.is_ended = false;
+            _this.has_played = true;
+        }
+        else
+            _this.has_played = false;
+        _this.update_state(player);
+    })
+    .on('timeupdate', function(val, t1, t2){
+        var has_pos = !!player.currentTime();
+        if (has_pos==_this.has_played)
+            return;
+        _this.has_played = has_pos;
         _this.update_state(player);
     });
     this.update_state(player);
@@ -259,6 +272,7 @@ HolaSkin.prototype.update_state = function(player){
     var play_button = player.controlBar.playToggle.el();
     var big_play_button = player.bigPlayButton.el();
     var replay_classname = 'vjs-play-control-replay';
+    var playing_classname = 'vjs-played';
     if (this.is_ended)
     {
         add_class_name(play_button, replay_classname);
@@ -269,6 +283,10 @@ HolaSkin.prototype.update_state = function(player){
         remove_class_name(play_button, replay_classname);
         remove_class_name(big_play_button, replay_classname);
     }
+    if (this.has_played)
+        add_class_name(player.el_, playing_classname);
+    else
+        remove_class_name(player.el_, playing_classname);
     this.set_play_button_state(document.getElementById('morph_'+player.id()),
         this.is_ended ? 'ended' : player.paused() ? 'paused' : 'playing');
 };

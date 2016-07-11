@@ -14,7 +14,7 @@
         border-style: solid;
         border-width: 0.3em;
         border-color: #fff;
-        background: #00b7f1;
+        background: @active-color;
     }
     // css reset
     .vjs-control-bar {
@@ -258,7 +258,7 @@
             padding: 0.5em;
         }
         .vjs-play-progress {
-            background: #00b7f1;
+            background: @active-color;
         }
         &:hover {
             .vjs-mouse-display {
@@ -295,7 +295,7 @@
         width: 0.16em;
         height: 100%;
         display: block;
-        background: #00b7f1;
+        background: rgba(115, 133, 159, 0.5);
         content: '';
         border-radius: 0.15em 0 0 0.15em;
     }
@@ -312,6 +312,10 @@
             content: '';
             border-radius: 0 0.15em 0.15em 0;
         }
+    }
+    &.vjs-played .vjs-progress-holder:before,
+    &.vjs-ended .vjs-progress-holder:after {
+        background: @active-color;
     }
     .vjs-progress-control:hover {
         .vjs-play-progress,
@@ -388,7 +392,7 @@
             width: 100%;
         }
         .vjs-volume-level {
-            background-color: #00b7f1;
+            background-color: @active-color;
         }
         .vjs-slider-gap-left {
             width: 15px;
