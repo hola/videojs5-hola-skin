@@ -556,14 +556,14 @@
             padding-right: @controls-padding + 1em;
             background-image: url(@fullscreen-enter-glyph);
             background-repeat: no-repeat;
-            background-size: @control-width * 0.6;
+            background-size: @control-width * 0.6 @control-width * 0.6;
             background-position: center center;
             opacity: 0.7;
             transition: opacity 200ms ease, background-size 200ms ease;
         }
         &:hover .vjs-button-icon {
             opacity: 1;
-            background-size: @control-width * 0.7;
+            background-size: @control-width * 0.7 @control-width * 0.7;
         }
         .vjs-tooltip {
             margin-left: -(@progress-gap-size - 0.2em);
@@ -573,11 +573,11 @@
     &.vjs-fullscreen .vjs-fullscreen-control {
         .vjs-button-icon {
             background-image: url(@fullscreen-exit-glyph);
-            background-size: @control-width * 0.7;
+            background-size: @control-width * 0.7 @control-width * 0.7;
         }
         &:hover .vjs-button-icon {
             opacity: 1;
-            background-size: @control-width * 0.6;
+            background-size: @control-width * 0.6 @control-width * 0.6;
         }
     }
     .vjs-time-control.vjs-duration,
