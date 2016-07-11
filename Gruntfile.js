@@ -77,10 +77,10 @@ module.exports = function(grunt) {
   // Load Grunt tasks.
   require('load-grunt-tasks')(grunt);
 
-  // Default task.
   grunt.registerTask('build', ['clean', 'jshint', 'less',
       'concat', 'version', 'uglify']);
   grunt.registerTask('release', ['build', 'shell:github']);
+  // Default task.
   grunt.registerTask('default', ['build']);
 
 };
