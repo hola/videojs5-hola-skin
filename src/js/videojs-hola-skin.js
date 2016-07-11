@@ -164,7 +164,7 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
         // group.
         var render_cnt = 5;
         var render_intv = setInterval(function(){
-            bars[0].setAttribute('transform', 'rotate('+render_cnt+'deg)');
+            bars[0].setAttribute('transform', 'rotate('+render_cnt+')');
             render_cnt--;
             if(render_cnt<0)
                 clearInterval(render_intv);
