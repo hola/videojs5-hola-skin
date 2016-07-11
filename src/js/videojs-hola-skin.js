@@ -272,21 +272,27 @@ HolaSkin.prototype.update_state = function(player){
     var play_button = player.controlBar.playToggle.el();
     var big_play_button = player.bigPlayButton.el();
     var replay_classname = 'vjs-play-control-replay';
-    var playing_classname = 'vjs-played';
+    var started_classname = 'vjs-pos-started';
+    var ended_classname = 'vjs-pos-ended';
     if (this.is_ended)
     {
         add_class_name(play_button, replay_classname);
         add_class_name(big_play_button, replay_classname);
+        add_class_name(player.el_, ended_classname);
     }
     else
     {
         remove_class_name(play_button, replay_classname);
         remove_class_name(big_play_button, replay_classname);
+        remove_class_name(player.el_, ended_classname);
     }
     if (this.has_played)
-        add_class_name(player.el_, playing_classname);
+        add_class_name(player.el_, started_classname);
     else
-        remove_class_name(player.el_, playing_classname);
+    {
+        remove_class_name(player.el_, started_classname);
+        remove_class_name(player.el_, ended_classname);
+    }
     this.set_play_button_state(document.getElementById('morph_'+player.id()),
         this.is_ended ? 'ended' : player.paused() ? 'paused' : 'playing');
 };
