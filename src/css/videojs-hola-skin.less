@@ -63,7 +63,9 @@
             width: @control-width;
             height: 100%;
             margin: 0;
-            padding: 0 @controls-padding;
+            margin-right: @controls-padding;
+            padding: 0;
+            padding-left: @controls-padding;
         }
     }
     .vjs-control:focus .vjs-menu {
@@ -278,28 +280,37 @@
         }
         .vjs-progress-holder {
             margin: 0 @progress-gap-size;
-            &:before {
-                position: absolute;
-                top: 0;
-                left: -0.16em;
-                width: 0.16em;
-                height: 100%;
-                display: block;
-                background: #00b7f1;
-                content: '';
-                border-radius: 0.15em 0 0 0.15em;
-            }
-            &:after {
-                position: absolute;
-                height: 100%;
-                pading-top: 0;
-                top: 0;
-                width: 0.16em;
-                right: -0.16em;
-                background: rgba(115, 133, 159, 0.5);
-                content: '';
-                border-radius: 0 0.15em 0.15em 0;
-            }
+        }
+        &:hover .vjs-progress-holder {
+            // 3/5 goes from video.js/src/components/_progress.scss
+            margin: 0 (@progress-gap-size * 3/5);
+        }
+    }
+    // using :after for volume bar because :before is matched for handler
+    .vjs-progress-holder:before,
+    .vjs-volume-level:after {
+        position: absolute;
+        top: 0;
+        left: -0.16em;
+        width: 0.16em;
+        height: 100%;
+        display: block;
+        background: #00b7f1;
+        content: '';
+        border-radius: 0.15em 0 0 0.15em;
+    }
+    .vjs-progress-holder,
+    .vjs-volume-bar.vjs-slider-horizontal {
+        &:after {
+            position: absolute;
+            height: 100%;
+            pading-top: 0;
+            top: 0;
+            width: 0.16em;
+            right: -0.16em;
+            background: rgba(115, 133, 159, 0.5);
+            content: '';
+            border-radius: 0 0.15em 0.15em 0;
         }
     }
     .vjs-progress-control:hover {
@@ -347,6 +358,8 @@
     }
     .vjs-volume-bar {
         margin: 1.35em 0.45em 1.35em 1em;
+
+
     }
     .vjs-volume-bar.vjs-slider-horizontal {
         height: 0.5em;
@@ -354,6 +367,12 @@
         margin-bottom: 0.8em;
         padding: 0.7em 0;
         background: transparent;
+        &:before,
+        &:after {
+            height: 0.3em;
+            top: 50%;
+            margin-top: -0.15em;
+        }
         &:before {
             content: '';
             background: #73859f;
