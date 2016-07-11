@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = function(grunt) {
+  let pkg = grunt.file.readJSON('package.json');
+  let version = pkg.version;
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     watch: {
@@ -54,14 +57,30 @@ module.exports = function(grunt) {
         }
       }
     },
-    clean: ['dist']
+    clean: ['dist'],
+    shell: {
+      github: {
+        command: [
+          'git checkout -b tag-v'+version,
+          'grunt build',
+          'git add -f dist',
+          'git commit -m "add dist v'+version+'"',
+          'git tag -a v'+version+' -m "v'+version+'"',
+          'git checkout master',
+          'git branch -D tag-v'+version,
+          'git push --tags origin'
+        ].join('&&')
+      }
+    }
   });
 
   // Load Grunt tasks.
   require('load-grunt-tasks')(grunt);
 
   // Default task.
-  grunt.registerTask('default', ['clean', 'jshint', 'less',
+  grunt.registerTask('build', ['clean', 'jshint', 'less',
       'concat', 'version', 'uglify']);
+  grunt.registerTask('release', ['build', 'shell:github']);
+  grunt.registerTask('default', ['build']);
 
 };
