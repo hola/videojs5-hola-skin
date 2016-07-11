@@ -270,6 +270,10 @@
                 border-radius: 0 0.15em 0.15em 0;
             }
         }
+        &:hover .vjs-progress-holder {
+            // 3/5 goes from video.js/src/components/_progress.scss
+            margin: 0 (@progress-gap-size * 3/5);
+        }
     }
     .vjs-progress-control:hover {
         .vjs-play-progress,
