@@ -43,7 +43,7 @@ var HolaSkin = function(video, opt){
     this.el = video.el();
     this.opt = opt;
     this.intv = 0;
-    this.stagger = 3;
+    this.stagger = 5;
     this.steptotal = 5;
     this.classes_added = [];
     this.vjs.on('dispose', function(){ _this.dispose(); });
@@ -123,8 +123,9 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
     var stagger = this.stagger;
     function mk_transition(from, to, steps){
         return (function(){
-            var start = parseFloat(from);
-            var delta = (parseFloat(to)-start)/parseFloat(steps);
+            var start = isNaN(from) ? from : parseFloat(from);
+            var delta = isNaN(from) ? '' : (parseFloat(to)-start)/
+                parseFloat(steps);
             return (function(){ return start += delta; });
         }());
     }
@@ -140,6 +141,8 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
             });
             return (function(){
                 return pathgen.reduce(function(prev, curr){
+                    if (curr.length==1)
+                        return prev+' '+curr[0]();
                     return prev+' '+curr.reduce(function(prv, crr){
                         return prv()+','+crr();
                     });
