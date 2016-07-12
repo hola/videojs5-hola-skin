@@ -207,9 +207,10 @@
         transition-delay: 100ms, 0ms;
     }
     &.vjs-paused.vjs-has-started .vjs-big-play-button {
+        display: block;
         opacity: 1;
         transition: opacity 0ms linear, background-color 400ms ease;
-        transition-delay: 0ms, 100ms;
+        transition-delay: 10ms, 100ms;
         .background-color-with-alpha(@big-play-bg-color, 0);
         &>svg, &:before {
             transition: opacity 400ms ease;
@@ -217,8 +218,9 @@
             opacity: 0;
         }
     }
-    // show the button when movie ends
-    &.vjs-paused.vjs-ended .vjs-big-play-button {
+    // show the button when movie ends and on hover in paused state
+    &.vjs-paused.vjs-ended .vjs-big-play-button,
+    &.vjs-paused:hover .vjs-big-play-button {
         .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
         &>svg, &:before { opacity: 0.8; }
         display: block;
