@@ -457,11 +457,14 @@
             cursor: pointer;
             opacity: 0.7;
             &>svg {
+                @icon-size: 2.8em;
+                @padding: (@control-width - @icon-size) / 2;
                 position: absolute;
                 left: @controls-padding - 0.1em;
                 top: 0;
                 display: block;
-                width: @control-width;
+                width: @icon-size;
+                padding: 0 @padding;
                 height: 100%;
                 fill: #fff;
                 transition: opacity 200ms ease;
