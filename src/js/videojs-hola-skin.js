@@ -96,7 +96,7 @@ var morph_html = [
         '</g>',
     '</svg>'].join('');
 var umorph_html = [
-    '<svg width="100%" height="100%" viewBox="-13 -10 40 40">',
+    '<svg width="100%" height="100%" viewBox="-15 -10 40 40">',
         '<use id="u{morph}" xlink:href="#{morph}" x="0" y="0"/>',
     '</svg>'].join('');
 
