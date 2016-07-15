@@ -10,8 +10,8 @@ To start using Hola Skin with video.js, follow these steps:
 1. Add these includes to your document's `<head>`:
 
   ```html
-  <link href="https://cdn.rawgit.com/hola/videojs5-hola-skin/8bf3d853598f36a4efab212bf25d4f451966091d/dist/css/videojs-hola-skin.css" rel="stylesheet">
-  <script src="https://cdn.rawgit.com/hola/videojs5-hola-skin/8bf3d853598f36a4efab212bf25d4f451966091d/dist/js/videojs-hola-skin.min.js"></script>
+  <link href="https://cdn.rawgit.com/hola/videojs5-hola-skin/7d90ba104a042866779afd742410b211abdea9da/dist/css/videojs-hola-skin.css" rel="stylesheet">
+  <script src="https://cdn.rawgit.com/hola/videojs5-hola-skin/7d90ba104a042866779afd742410b211abdea9da/dist/js/videojs-hola-skin.min.js"></script>
   ```
 
 2. Set `plugins` option for your Video.js setup:
