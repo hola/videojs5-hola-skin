@@ -5,6 +5,8 @@ A custom skin for VideoJS 5 with animated play/pause buttons.
 
 ## Quick start
 
+The links below are for `v0.0.5-23`. Please check if a newer version exist in [Tags](https://github.com/hola/videojs5-hola-skin/tags) section.
+
 To start using Hola Skin with video.js, follow these steps:
 
 1. Add these includes to your document's `<head>`:
