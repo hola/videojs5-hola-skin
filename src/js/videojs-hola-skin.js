@@ -157,7 +157,7 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
         clearInterval(intv);
     if (state=='ended')
     {
-        umorph.setAttribute('transform', 'translate(0, 0)');
+        umorph.setAttribute('transform', 'translate(-2, 0)');
         // XXX michaelg workaround: chrome sometimes won't re-render <use> tag
         // when the xlinked group is updated by css. This forces the update
         // by applying transform to one of the invisible elements of xlinked
