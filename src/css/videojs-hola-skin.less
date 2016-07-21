@@ -412,6 +412,7 @@
         .hola-circle-icon;
         top: -0.41em;
         font-size: 1.2em;
+        z-index: 2;
     }
     .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before {
         content: '';
@@ -444,22 +445,23 @@
         display: block;
     }
     .vjs-volume-menu-button {
+        @icon-size: 2.8em;
+        @width: @control-width + 0.2em;
+        @padding: (@width + (@control-padding * 2) - @icon-size) / 2;
         margin-right: @control-margin;
         cursor: default;
         overflow: visible;
+        width: @width + @padding * 2;
 
         .vjs-menu-content {
             width: 0;
             transition: width 200ms ease;
         }
         &>.vjs-button-icon {
-            @width: @control-width + 0.2em;
             width: @width;
             cursor: pointer;
             opacity: 0.7;
             &>svg {
-                @icon-size: 2.8em;
-                @padding: (@width + (@control-padding * 2) - @icon-size) / 2;
                 position: absolute;
                 left: 0.2em;
                 top: 0;
@@ -547,7 +549,7 @@
     &.vjs-no-flex .vjs-menu-button-inline:focus,
     &.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active,
     &.vjs-fullscreen .vjs-menu-button-inline {
-        width: 11.5em;
+        width: 12em;
     }
 
     .vjs-fullscreen-control {
