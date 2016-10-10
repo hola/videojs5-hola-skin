@@ -29,7 +29,7 @@ module.exports = function(grunt) {
             dest: 'dist/css/videojs-hola-skin.css',
             src: [
               'src/**/*.less',
-              'node_modules/videojs-settings/src/videojs-settings.less'
+              'node_modules/@hola.org/videojs-settings/src/videojs-settings.less'
             ]
           }
         ]
@@ -58,20 +58,6 @@ module.exports = function(grunt) {
       }
     },
     clean: ['dist'],
-    shell: {
-      github: {
-        command: [
-          'git checkout -b tag-v'+version,
-          'grunt build',
-          'git add -f dist',
-          'git commit -m "add dist v'+version+'"',
-          'git tag -a v'+version+' -m "v'+version+'"',
-          'git checkout master',
-          'git branch -D tag-v'+version,
-          'git push --tags origin'
-        ].join('&&')
-      }
-    }
   });
 
   // Load Grunt tasks.
@@ -79,7 +65,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['clean', 'jshint', 'less',
       'concat', 'version', 'uglify']);
-  grunt.registerTask('release', ['build', 'shell:github']);
   // Default task.
   grunt.registerTask('default', ['build']);
 
