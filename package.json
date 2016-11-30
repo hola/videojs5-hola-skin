@@ -2,7 +2,8 @@
   "name": "@hola.org/videojs-hola-skin",
   "version": "0.0.5-32",
   "description": "A custom skin for VideoJS",
-  "main": "videojs-hola-skin.js",
+  "main": "dist/js/videojs-hola-skin.min.js",
+  "style": "dist/css/videojs-hola-skin.css",
   "scripts": {
     "build": "grunt",
     "login": "c=`npm c ls`; test \"${c#*@hola}\" != \"$c\" || npm login --scope @hola.org",
