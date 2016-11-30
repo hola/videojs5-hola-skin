@@ -1,6 +1,6 @@
 {
   "name": "@hola.org/videojs-hola-skin",
-  "version": "0.0.5-32",
+  "version": "0.0.5-33",
   "description": "A custom skin for VideoJS",
   "main": "dist/js/videojs-hola-skin.min.js",
   "style": "dist/css/videojs-hola-skin.css",
