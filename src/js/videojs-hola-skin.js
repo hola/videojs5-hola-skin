@@ -239,7 +239,7 @@ HolaSkin.prototype.init = function(){
         _this.update_state(player);
     })
     .on('pause', function(){ _this.update_state(player); })
-     on('adend', function(){ _this.update_state(player); })
+    .on('adend', function(){ _this.update_state(player); })
     .on('ended', function(){
         _this.is_ended = true;
         _this.update_state(player);
