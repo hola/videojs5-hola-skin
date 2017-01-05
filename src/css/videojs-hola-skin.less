@@ -679,3 +679,8 @@
         }
     }
 }
+// XXX andrey: fix bug with spinner shown over an ad on ios
+// better to fix it in videojs-contrib-ads, if we will fork it
+.vjs-ad-playing .vjs-loading-spinner {
+    display: none !important;
+}
