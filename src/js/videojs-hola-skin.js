@@ -352,6 +352,8 @@ var defaults = {
 // VideoJS plugin register
 
 vjs.plugin('hola_skin', function(options){
+    if (options === false)
+        options = {css: false, className: false};
     var opt = vjs.mergeOptions(defaults, options);
     if (opt.css && (!options.className || options.css))
         add_css(opt.css, opt.ver);
