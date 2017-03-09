@@ -59,6 +59,8 @@ HolaSkin.prototype.apply = function(){
     var c, classes = [this.opt.className];
     if (this.opt.show_controls_before_start)
         classes.push('vjs-show-controls-before-start');
+    if (this.opt.show_time_for_live)
+        classes.push('vjs-show-time-for-live');
     while ((c = classes.shift()))
     {
         if (add_class_name(this.el, c))

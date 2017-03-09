@@ -87,8 +87,34 @@
             margin-top: 0;
         }
     }
-    &.vjs-live .vjs-control-bar>.vjs-control {
-        margin-top: 0;
+    &.vjs-live {
+        .vjs-control-bar:not(.vjs-dvr) {
+            &>.vjs-control,
+            &>.vjs-time-control {
+                margin-top: 0;
+            }
+        }
+	.vjs-control-bar .vjs-time-control {
+	    &.vjs-duration,
+            &.vjs-current-time,
+            &.vjs-time-divider {
+                display: none;
+            }
+        }
+        .vjs-live-display:before {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            margin-right: 0.5em;
+            background: #f51717;
+            content: '';
+            border-radius: 50%;
+        }
+        &.vjs-large .vjs-live-display:before,
+        &.vjs-fullscreen .vjs-live-display:before {
+            width: 11px;
+            height: 11px;
+        }
     }
     .vjs-tooltip {
         top: -3em;
@@ -628,6 +654,13 @@
         display: flex;
         visibility: visible;
         opacity: 1;
+    }
+    &.vjs-show-time-for-live .vjs-control-bar .vjs-time-control {
+        &.vjs-duration,
+        &.vjs-current-time,
+        &.vjs-time-divider {
+            display: inline-block !important;
+	}
     }
 }
 // options-related elements
