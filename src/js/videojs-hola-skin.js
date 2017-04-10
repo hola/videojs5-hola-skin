@@ -88,7 +88,8 @@ var morph_html = [
             '<g id="{morph}">',
                 '<path d="M 0,0 5,0 5,20 0,20 M 9,0 14,0 14,20 9,20 Z"/>',
                 '<path d="M 0,0 0,20 14,10 Z"/>',
-                '<g class="replay">',
+                // css transform doesn't work for svg in IE
+                '<g class="replay" transform="scale(0.45) translate(-20, -14)">',
                     '<g class="arrow">',
                         '<path class="st1" d="M50,50.3c-3.6,3.5-8.5,5.7-14,5.7c-11,0-20-9-20-20s9-20,20-20s20,9,20,20"/>',
                         '<polygon class="st2" points="64,36 48,36 56,46"/>',
@@ -118,6 +119,7 @@ var slider_gaps = '<div class="'+gap_name+'-left"></div><div class="'+gap_name+'
 HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
     if (this.play_state==state)
         return;
+    var first_update = this.play_state===undefined;
     this.play_state = state;
     var intv = this.intv;
     var _this = this;
@@ -185,6 +187,12 @@ HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
     // replay icon to animated pause icon
     if (is_transformed)
         bars[0].setAttribute('d', '');
+    if (first_update)
+    {
+        bars[0].setAttribute('d', state=='paused' ? play1 : pause2);
+        bars[1].setAttribute('d', state=='paused' ? pause1 : play2);
+        return;
+    }
     if (state=='paused')
     {
         var mk_path3 = mk_transform(play2, play1, steptotal);

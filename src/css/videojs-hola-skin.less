@@ -94,8 +94,8 @@
                 margin-top: 0;
             }
         }
-	.vjs-control-bar .vjs-time-control {
-	    &.vjs-duration,
+        .vjs-control-bar .vjs-time-control {
+            &.vjs-duration,
             &.vjs-current-time,
             &.vjs-time-divider {
                 display: none;
@@ -171,41 +171,9 @@
             stroke-width: 0;
             opacity: 0.7;
             transition: opacity 200ms ease;
-            g.replay {
-                opacity: 0;
-                transform: scale(0.45) translate(-20px, -14px);
-                circle, polygon { stroke: none; }
-                circle {
-                    opacity: 0.4;
-                    fill: #000;
-                }
-                g.arrow {
-                    fill: white;
-                    transform-origin: 36px 36px;
-                    transition: transform 500ms ease;
-                    transform: rotate(-400deg);
-                    path {
-                        stroke: white;
-                        fill: none;
-                        stroke-width: 6;
-                        stroke-dasharray: 110 110;
-                        stroke-dashoffset: -100;
-                        transition: stroke-dashoffset 500ms ease;
-                    }
-                }
-            }
         }
         &.vjs-play-control-replay>svg {
             stroke: none;
-            g.replay {
-                opacity: 1;
-                &>g.arrow {
-                    transform: rotate(0deg);
-                    &>path {
-                        stroke-dashoffset: 0;
-                    }
-                }
-            }
         }
         &:hover>svg {
             opacity: 1;
@@ -219,6 +187,40 @@
             margin-left: 0.5em;
         }
         order: 0;
+    }
+    .vjs-play-control, .vjs-big-play-button {
+        &>svg g.replay {
+            opacity: 0;
+            transform: scale(0.45) translate(-20px, -14px);
+            circle, polygon { stroke: none; }
+            circle {
+                opacity: 0.4;
+                fill: #000;
+            }
+            g.arrow {
+                fill: white;
+                transform-origin: 36px 36px;
+                transition: transform 500ms ease;
+                transform: rotate(-400deg);
+                path {
+                    stroke: white;
+                    fill: none;
+                    stroke-width: 6;
+                    stroke-dasharray: 110 110;
+                    stroke-dashoffset: -100;
+                    transition: stroke-dashoffset 500ms ease;
+                }
+            }
+        }
+        &.vjs-play-control-replay>svg g.replay {
+            opacity: 1;
+            &>g.arrow {
+                transform: rotate(0deg);
+                &>path {
+                    stroke-dashoffset: 0;
+                }
+            }
+        }
     }
     // big play button "blink" effect on play/pause after movie has started
     &.vjs-playing, &.vjs-paused {
@@ -660,7 +662,7 @@
         &.vjs-current-time,
         &.vjs-time-divider {
             display: inline-block !important;
-	}
+        }
     }
 }
 // options-related elements
