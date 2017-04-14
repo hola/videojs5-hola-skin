@@ -48,7 +48,6 @@
         }
     }
     .vjs-control {
-        width: auto;
         margin: 0;
         padding: 0;
 
@@ -86,6 +85,9 @@
         &>.vjs-progress-control {
             margin-top: 0;
         }
+	&>.vjs-captions-button {
+            order: 6;
+	}
     }
     &.vjs-live {
         .vjs-control-bar:not(.vjs-dvr) {
@@ -131,18 +133,24 @@
         text-shadow: none;
         clip: auto;
     }
-    .vjs-menu li {
-        text-align: left;
-        padding-left: 0.5em;
-        text-transform: none;
-        &.vjs-menu-label {
+    .vjs-menu {
+        font-family: Arial, Helvetica, sans-serif;
+        &-item {
+            text-align: left;
+            padding-left: 0.5em;
+            text-transform: none;
+            &-link {
+                padding: 0;
+            }
+	    &[role=menuitemcheckbox] {
+                padding: .3em .4em .2em 2em;
+	    }
+	}
+        &-label {
             pointer-events: none;
         }
-        &.vjs-menu-indent {
+        &-indent {
             padding-left: 1.5em;
-        }
-        &.vjs-menu-item-link {
-            padding: 0;
         }
     }
     .vjs-menu-item-link>.vjs-menu-link {
@@ -667,6 +675,11 @@
 }
 // options-related elements
 .vjs5-hola-skin {
+    .vjs-caption-settings {
+        select {
+	    color: #000;
+	}
+    }
     &.vjs-fullscreen {
         overflow: hidden;
         z-index: 1000;
