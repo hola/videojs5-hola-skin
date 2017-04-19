@@ -725,6 +725,15 @@
         .vjs-menu, .vjs-menu-content {
             transition: opacity 200ms;
         }
+        &.vjs-playing .bumpable-ima-ad-container,
+        &.vjs-paused .bumpable-ima-ad-container,
+        &.vjs-playing:hover .bumpable-ima-ad-container,
+        &.vjs-user-active.vjs-playing .bumpable-ima-ad-container {
+            margin-top: -40px * @vjs-large-scale;
+        }
+        &.vjs-user-inactive.vjs-playing .bumpable-ima-ad-container {
+            margin-top: 0px;
+        }
     }
 }
 // XXX andrey: fix bug with spinner shown over an ad on ios
