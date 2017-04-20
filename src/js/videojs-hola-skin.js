@@ -35,6 +35,13 @@ function remove_class_name(element, class_name){
     }
 }
 
+function toggle_class_name(element, class_name, add){
+    if (add)
+        add_class_name(element, class_name);
+    else
+        remove_class_name(element, class_name);
+}
+
 // main skin code
 
 var HolaSkin = function(video, opt){
@@ -69,11 +76,8 @@ HolaSkin.prototype.apply = function(){
 };
 
 HolaSkin.prototype.resize = function(){
-    var vjs_large = 'vjs-large';
-    if (this.el.offsetWidth>=768)
-        add_class_name(this.el, vjs_large);
-    else
-        remove_class_name(this.el, vjs_large);
+    toggle_class_name(this.el, 'vjs-large', this.el.offsetWidth>=768);
+    toggle_class_name(this.el, 'vjs-small', this.el.offsetWidth<=480);
 };
 
 // play/pause curves and transform
@@ -283,27 +287,11 @@ HolaSkin.prototype.update_state = function(player){
     var play_button = player.controlBar.playToggle.el();
     var big_play_button = player.bigPlayButton.el();
     var replay_classname = 'vjs-play-control-replay';
-    var started_classname = 'vjs-pos-started';
-    var ended_classname = 'vjs-pos-ended';
-    if (this.is_ended)
-    {
-        add_class_name(play_button, replay_classname);
-        add_class_name(big_play_button, replay_classname);
-        add_class_name(player.el_, ended_classname);
-    }
-    else
-    {
-        remove_class_name(play_button, replay_classname);
-        remove_class_name(big_play_button, replay_classname);
-        remove_class_name(player.el_, ended_classname);
-    }
-    if (this.has_played)
-        add_class_name(player.el_, started_classname);
-    else
-    {
-        remove_class_name(player.el_, started_classname);
-        remove_class_name(player.el_, ended_classname);
-    }
+    toggle_class_name(play_button, replay_classname, this.is_ended);
+    toggle_class_name(big_play_button, replay_classname, this.is_ended);
+    toggle_class_name(player.el_, 'vjs-pos-ended',
+        this.is_ended && this.has_played);
+    toggle_class_name(player.el_, 'vjs-pos-started', this.has_played);
     this.set_play_button_state(document.getElementById('morph_'+player.id()),
         this.is_ended ? 'ended' : player.paused() ? 'paused' : 'playing');
 };

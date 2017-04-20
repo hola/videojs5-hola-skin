@@ -85,9 +85,9 @@
         &>.vjs-progress-control {
             margin-top: 0;
         }
-	&>.vjs-captions-button {
+        &>.vjs-captions-button {
             order: 6;
-	}
+        }
     }
     &.vjs-live {
         .vjs-control-bar:not(.vjs-dvr) {
@@ -113,7 +113,7 @@
             border-radius: 50%;
         }
         &.vjs-large .vjs-live-display:before,
-        &.vjs-fullscreen .vjs-live-display:before {
+        &.vjs-fullscreen:not(.vjs-small) .vjs-live-display:before {
             width: 11px;
             height: 11px;
         }
@@ -139,10 +139,10 @@
             text-align: left;
             padding-left: 0.5em;
             text-transform: none;
-	    &[role=menuitemcheckbox] {
+            &[role=menuitemcheckbox] {
                 padding: .3em .4em .2em 2em;
-	    }
-	}
+            }
+        }
         &-label {
             pointer-events: none;
         }
@@ -672,13 +672,21 @@
             display: inline-block !important;
         }
     }
+    &.vjs-small {
+       .vjs-time-control.vjs-duration {
+           padding-right: 0;
+       }
+       .vjs-volume-menu-button {
+           margin-right: 0;
+       }
+    }
 }
 // options-related elements
 .vjs5-hola-skin {
     .vjs-caption-settings {
         select {
-	    color: #000;
-	}
+            color: #000;
+        }
     }
     &.vjs-fullscreen {
         overflow: hidden;
@@ -715,7 +723,7 @@
     }
 
     &.vjs-large,
-    &.vjs-fullscreen {
+    &.vjs-fullscreen:not(.vjs-small) {
         .vjs-control-bar {
             font-size: 100% * @vjs-large-scale;
         }
