@@ -341,6 +341,14 @@ FullscreenToggle.prototype.updateHint = function(){
     }
 };
 
+var SeekBar = vjs.getComponent('SeekBar');
+var orig_createEl = SeekBar.prototype.createEl;
+SeekBar.prototype.createEl = function(){
+    var el = orig_createEl.call(this);
+    el.appendChild(vjs.createEl('div', {className: 'vjs-slider-padding'}));
+    return el;
+};
+
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
