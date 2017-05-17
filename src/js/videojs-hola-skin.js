@@ -341,6 +341,27 @@ FullscreenToggle.prototype.updateHint = function(){
     }
 };
 
+var ControlsWatermark = vjs.extend(Button, {
+    constructor: function(player, opt) {
+        Button.apply(this, arguments);
+    },
+    createEl: function(){
+        var opt = this.options_;
+        var el = Button.prototype.createEl.apply(this, arguments);
+        if (!opt.src)
+            return el;
+        var img = document.createElement('img');
+        img.src = opt.src;
+        el.appendChild(img);
+        return el;
+    },
+    buildCSSClass: function() {
+        var super_class = Button.prototype.buildCSSClass.apply(this, arguments);
+        return 'vjs-controls-watermark '+super_class;
+    }
+});
+vjs.registerComponent('ControlsWatermark', ControlsWatermark);
+
 var SeekBar = vjs.getComponent('SeekBar');
 var orig_createEl = SeekBar.prototype.createEl;
 SeekBar.prototype.createEl = function(){

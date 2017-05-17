@@ -86,7 +86,7 @@
             margin-top: 0;
         }
         &>.vjs-captions-button {
-            order: 6;
+            order: 7;
         }
     }
     &.vjs-live {
@@ -617,7 +617,7 @@
         .vjs-tooltip {
             margin-left: -(@progress-gap-size - 0.2em);
         }
-        order: 7;
+        order: 8;
     }
     &.vjs-fullscreen .vjs-fullscreen-control {
         .vjs-button-icon {
@@ -749,6 +749,27 @@
         }
         &.vjs-user-inactive.vjs-playing .bumpable-ima-ad-container {
             margin-top: 0px;
+        }
+    }
+
+    .vjs-controls-watermark,
+    .vjs-controls-watermark:hover,
+    .vjs-controls-watermark:focus {
+        width: auto;
+        padding: 0 1em;
+        background-color: transparent;
+        background-position: center center;
+        background-repeat: no-repeat;
+        cursor: default;
+        order: 6;
+
+        img {
+            display: inline-block;
+            width: auto;
+            max-width: 7em;
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
     }
 }
