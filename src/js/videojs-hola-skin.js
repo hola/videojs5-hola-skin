@@ -76,7 +76,8 @@ HolaSkin.prototype.apply = function(){
 };
 
 HolaSkin.prototype.resize = function(){
-    toggle_class_name(this.el, 'vjs-large', this.el.offsetWidth>=768);
+    if (!this.opt.no_vjs_large)
+        toggle_class_name(this.el, 'vjs-large', this.el.offsetWidth>=768);
     toggle_class_name(this.el, 'vjs-small', this.el.offsetWidth<=480);
 };
 
