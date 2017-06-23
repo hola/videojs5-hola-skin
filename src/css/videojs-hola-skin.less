@@ -47,6 +47,9 @@
             stroke: none;
         }
     }
+    &.vjs-using-native-controls .vjs-big-play-button {
+        display: none;
+    }
     .vjs-control {
         margin: 0;
         padding: 0;
@@ -263,6 +266,10 @@
         .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
         &>svg, &:before { opacity: 0.8; }
         display: block;
+    }
+    &.vjs-using-native-controls .vjs-big-play-button,
+    &.vjs-using-native-controls .vjs-big-play-button.vjs-hidden {
+        display: none !important;
     }
     .vjs-progress-control {
         position: absolute;
