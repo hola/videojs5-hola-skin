@@ -791,3 +791,13 @@
 .vjs-ad-playing .vjs-loading-spinner {
     display: none !important;
 }
+// XXX boyang: when vjs-ad-loading, it should add the class vjs-waiting
+// and loading-spinner will show. But not working loading hola/google ads
+// scripts dynamically
+.vjs-ad-loading .vjs-loading-spinner {
+    display: block !important;
+}
+.vjs-loading-spinner:after, .vjs-loading-spinner:before {
+    -webkit-animation: vjs-spinner-spin 1.1s cubic-bezier(0.6,.2,0,.8) infinite,vjs-spinner-fade 1.1s linear infinite;
+    animation: vjs-spinner-spin 1.1s cubic-bezier(0.6,.2,0,.8) infinite,vjs-spinner-fade 1.1s linear infinite;
+}
