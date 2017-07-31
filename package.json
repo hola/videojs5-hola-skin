@@ -27,7 +27,7 @@
     ".jshintrc"
   ],
   "dependencies": {
-    "@hola.org/videojs-settings": "0.0.3-51"
+    "@hola.org/videojs-settings": "0.0.3-53"
   },
   "devDependencies": {
     "async": "~0.2.9",
