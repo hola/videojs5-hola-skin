@@ -41,7 +41,7 @@
         &>svg {
             fill: #fff;
             stroke: #fff;
-            opacity: 0.8;
+            opacity: 0.9;
         }
         &.vjs-play-control-replay>svg {
             stroke: none;
@@ -186,7 +186,7 @@
             fill: #fff;
             stroke: #fff;
             stroke-width: 0;
-            opacity: 0.7;
+            opacity: 0.9;
             transition: opacity 200ms ease;
         }
         &.vjs-play-control-replay>svg {
@@ -265,7 +265,7 @@
     // show the button when movie ends and on hover in paused state
     &.vjs-paused.vjs-ended .vjs-big-play-button {
         .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
-        &>svg, &:before { opacity: 0.8; }
+        &>svg, &:before { opacity: 0.9; }
         display: block;
     }
     &.vjs-using-native-controls .vjs-big-play-button,
@@ -507,7 +507,7 @@
         &>.vjs-button-icon {
             width: @width;
             cursor: pointer;
-            opacity: 0.7;
+            opacity: 0.9;
             &>svg {
                 position: absolute;
                 left: 0.2em;
@@ -618,7 +618,7 @@
             background-repeat: no-repeat;
             background-size: 1.8em 1.8em;
             background-position: center center;
-            opacity: 0.7;
+            opacity: 0.9;
             transition: opacity 200ms ease, transform 200ms ease;
         }
         &:hover .vjs-button-icon {
@@ -649,7 +649,7 @@
         padding: 0;
         font-size: 1.2em;
         line-height: 2.5em;
-        color: @text-color-minor;
+        color: @text-color-main;
     }
     .vjs-time-control.vjs-current-time {
         order: 2;
