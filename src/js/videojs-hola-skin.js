@@ -49,9 +49,6 @@ var HolaSkin = function(video, opt){
     this.vjs = video;
     this.el = video.el();
     this.opt = opt;
-    this.intv = 0;
-    this.stagger = 5;
-    this.steptotal = 5;
     this.classes_added = [];
     this.vjs.on('dispose', function(){ _this.dispose(); });
     this.vjs.on('ready', function(){ _this.init(); });
@@ -68,7 +65,7 @@ HolaSkin.prototype.apply = function(){
         classes.push('vjs-show-controls-before-start');
     if (this.opt.show_time_for_live)
         classes.push('vjs-show-time-for-live');
-    while ((c = classes.shift()))
+    while (c = classes.shift())
     {
         if (add_class_name(this.el, c))
             this.classes_added.push(c);
@@ -80,33 +77,6 @@ HolaSkin.prototype.resize = function(){
         toggle_class_name(this.el, 'vjs-large', this.el.offsetWidth>=768);
     toggle_class_name(this.el, 'vjs-small', this.el.offsetWidth<=480);
 };
-
-// play/pause curves and transform
-var play1 = 'M 0,0 0,20 14,10 Z';
-var play2 = 'M 0,0 0,20 0,10 Z';
-var pause1 = 'M 0,0 0,0 0,20 0,20 M 0,0 0,0 0,20 0,20 Z';
-var pause2 = 'M 0,0 5,0 5,20 0,20 M 9,0 14,0 14,20 9,20 Z';
-var replay = '';
-var morph_html = [
-    '<svg height="3em" width="3em" viewBox="-13 -10 40 40">',
-        '<g id="move">',
-            '<g id="{morph}">',
-                '<path d="M 0,0 5,0 5,20 0,20 M 9,0 14,0 14,20 9,20 Z"/>',
-                '<path d="M 0,0 0,20 14,10 Z"/>',
-                // css transform doesn't work for svg in IE
-                '<g class="replay" transform="scale(0.45) translate(-20, -14)">',
-                    '<g class="arrow">',
-                        '<path class="st1" d="M50,50.3c-3.6,3.5-8.5,5.7-14,5.7c-11,0-20-9-20-20s9-20,20-20s20,9,20,20"/>',
-                        '<polygon class="st2" points="64,36 48,36 56,46"/>',
-                    '</g>',
-                '</g>',
-            '</g>',
-        '</g>',
-    '</svg>'].join('');
-var umorph_html = [
-    '<svg width="100%" height="100%" viewBox="-15 -10 40 40">',
-        '<use id="u{morph}" xlink:href="#{morph}" x="0" y="0"/>',
-    '</svg>'].join('');
 
 var volume_icon_svg = '<svg height="2.8em" width="2.8em" viewBox="-5 -7 30 30">'
     +'<polygon points="4,5 4,5 0,5 0,11 4,11 4,11 8,16 8,0"/>'
@@ -121,140 +91,18 @@ var volume_icon_svg = '<svg height="2.8em" width="2.8em" viewBox="-5 -7 30 30">'
 var gap_name = 'vjs-slider-gap';
 var slider_gaps = '<div class="'+gap_name+'-left"></div><div class="'+gap_name+'-right"></div>';
 
-HolaSkin.prototype.set_play_button_state = function(btn_svg, state){
-    if (this.play_state==state)
-        return;
-    var first_update = this.play_state===undefined;
-    this.play_state = state;
-    var intv = this.intv;
-    var _this = this;
-    var steptotal = this.steptotal;
-    var stagger = this.stagger;
-    function mk_transition(from, to, steps){
-        return (function(){
-            var start = isNaN(from) ? from : parseFloat(from);
-            var delta = isNaN(from) ? '' : (parseFloat(to)-start)/
-                parseFloat(steps);
-            return (function(){ return start += delta; });
-        }());
-    }
-    function mk_transform(from_path, to_path, steps){
-        var path1pts = from_path.split(' ').slice(1, -1);
-        var path2pts = to_path.split(' ').slice(1, -1);
-        return (function(){
-            var pathgen = path1pts.map(function(coord, index){
-                return coord.split(',').map(function(fld, idx){
-                    return mk_transition(fld,
-                        path2pts[index].split(',')[idx], steps);
-                });
-            });
-            return (function(){
-                return pathgen.reduce(function(prev, curr){
-                    if (curr.length==1)
-                        return prev+' '+curr[0]();
-                    return prev+' '+curr.reduce(function(prv, crr){
-                        return prv()+','+crr();
-                    });
-                }, 'M')+' Z';
-            });
-        }());
-    }
-    var umorph = document.getElementById('umorph_'+this.vjs.id());
-    var bars = btn_svg.getElementsByTagName('path');
-    var stepcnt = 0, stepcnt1 = 0;
-    if (intv)
-        clearInterval(intv);
-    if (state=='ended')
-    {
-        umorph.setAttribute('transform', 'translate(-2, 0)');
-        // XXX michaelg workaround: chrome sometimes won't re-render <use> tag
-        // when the xlinked group is updated by css. This forces the update
-        // by applying transform to one of the invisible elements of xlinked
-        // group.
-        var render_cnt = 5;
-        var render_intv = setInterval(function(){
-            bars[0].setAttribute('transform', 'rotate('+render_cnt+')');
-            render_cnt--;
-            if(render_cnt<0)
-                clearInterval(render_intv);
-        }, 100);
-        // end workaround
-        btn_svg.parentNode.setAttribute('transform', 'translate(0, 0)');
-        bars[0].setAttribute('d', replay);
-        bars[1].setAttribute('display', 'none');
-        return;
-    }
-    bars[1].removeAttribute('display');
-    var is_transformed = btn_svg.parentNode.getAttribute('transform');
-    btn_svg.parentNode.removeAttribute('transform');
-    umorph.removeAttribute('transform');
-    // need to clear the attribute to avoid glitch with transition from
-    // replay icon to animated pause icon
-    if (is_transformed)
-        bars[0].setAttribute('d', '');
-    if (first_update)
-    {
-        bars[0].setAttribute('d', state=='paused' ? play1 : pause2);
-        bars[1].setAttribute('d', state=='paused' ? pause1 : play2);
-        return;
-    }
-    if (state=='paused')
-    {
-        var mk_path3 = mk_transform(play2, play1, steptotal);
-        var mk_path4 = mk_transform(pause2, pause1, steptotal);
-        this.intv = setInterval(function(){
-            if (stepcnt < steptotal)
-                bars[1].setAttribute('d', mk_path4());
-            if (stepcnt >= stagger)
-                bars[0].setAttribute('d', mk_path3());
-            stepcnt++;
-            if (stepcnt >= steptotal+stagger)
-            {
-                clearInterval(_this.intv);
-                _this.intv = 0;
-            }
-        }, 20);
-        return;
-    }
-
-    var mk_path1 = mk_transform(play1, play2, steptotal);
-    var mk_path2 = mk_transform(pause1, pause2, steptotal);
-    this.intv = setInterval(function(){
-        if (stepcnt < steptotal)
-            bars[0].setAttribute('d', mk_path1());
-        if (stepcnt >= stagger)
-            bars[1].setAttribute('d', mk_path2());
-        stepcnt++;
-        if (stepcnt >= steptotal+stagger)
-        {
-            clearInterval(_this.intv);
-            _this.intv = 0;
-        }
-    }, 20);
-};
-
 HolaSkin.prototype.init = function(){
     var _this = this;
     var player = this.vjs;
-    // play button special treatment: both buttons share a single shape
-    // that's how it is morphed simultaneously
-    if (!!this.opt.no_play_transform)
-    {
-        this.steptotal = 1;
-        this.stagger = 0;
-    }
     this.has_played = false;
     var play_button = player.controlBar.playToggle.el();
-    play_button.insertAdjacentHTML('beforeend',
-        morph_html.replace(/{morph}/g, 'morph_'+player.id()));
-    player.bigPlayButton.el().insertAdjacentHTML('beforeend',
-        umorph_html.replace(/{morph}/g, 'morph_'+player.id()));
+    var icon = document.createElement('div');
+    icon.className = 'vjs-button-icon';
+    play_button.appendChild(icon);
     player.on('play', function(){
         _this.is_ended = false;
         _this.update_state(player);
     })
-    .on('pause', function(){ _this.update_state(player); })
-    .on('adend', function(){ _this.update_state(player); })
     .on('ended', function(){
         _this.is_ended = true;
         _this.update_state(player);
@@ -293,8 +141,6 @@ HolaSkin.prototype.update_state = function(player){
     toggle_class_name(player.el_, 'vjs-pos-ended',
         this.is_ended && this.has_played);
     toggle_class_name(player.el_, 'vjs-pos-started', this.has_played);
-    this.set_play_button_state(document.getElementById('morph_'+player.id()),
-        this.is_ended ? 'ended' : player.paused() ? 'paused' : 'playing');
 };
 
 HolaSkin.prototype.dispose = function(){
@@ -309,12 +155,10 @@ var MenuButton = vjs.getComponent('MenuButton');
 var VolumeMenuButton = vjs.getComponent('VolumeMenuButton');
 VolumeMenuButton.prototype.createEl = function(){
     var el = MenuButton.prototype.createEl.call(this);
-
     var icon = this.icon_ = document.createElement('div');
     icon.setAttribute('class', 'vjs-button-icon');
     icon.innerHTML = volume_icon_svg;
     el.insertBefore(icon, el.firstChild);
-
     return el;
 };
 
@@ -327,23 +171,18 @@ var FullscreenToggle = vjs.getComponent('FullscreenToggle');
 FullscreenToggle.prototype.controlText_ = 'Full screen';
 FullscreenToggle.prototype.createEl = function(){
     var el = Button.prototype.createEl.call(this);
-
     var icon = this.icon_ = document.createElement('div');
     icon.setAttribute('class', 'vjs-button-icon');
     el.insertBefore(icon, el.firstChild);
-
     return el;
 };
 FullscreenToggle.prototype.updateHint = function(){
-    if (this.player_.isFullscreen()) {
-        this.controlText('Exit full screen');
-    } else {
-        this.controlText('Full screen');
-    }
+    this.controlText(this.player_.isFullscreen() ? 'Exit full screen' :
+        'Full screen');
 };
 
 var ControlsWatermark = vjs.extend(Button, {
-    constructor: function(player, opt) {
+    constructor: function(player, opt){
         Button.apply(this, arguments);
     },
     createEl: function(){
@@ -356,9 +195,9 @@ var ControlsWatermark = vjs.extend(Button, {
         el.appendChild(img);
         return el;
     },
-    buildCSSClass: function() {
-        var super_class = Button.prototype.buildCSSClass.apply(this, arguments);
-        return 'vjs-controls-watermark '+super_class;
+    buildCSSClass: function(){
+        return 'vjs-controls-watermark '+
+            Button.prototype.buildCSSClass.apply(this, arguments);
     }
 });
 vjs.registerComponent('ControlsWatermark', ControlsWatermark);

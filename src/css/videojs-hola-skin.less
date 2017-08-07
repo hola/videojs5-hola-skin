@@ -35,17 +35,15 @@
         margin-left: -1.5em;
         margin-top: -1.5em;
         .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
-        &:before {
-            content: '';
-        }
-        &>svg {
-            fill: #fff;
-            stroke: #fff;
-            opacity: 0.9;
-        }
-        &.vjs-play-control-replay>svg {
-            stroke: none;
-        }
+    }
+    & .vjs-big-play-button:before {
+        font-size: 2.5em;
+    }
+    & .vjs-big-play-button:before {
+        opacity: 0.9;
+    }
+    &:hover .vjs-big-play-button:before {
+        opacity: 1
     }
     &.vjs-waiting .vjs-big-play-button,
     &.vjs-seeking .vjs-big-play-button,
@@ -56,13 +54,10 @@
     .vjs-control {
         margin: 0;
         padding: 0;
-
         text-align: left;
-
         &>svg,
         &>.vjs-button-icon {
             position: relative;
-
             box-sizing: content-box;
             display: inline-block;
             width: @control-width;
@@ -177,24 +172,7 @@
     .vjs-play-control {
         cursor: pointer;
         margin-left: @control-margin - 0.1em;
-        &>svg {
-            @width: 3em;
-            @padding: (@control-width + (@control-padding * 2) - @width) / 2;
-            padding: 0 @padding;
-            left: 0;
-            top: 0;
-            fill: #fff;
-            stroke: #fff;
-            stroke-width: 0;
-            opacity: 0.9;
-            transition: opacity 200ms ease;
-        }
-        &.vjs-play-control-replay>svg {
-            stroke: none;
-        }
-        &:hover>svg {
-            opacity: 1;
-        }
+        order: 0;
         &.vjs-playing:before,
         &.vjs-paused:before,
         &:before {
@@ -203,70 +181,78 @@
         &.vjs-playing .vjs-tooltip {
             margin-left: 0.5em;
         }
-        order: 0;
-    }
-    .vjs-play-control, .vjs-big-play-button {
-        &>svg g.replay {
-            opacity: 0;
-            transform: scale(0.45) translate(-20px, -14px);
-            circle, polygon { stroke: none; }
-            circle {
-                opacity: 0.4;
-                fill: #000;
+        &:not(.vjs-play-control-replay) {
+            >.vjs-button-icon {
+                box-sizing: content-box;
+                position: absolute;
+                width: 1.2em;
+                height: 1.6em;
+                padding: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                &:before,
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    width: 0;
+                    transform: translateY(-50%);
+                    border-top: 0.4em solid transparent;
+                    border-bottom: 0.4em solid transparent;
+                    border-left: 0.6em solid #fff;
+                    transition: border 0.2s linear, height 0.2s linear;
+                }
+                &:before {
+                    left: 0;
+                    height: 0.8em;
+                }
+                 &:after {
+                    right: 0;
+                    height: 0;
+                }
             }
-            g.arrow {
-                fill: white;
-                transform-origin: 36px 36px;
-                transition: transform 500ms ease;
-                transform: rotate(-400deg);
-                path {
-                    stroke: white;
-                    fill: none;
-                    stroke-width: 6;
-                    stroke-dasharray: 110 110;
-                    stroke-dashoffset: -100;
-                    transition: stroke-dashoffset 500ms ease;
+            &.vjs-playing>.vjs-button-icon {
+                &:before,
+                &:after {
+                    border-top-width: 0;
+                    border-bottom-width: 0;
+                    border-left-width: 0.4em;
+                    height: 100%;
                 }
             }
         }
-        &.vjs-play-control-replay>svg g.replay {
+        &.vjs-play-control-replay>.vjs-button-icon {
+            background-image: url(@replay-glyph);
+            background-repeat: no-repeat;
+            background-size: 3em;
+            background-position: center center;
+        }
+        &>.vjs-button-icon {
+            opacity: 0.9;
+        }
+        &:hover>.vjs-button-icon {
             opacity: 1;
-            &>g.arrow {
-                transform: rotate(0deg);
-                &>path {
-                    stroke-dashoffset: 0;
-                }
-            }
-        }
-    }
-    // big play button "blink" effect on play/pause after movie has started
-    &.vjs-playing, &.vjs-paused {
-        .vjs-big-play-button.vjs-hidden {
-            display: block !important;
-            pointer-events: none;
-        }
-    }
-    &.vjs-playing .vjs-big-play-button {
-        opacity: 0;
-        transition: opacity 400ms ease, background-color 0ms;
-        transition-delay: 100ms, 0ms;
-    }
-    &.vjs-paused.vjs-has-started .vjs-big-play-button {
-        opacity: 1;
-        transition: opacity 0ms linear, background-color 400ms ease;
-        transition-delay: 10ms, 100ms;
-        .background-color-with-alpha(@big-play-bg-color, 0);
-        &>svg, &:before {
-            transition: opacity 400ms ease;
-            transition-delay: 100ms;
-            opacity: 0;
         }
     }
     // show the button when movie ends and on hover in paused state
-    &.vjs-paused.vjs-ended .vjs-big-play-button {
+    &.vjs-paused .vjs-big-play-button {
         .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
-        &>svg, &:before { opacity: 0.9; }
+        &:before {
+            content: '';
+            background-image: url(@play-glyph);
+            background-repeat: no-repeat;
+            background-size: 1.2em;
+            background-position: center center;
+        }
+    }
+    &.vjs-paused.vjs-ended .vjs-big-play-button {
         display: block;
+        &:before {
+            background-image: url(@replay-glyph);
+        }
     }
     &.vjs-using-native-controls .vjs-big-play-button,
     &.vjs-using-native-controls .vjs-big-play-button.vjs-hidden {
