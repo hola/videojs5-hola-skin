@@ -696,6 +696,49 @@
             top: -1.3em;
         }
     }
+    .vjs-play-animation {
+        display: none;
+        border-radius: 50%;
+        border: 0 solid transparent;
+        font-size: 2em;
+        position: absolute;
+        height: 3em;
+        width: 3em;
+        line-height: 3em;
+        left: 50%;
+        top: 50%;
+        margin-left: -1.5em;
+        margin-top: -1.5em;
+        .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
+        animation: vjs-play-animation .5s linear 1 normal forwards;
+        &:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 2em;
+            content: '';
+            background-repeat: no-repeat;
+            background-size: 1.2em;
+            background-position: center center;
+        }
+    }
+    &.vjs-paused .vjs-play-animation:before {
+        background-image: url(@pause-glyph);
+    }
+    &.vjs-playing .vjs-play-animation:before {
+        background-image: url(@play-glyph);
+    }
+    @keyframes vjs-play-animation {
+        0% {
+            opacity: 1
+        }
+        to {
+            opacity: 0;
+            transform: scale(2)
+        }
+    }
 }
 // options-related elements
 .vjs5-hola-skin {

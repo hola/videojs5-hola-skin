@@ -130,6 +130,7 @@ HolaSkin.prototype.init = function(){
     volume_slider.insertAdjacentHTML('beforeend', slider_gaps);
     var progress_holder = player.controlBar.progressControl.seekBar.el();
     progress_holder.insertAdjacentHTML('beforeend', slider_gaps);
+    player.addChild('PlayAnimation');
 };
 
 HolaSkin.prototype.update_state = function(player){
@@ -209,6 +210,27 @@ SeekBar.prototype.createEl = function(){
     el.appendChild(vjs.createEl('div', {className: 'vjs-slider-padding'}));
     return el;
 };
+
+var Component = vjs.getComponent('Component');
+var PlayAnimation = vjs.extend(Component, {
+    constructor: function(player, opt){
+        Component.apply(this, arguments);
+        var _this = this, timeout;
+        player.on(['videoclick'], function(){
+            _this.el_.style.display = 'block';
+            _this.clearTimeout(timeout);
+            timeout = _this.setTimeout(function(){
+                _this.el_.style.display = '';
+            }, 500);
+        });
+    },
+    createEl: function(){
+        var el = Component.prototype.createEl.apply(this, arguments);
+        el.className = 'vjs-play-animation';
+        return el;
+    },
+});
+vjs.registerComponent('PlayAnimation', PlayAnimation);
 
 var defaults = {
     className: 'vjs5-hola-skin',
