@@ -232,6 +232,17 @@ var PlayAnimation = vjs.extend(Component, {
 });
 vjs.registerComponent('PlayAnimation', PlayAnimation);
 
+var LoadingSpinner = vjs.getComponent('LoadingSpinner');
+var spinner_createEl = LoadingSpinner.prototype.createEl;
+LoadingSpinner.prototype.createEl = function(){
+    var el = spinner_createEl.call(this);
+    var rotator = vjs.createEl('div', {className: 'vjs-spinner-rotator'});
+    rotator.appendChild(vjs.createEl('div', {className: 'vjs-spinner-left'}));
+    rotator.appendChild(vjs.createEl('div', {className: 'vjs-spinner-right'}));
+    el.appendChild(rotator);
+    return el;
+};
+
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
