@@ -52,10 +52,11 @@ var HolaSkin = function(video, opt){
     this.classes_added = [];
     this.vjs.on('dispose', function(){ _this.dispose(); });
     this.vjs.on('ready', function(){ _this.init(); });
-    this._resize = this.resize.bind(this);
-    this.vjs.on('resize', this._resize);
-    this.vjs.on('fullscreenchange', this._resize);
-    window.addEventListener('resize', this._resize);
+    var resize = this._resize = this.resize.bind(this);
+    this.vjs.on('resize', resize);
+    this.vjs.on('fullscreenchange', function(){
+        setTimeout(resize); });
+    window.addEventListener('resize', resize);
     this.apply();
     this.resize();
 };
