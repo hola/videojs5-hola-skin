@@ -54,6 +54,7 @@ var HolaSkin = function(video, opt){
     this.vjs.on('ready', function(){ _this.init(); });
     this._resize = this.resize.bind(this);
     this.vjs.on('resize', this._resize);
+    this.vjs.on('fullscreenchange', this._resize);
     window.addEventListener('resize', this._resize);
     this.apply();
     this.resize();
