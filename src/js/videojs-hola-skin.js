@@ -126,11 +126,23 @@ HolaSkin.prototype.init = function(){
         _this.update_state(player);
     });
     this.update_state(player);
-    var volume_slider = player.controlBar.volumeMenuButton.volumeBar.el();
-    volume_slider.insertAdjacentHTML('beforeend', slider_gaps);
-    var progress_holder = player.controlBar.progressControl.seekBar.el();
+    var control_bar = player.controlBar;
+    var progress_holder = control_bar.progressControl.seekBar.el();
     progress_holder.insertAdjacentHTML('beforeend', slider_gaps);
     player.addChild('PlayAnimation');
+    var volume_btn = control_bar.volumeMenuButton;
+    var volume_slider = volume_btn.volumeBar.el();
+    volume_slider.insertAdjacentHTML('beforeend', slider_gaps);
+    volume_btn.on('mouseenter', function(){
+        volume_btn.addClass('vjs-show-volume-button'); });
+    control_bar.on('mouseleave', function(){
+        volume_btn.removeClass('vjs-show-volume-button'); });
+    var spacer_el = control_bar.customControlSpacer.el();
+    control_bar.on('mousemove', function(e){
+        var r = spacer_el.getBoundingClientRect();
+        if (e.clientX>r.left || e.clientY<r.top)
+            volume_btn.removeClass('vjs-show-volume-button');
+    });
 };
 
 HolaSkin.prototype.update_state = function(player){
