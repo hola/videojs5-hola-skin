@@ -1,6 +1,6 @@
 (function(window, vjs){
 'use strict';
-var volume_icon_svg = '<svg height="2.8em" width="2.8em" viewBox="-5 -7 30 30">'
+var volume_icon_svg = '<svg height="100%" width="100%" viewBox="-10 -10 36 36">'
     +'<polygon points="4,5 4,5 0,5 0,11 4,11 4,11 8,16 8,0"/>'
     +'<polygon class="volume-level-0" points="11.5,4 10,5.5 12.5,8 10,10.5 11.5,12 14,9.5 16.5,12 18,10.5 15.5,8 18,5.5 16.5,4 14,6.5"/>'
     +'<g>'

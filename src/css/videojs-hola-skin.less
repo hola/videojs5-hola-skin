@@ -184,6 +184,7 @@
     .vjs-play-control {
         cursor: pointer;
         margin-left: @control-margin;
+        width: 4.4em;
         order: 0;
         &.vjs-playing:before,
         &.vjs-paused:before,
@@ -415,7 +416,7 @@
             left: 0;
             top: 50%;
             margin-top: -0.15em;
-            height: 0.4em;
+            height: 0.3em;
             width: 100%;
         }
         .vjs-volume-level {
@@ -433,7 +434,7 @@
     .vjs-volume-bar.vjs-slider-horizontal .vjs-volume-level:before {
         .hola-circle-icon;
         background-color: #fff;
-        top: -100%;
+        top: -0.4em;
         font-size: 1.2em;
         z-index: 2;
     }
@@ -448,9 +449,7 @@
         display: none;
     }
     .vjs-volume-menu-button {
-        @icon-size: 2.8em;
         @width: @control-width;
-        @padding: (@width + (@control-padding * 2) - @icon-size) / 2;
         margin-right: @control-margin;
         cursor: default;
         overflow: visible;
@@ -468,8 +467,8 @@
                 left: 0.2em;
                 top: 0;
                 display: block;
-                width: @icon-size;
-                padding: 0 @padding;
+                width: @width;
+                padding: 0;
                 height: 100%;
                 fill: #fff;
                 transition: opacity 200ms ease;
