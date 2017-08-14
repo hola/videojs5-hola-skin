@@ -205,6 +205,8 @@ vjs.registerComponent('PlayAnimation', vjs.extend(Component, {
         Component.apply(this, arguments);
         var _this = this, timeout;
         player.on(['videoclick'], function(){
+            if (!player.hasStarted())
+                return;
             _this.el_.style.display = 'block';
             _this.clearTimeout(timeout);
             timeout = _this.setTimeout(function(){
