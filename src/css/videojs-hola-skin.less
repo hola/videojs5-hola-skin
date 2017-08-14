@@ -528,7 +528,6 @@
     }
 
     .vjs-menu-button-inline:hover,
-    .vjs-menu-button-inline:focus,
     .vjs-menu-button-inline.vjs-slider-active,
     .vjs-menu-button-inline.vjs-show-volume-button {
         .vjs-menu {
@@ -536,9 +535,14 @@
             opacity: 1;
         }
     }
+    .vjs-volume-menu-button:focus:not(.vjs-show-volume-button) {
+        width: @control-width;
+        .vjs-menu {
+            display: none;
+        }
+    }
 
     .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover,
-    .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:focus,
     .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-slider-active,
     .vjs-volume-menu-button.vjs-volume-menu-button-horizontal.vjs-show-volume-button,
     .vjs-volume-menu-button.vjs-volume-menu-button-horizontal .vjs-lock-showing {
@@ -549,11 +553,9 @@
     }
 
     .vjs-menu-button-inline:hover,
-    .vjs-menu-button-inline:focus,
     .vjs-menu-button-inline.vjs-slider-active,
     .vjs-menu-button-inline.vjs-show-volume-button,
     &.vjs-no-flex .vjs-menu-button-inline:hover,
-    &.vjs-no-flex .vjs-menu-button-inline:focus,
     &.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active {
         width: 10em;
     }
