@@ -1,14 +1,22 @@
 (function(window, vjs){
 'use strict';
-var volume_icon_svg = '<svg height="100%" width="100%" viewBox="-10 -10 36 36">'
-    +'<polygon points="4,5 4,5 0,5 0,11 4,11 4,11 8,16 8,0"/>'
-    +'<polygon class="volume-level-0" points="11.5,4 10,5.5 12.5,8 10,10.5 11.5,12 14,9.5 16.5,12 18,10.5 15.5,8 18,5.5 16.5,4 14,6.5"/>'
-    +'<g>'
-    +'<path class="volume-level-1" d="M10,4.6v6.9c1.2-0.7,2-2,2-3.4S11.2,5.2,10,4.6z"/>'
-    +'<path class="volume-level-2" d="M16,8c0-2.2-0.9-4.2-2.3-5.6L12,3.6c1.2,1.1,2,2.7,2,4.4c0,1.8-0.8,3.3-2,4.4l1.7,1.2C15.1,12.2,16,10.2,16,8z"/>'
-    +'<path class="volume-level-3" d="M16.9,0l-1.6,1.2C17,3,18,5.4,18,8c0,2.6-1,5-2.7,6.8l1.6,1.2c1.9-2.1,3.1-4.9,3.1-8C20,4.9,18.8,2.1,16.9,0z"/>'
-    +'</g>'
-+'</svg>';
+var volume_icon_svg = '<svg height="100%" width="100%" viewBox="0 0 36 36">'
+    +'<defs><clipPath id="{vjs-volume-mask1}">'
+    +'<path d="m 14.35,-0.14 -5.86,5.86 20.73,20.78 5.86,-5.91 z"></path>'
+    +'<path d="M 7.07,6.87 -1.11,15.33 19.61,36.11 27.80,27.60 z"></path>'
+    +'<path class="vjs-volume-mask" d="M 9.09,5.20 6.47,7.88 26.82,28.77 '
+    +'29.66,25.99 z"></path></clipPath><clipPath id="{vjs-volume-mask2}">'
+    +'<path class="vjs-volume-mask" d="m -11.45,-15.55 -4.44,4.51 20.45,20.94 '
+    +'4.55,-4.66 z"></path></clipPath></defs>'
+    +'<g clip-path="url(#{vjs-volume-mask1})"><path d="M8,21 L12,21 L17,26 '
+    +'L17,10 L12,15 L8,15 L8,21 Z M19,14 L19,22 C20.48,21.32 21.5,19.77 '
+    +'21.5,18 C21.5,16.26 20.48,14.74 19,14 Z"></path>'
+    +'<path class="volume-level-2" d="M19,11.29 C21.89,12.15 24,'
+    +'14.83 24,18 C24,21.17 21.89,23.85 19,24.71 L19,26.77 C23.01,25.86 '
+    +'26,22.28 26,18 C26,13.72 23.01,10.14 19,9.23 L19,11.29 Z"></path></g>'
+    +'<path clip-path="url(#{vjs-volume-mask2})" d="M 9.25,9 7.98,10.27 '
+    +'24.71,27 l 1.27,-1.27 Z"></path>'
+    +'</svg>';
 var fullscreen_svg = '<svg height="100%" width="100%" viewBox="0 0 36 36">'
     +'<g><path d="m 10,16 2,0 0,-4 4,0 0,-2 L 10,10 l 0,6 0,0 z"/></g>'
     +'<g><path d="m 20,10 0,2 4,0 0,4 2,0 L 26,10 l -6,0 0,0 z"/></g>'
@@ -136,13 +144,47 @@ var MenuButton = vjs.getComponent('MenuButton');
 var VolumeMenuButton = vjs.getComponent('VolumeMenuButton');
 VolumeMenuButton.prototype.createEl = function(){
     var el = MenuButton.prototype.createEl.call(this);
+    var id = this.player_.id();
+    var svg = volume_icon_svg
+        .replace(/{vjs-volume-mask1}/g, 'vjs-volume-mask1_'+id)
+        .replace(/{vjs-volume-mask2}/g, 'vjs-volume-mask2_'+id);
     var icon = this.icon_ = vjs.createEl('div',
-        {className: 'vjs-button-icon', innerHTML: volume_icon_svg});
+        {className: 'vjs-button-icon', innerHTML: svg});
     el.insertBefore(icon, el.firstChild);
     return el;
 };
 VolumeMenuButton.prototype.tooltipHandler = function(){
     return this.icon_;
+};
+
+var MuteToggle = vjs.getComponent('MuteToggle');
+MuteToggle.prototype.update =
+VolumeMenuButton.prototype.volumeUpdate = function(){
+    var i, el = this.el_;
+    var vol = !this.player_.muted() && this.player_.volume();
+    var level = !vol ? 0 : vol<0.5 ? 1 : 2;
+    var text = this.player_.muted() ? 'Unmute' : 'Mute';
+    if (this.controlText() != text)
+        this.controlText(text);
+    for (i = 0; i < 2; i++)
+        vjs.toggleClass(el, 'vjs-vol-'+i, i==level);
+    var start = window.performance && window.performance.now();
+    var masks = el.querySelectorAll('.vjs-volume-mask');
+    var from = vol ? 20 : 0, to = vol ? 0 : 20;
+    var curr = masks[0].getAttribute('transform');
+    var m = curr && curr.match(/translate\((\d*)/);
+    if (m && m[1]==to)
+        return;
+    var animate = function(time){
+        var v = from + (to-from) * Math.min((time-start)/250, 1);
+        for (i = 0; i < masks.length; i++)
+            masks[i].setAttribute('transform', 'translate('+v+','+v+')');
+        if (v!=to)
+            window.requestAnimationFrame(animate);
+    };
+    if (!start || !window.requestAnimationFrame)
+        return void animate();
+    window.requestAnimationFrame(animate);
 };
 
 var Button = vjs.getComponent('Button');

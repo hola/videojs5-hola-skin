@@ -490,36 +490,18 @@
             background-position: center;
             transition: opacity 200ms ease;
             path {
-                opacity: 0;
                 transition: opacity 400ms ease;
             }
-            .volume-level-0 {
-                opacity: 0;
-                transform: rotate(-45deg);
-                transform-origin: 15px 8px;
-                transition: opacity 400ms ease, transform 400ms ease;
-            }
-        }
-
-        &.vjs-vol-0>.vjs-button-icon {
-            .volume-level-0 {
-                opacity: 1;
-                transform: rotate(0);
+            path.vjs-volume-mask {
+                transition: transform 400ms ease;
             }
         }
         &.vjs-vol-1>.vjs-button-icon {
-            .volume-level-1 { opacity: 1; }
+            .volume-level-2 { opacity: 0; }
         }
         &.vjs-vol-2>.vjs-button-icon {
-            .volume-level-1 { opacity: 1; }
             .volume-level-2 { opacity: 1; }
         }
-        &.vjs-vol-3>.vjs-button-icon {
-            .volume-level-1 { opacity: 1; }
-            .volume-level-2 { opacity: 1; }
-            .volume-level-3 { opacity: 1; }
-        }
-
         order: 1;
     }
 
