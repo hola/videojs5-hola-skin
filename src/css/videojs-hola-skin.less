@@ -208,7 +208,8 @@
         &.vjs-playing .vjs-tooltip {
             margin-left: 0.5em;
         }
-        &:not(.vjs-play-control-replay) {
+        &:not(.vjs-play-control-replay),
+        &.vjs-play-control-ad {
             >.vjs-button-icon {
                 box-sizing: content-box;
                 position: absolute;
@@ -251,7 +252,7 @@
                 }
             }
         }
-        &.vjs-play-control-replay>.vjs-button-icon {
+        &.vjs-play-control-replay:not(.vjs-play-control-ad)>.vjs-button-icon {
             background-image: url(@replay-glyph);
             background-repeat: no-repeat;
             background-size: 3em;
