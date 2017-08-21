@@ -26,9 +26,6 @@
     "Gruntfile.js",
     ".jshintrc"
   ],
-  "dependencies": {
-    "@hola.org/videojs-settings": "0.0.3-53"
-  },
   "devDependencies": {
     "async": "~0.2.9",
     "grunt": "~0.4.1",

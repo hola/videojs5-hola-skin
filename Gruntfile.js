@@ -27,10 +27,7 @@ module.exports = function(grunt) {
           {
             nonull: true,
             dest: 'dist/css/videojs-hola-skin.css',
-            src: [
-              'src/**/*.less',
-              'node_modules/@hola.org/videojs-settings/src/videojs-settings.less'
-            ]
+            src: ['src/**/*.less']
           }
         ]
       }
