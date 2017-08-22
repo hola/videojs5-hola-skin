@@ -19,7 +19,9 @@
     // css reset
     .vjs-control-bar {
         color: @text-color-main;
-        z-index: 2;
+        &>:not(.vjs-gradient) {
+            z-index: 2;
+        }
     }
     // big play button
     & .vjs-big-play-button,
@@ -75,7 +77,6 @@
         &>.vjs-gradient {
             position: absolute;
             pointer-events: none;
-            z-index: -1;
             height: 10em;
             left: 0;
             right: 0;
@@ -927,6 +928,11 @@
             margin: 0;
             padding: 0;
         }
+    }
+
+    .vjs-text-track-display {
+        bottom: @control-width;
+        z-index: 1;
     }
 }
 // XXX andrey: fix bug with spinner shown over an ad on ios
