@@ -213,10 +213,14 @@ vjs.registerComponent('ControlsWatermark', vjs.extend(Button, {
     },
     createEl: function(){
         var opt = this.options_;
-        var el = Button.prototype.createEl.apply(this, arguments);
-        if (!opt.src)
+        var el = vjs.createEl('div', {className: 'vjs-controls-watermark'});
+        if (!opt.image)
             return el;
-        el.appendChild(vjs.createEl('img', {src: opt.src}));
+        var container = opt.url ? vjs.createEl('a', {href: opt.url,
+            target: '_blank'}) : el;
+        if (opt.url)
+            el.insertBefore(container, el.firstChild);
+        container.appendChild(vjs.createEl('img', {src: opt.image}));
         return el;
     },
     buildCSSClass: function(){
