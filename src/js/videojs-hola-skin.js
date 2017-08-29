@@ -132,6 +132,8 @@ HolaSkin.prototype.update_state = function(player){
     player.bigPlayButton.toggleClass(replay_classname, this.is_ended);
     player.toggleClass('vjs-pos-ended', this.is_ended && this.has_played);
     player.toggleClass('vjs-pos-started', this.has_played);
+    if (this.is_ended)
+        player.controlBar.playToggle.controlText('Replay');
 };
 
 HolaSkin.prototype.dispose = function(){
