@@ -292,6 +292,7 @@ vjs.plugin('hola_skin', function(options){
     var opt = vjs.mergeOptions(defaults, options);
     if (opt.css && (!options.className || options.css))
         add_css(opt.css, opt.ver);
+    add_css('//fonts.googleapis.com/css?family=Roboto:400,500');
     new HolaSkin(this, opt);
 });
 
