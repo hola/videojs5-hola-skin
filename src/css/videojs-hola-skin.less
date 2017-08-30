@@ -1,10 +1,9 @@
 @import url('variables.less');
 @import url('utils.less');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 
 .vjs5-hola-skin {
-    &, & *:not(.ima-controls-div *) {
-        font-family: @font-family;
-    }
+    font-family: @font-family;
     .hola-circle-icon {
         display: block;
         width: 1em;
@@ -162,11 +161,11 @@
         .background-color-with-alpha(@control-bg-color, 0.8);
         color: @text-color-main;
         font-size: 1.2em;
+        font-family: @font-family;
         text-shadow: none;
         clip: auto;
     }
     .vjs-menu {
-        font-family: Arial, Helvetica, sans-serif;
         &-item {
             text-align: left;
             padding-left: 0.5em;
@@ -181,13 +180,9 @@
         &-indent {
             padding-left: 1.5em;
         }
-        li.vjs-menu-item-link {
-            padding: 0;
-        }
     }
     .vjs-menu-item-link>.vjs-menu-link {
         display: block;
-        padding: 0.2em 0 0.2em 0.5em;
         color: inherit;
         text-decoration: inherit;
         text-transform: inherit;
