@@ -21,3 +21,22 @@
      -moz-box-shadow: @string;
           box-shadow: @string;
 }
+
+.scrim-gradient (@direction) {
+    background: linear-gradient(
+        @direction,
+        rgba(0, 0, 0, 0.666) 0%,
+        rgba(0, 0, 0, 0.492) 19%,
+        rgba(0, 0, 0, 0.360) 34%,
+        rgba(0, 0, 0, 0.254) 47%,
+        rgba(0, 0, 0, 0.185) 56.5%,
+        rgba(0, 0, 0, 0.129) 65%,
+        rgba(0, 0, 0, 0.084) 73%,
+        rgba(0, 0, 0, 0.050) 80.2%,
+        rgba(0, 0, 0, 0.028) 86.1%,
+        rgba(0, 0, 0, 0.014) 91%,
+        rgba(0, 0, 0, 0.005) 95.2%,
+        rgba(0, 0, 0, 0.001) 98.2%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}

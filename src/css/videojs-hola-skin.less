@@ -84,30 +84,6 @@
     .vjs-control-bar {
         height: @control-width;
         background: none;
-        &>.vjs-gradient {
-            position: absolute;
-            pointer-events: none;
-            height: 10em;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                to top,
-                rgba(0, 0, 0, 0.666) 0%,
-                rgba(0, 0, 0, 0.492) 19%,
-                rgba(0, 0, 0, 0.360) 34%,
-                rgba(0, 0, 0, 0.254) 47%,
-                rgba(0, 0, 0, 0.185) 56.5%,
-                rgba(0, 0, 0, 0.129) 65%,
-                rgba(0, 0, 0, 0.084) 73%,
-                rgba(0, 0, 0, 0.050) 80.2%,
-                rgba(0, 0, 0, 0.028) 86.1%,
-                rgba(0, 0, 0, 0.014) 91%,
-                rgba(0, 0, 0, 0.005) 95.2%,
-                rgba(0, 0, 0, 0.001) 98.2%,
-                rgba(0, 0, 0, 0) 100%
-            );
-        }
         // spacer to keep fullscreen button on right
         &>.vjs-spacer {
             display: block;
@@ -884,7 +860,7 @@
 
     &.vjs-large,
     &.vjs-fullscreen:not(.vjs-small) {
-        .vjs-control-bar, .vjs-loading-spinner {
+        .vjs-control-bar, .vjs-loading-spinner, .vjs-title, .vjs-top-gradient {
             font-size: 100% * @vjs-large-scale;
         }
         .vjs-loading-spinner {
@@ -925,6 +901,41 @@
     .vjs-text-track-display {
         bottom: @control-width;
         z-index: 1;
+    }
+    .vjs-gradient {
+        position: absolute;
+        pointer-events: none;
+        height: 10em;
+        left: 0;
+        right: 0;
+        &.vjs-top-gradient {
+            top: 0;
+            .scrim-gradient(to bottom);
+        }
+        &.vjs-bottom-gradient {
+            bottom: 0;
+            .scrim-gradient(to top);
+        }
+    }
+    .vjs-top-bar {
+        position: absolute;
+        pointer-events: none;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 1;
+        transition: opacity 0.1s;
+        .vjs-video-title {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            color: #eee;
+            font-size: 1.8em;
+        }
+    }
+    &.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-top-bar {
+        opacity: 0;
+        transition: opacity 1s;
     }
 }
 // XXX andrey: fix bug with spinner shown over an ad on ios

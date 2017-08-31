@@ -143,6 +143,8 @@ HolaSkin.prototype.init = function(){
         if (e.clientX>r.left || e.clientY<r.top)
             volume_btn.removeClass('vjs-show-volume-button');
     });
+    if (this.opt.title)
+        player.addChild('TopBar', {title: this.opt.title});
 };
 
 HolaSkin.prototype.update_state = function(player){
@@ -278,7 +280,8 @@ var ControlBar = vjs.getComponent('ControlBar');
 var controlbar_createEl = ControlBar.prototype.createEl;
 ControlBar.prototype.createEl = function(){
     var el = controlbar_createEl.call(this);
-    el.appendChild(vjs.createEl('div', {className: 'vjs-gradient'}));
+    el.appendChild(vjs.createEl('div',
+        {className: 'vjs-gradient vjs-bottom-gradient'}));
     return el;
 };
 
@@ -300,6 +303,17 @@ vjs.registerComponent('PlayAnimation', vjs.extend(Component, {
     createEl: function(){
         var el = Component.prototype.createEl.apply(this, arguments);
         el.className = 'vjs-play-animation';
+        return el;
+    },
+}));
+
+vjs.registerComponent('TopBar', vjs.extend(Component, {
+    createEl: function(){
+        var el = vjs.createEl('div', {className: 'vjs-top-bar'});
+        el.appendChild(vjs.createEl('div',
+            {className: 'vjs-gradient vjs-top-gradient'}));
+        el.appendChild(vjs.createEl('div', {className: 'vjs-video-title',
+            innerHTML: this.options_.title}));
         return el;
     },
 }));
