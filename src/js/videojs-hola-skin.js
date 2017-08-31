@@ -40,6 +40,16 @@ var play_button_svg = '<svg height="100%" width="100%" viewBox="0 14 96 68">'
     +'</svg>';
 var slider_gaps = '<div class="vjs-slider-gap-left"></div>'
     +'<div class="vjs-slider-gap-right"></div>';
+var skin = '.vjs5-hola-skin';
+var custom_css = skin+':hover .vjs-big-play-button .vjs-button-icon {'
+    +'    fill: @play_button_color;'
+    +'}'
+    +skin+' .vjs-progress-control .vjs-play-progress,'
+    +skin+' .vjs-progress-control .vjs-mouse-display:before,'
+    +skin+' .vjs-progress-control .vjs-play-progress:before,'
+    +skin+' .vjs-captions-toggle>.vjs-button-icon:after {'
+    +'    background-color: @seek_bar_color;'
+    +'}';
 
 function add_css(url, ver){
     var link = document.createElement('link');
@@ -318,6 +328,13 @@ vjs.plugin('hola_skin', function(options){
     if (opt.css && (!options.className || options.css))
         add_css(opt.css, opt.ver);
     add_css('//fonts.googleapis.com/css?family=Roboto:400,500');
+    if (opt.play_button_color||opt.seek_bar_color)
+    {
+        custom_css = custom_css
+            .replace(/@play_button_color/g, opt.play_button_color||'#00b7f1')
+            .replace(/@seek_bar_color/g, opt.seek_bar_color||'#00b7f1');
+        require('browserify-css').createStyle(custom_css);
+    }
     new HolaSkin(this, opt);
 });
 
