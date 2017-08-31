@@ -22,34 +22,46 @@
         }
     }
     // big play button
-    & .vjs-big-play-button,
-    &:hover .vjs-big-play-button {
-        font-size: 4em;
-        border-radius: 50%;
-        border: 0 solid transparent;
-        height: 3em;
-        width: 3em;
-        line-height: 3em;
+    & .vjs-big-play-button {
+        font-size: 1em;
+        border: 0;
+        height: 4.8em;
+        width: 6.8em;
         left: 50%;
         top: 50%;
-        margin-left: -1.5em;
-        margin-top: -1.5em;
-        .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
+        margin-left: -3.4em;
+        margin-top: -2.4em;
+        opacity: 1;
+        background: none;
+        &:before {
+            content: none;
+        }
+        .vjs-button-icon {
+            width: 100%;
+            height: 100%;
+            fill: rgba(33, 33, 33, 0.8);
+        }
     }
-    & .vjs-big-play-button:before {
-        font-size: 2.5em;
+    &:hover .vjs-big-play-button {
+    background: none;
+        .vjs-button-icon {
+            fill: @active-color;
+        }
     }
-    & .vjs-big-play-button:before {
-        opacity: 0.9;
-    }
-    &:hover .vjs-big-play-button:before {
-        opacity: 1
+    &.vjs-paused.vjs-pos-ended {
+        .vjs-big-play-button, .vjs-poster {
+            display: block;
+        }
     }
     &.vjs-waiting .vjs-big-play-button,
     &.vjs-seeking .vjs-big-play-button,
     &.vjs-ad-loading .vjs-big-play-button,
     &.vjs-using-native-controls .vjs-big-play-button {
         display: none;
+    }
+    &.vjs-has-started .vjs-poster {
+        opacity: 0;
+        transition: opacity 250ms ease;
     }
     .vjs-control {
         margin: 0;
@@ -247,9 +259,9 @@
                     height: 100%;
                 }
             }
-	    .vjs-tooltip {
-	        display: none;
-	    }
+            .vjs-tooltip {
+                display: none;
+            }
         }
         &.vjs-play-control-replay:not(.vjs-play-control-ad)>.vjs-button-icon {
             background-image: url(@replay-glyph);
@@ -273,23 +285,6 @@
         }
         &:hover>svg {
             opacity: 1;
-        }
-    }
-    // show the button when movie ends and on hover in paused state
-    &.vjs-paused .vjs-big-play-button {
-        .background-color-with-alpha(@big-play-bg-color, @big-play-bg-alpha);
-        &:before {
-            content: '';
-            background-image: url(@play-glyph);
-            background-repeat: no-repeat;
-            background-size: 1.2em;
-            background-position: center center;
-        }
-    }
-    &.vjs-paused.vjs-ended .vjs-big-play-button {
-        display: block;
-        &:before {
-            background-image: url(@replay-glyph);
         }
     }
     &.vjs-using-native-controls .vjs-big-play-button,
