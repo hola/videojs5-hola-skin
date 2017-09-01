@@ -160,7 +160,7 @@ HolaSkin.prototype.update_state = function(player){
         setTimeout(function(){ poster.style.opacity = 1; });
     }
     else
-        poster.style.opacity = 0;
+        poster.style.opacity = '';
 };
 
 HolaSkin.prototype.dispose = function(){
