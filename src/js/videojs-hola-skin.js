@@ -96,6 +96,7 @@ HolaSkin.prototype.resize = function(){
 HolaSkin.prototype.init = function(){
     var _this = this;
     var player = this.player;
+    this.init_volume_button();
     this.has_played = false;
     var play_el = player.controlBar.playToggle.el();
     play_el.appendChild(vjs.createEl('div', {className: 'vjs-button-icon'}));
@@ -163,6 +164,56 @@ HolaSkin.prototype.update_state = function(player){
         poster.style.opacity = '';
 };
 
+HolaSkin.prototype.init_volume_button = function(){
+    var player = this.player, btn = player.controlBar.volumeMenuButton;
+    var override = function(obj, events, method, fn){
+        var p = VolumeMenuButton.prototype;
+        btn.off(obj, events, p[method]);
+        btn.on(obj, events, fn);
+        p[method] = fn;
+    };
+    override(player, ['volumechange', 'loadstart'], 'volumeUpdate', function(){
+        var i, el = this.el_, _this = this;
+        var vol = !this.player_.muted() && this.player_.volume();
+        var level = !vol ? 0 : vol<0.5 ? 1 : 2;
+        for (i = 0; i < 2; i++)
+            vjs.toggleClass(el, 'vjs-vol-'+i, i==level);
+        var muted = !vol;
+        if (this.muted_!==undefined && this.muted_==muted)
+            return;
+        this.muted_ = muted;
+        this.controlText(muted ? 'Unmute' : 'Mute');
+        var masks = el.querySelectorAll('.vjs-volume-mask');
+        var from = vol ? 20 : 0, to = vol ? 0 : 20;
+        var start = window.performance && window.performance.now();
+        var animate = function(time){
+            var progress = time ? (time-start)/250 : 1;
+            var v = from+(to-from)*Math.max(Math.min(progress, 1), 0);
+            for (i = 0; i < masks.length; i++)
+                masks[i].setAttribute('transform', 'translate('+v+','+v+')');
+            if (v!=to)
+                _this.animId = window.requestAnimationFrame(animate);
+        };
+        if (!start || !window.requestAnimationFrame)
+            return void animate();
+        if (this.animId)
+            window.cancelAnimationFrame(this.animId);
+        this.animId = window.requestAnimationFrame(animate);
+    });
+    var prevent_click = false;
+    override(btn, ['tap', 'click'], 'handleClick', function(){
+        if (prevent_click)
+            return;
+        this.player_.muted(!this.player_.muted() && this.player_.volume());
+        if (!this.player_.muted() && !this.player_.volume())
+            this.player_.volume(1);
+    });
+    btn.on('mousedown', function(event){
+        prevent_click = this.volumeBar.el().contains(event.target);
+    });
+    btn.volumeUpdate();
+};
+
 HolaSkin.prototype.dispose = function(){
     while (this.classes_added.length)
         this.player.removeClass(this.classes_added.pop());
@@ -184,36 +235,6 @@ VolumeMenuButton.prototype.createEl = function(){
 };
 VolumeMenuButton.prototype.tooltipHandler = function(){
     return this.icon_;
-};
-
-var MuteToggle = vjs.getComponent('MuteToggle');
-MuteToggle.prototype.update =
-VolumeMenuButton.prototype.volumeUpdate = function(){
-    var i, el = this.el_;
-    var vol = !this.player_.muted() && this.player_.volume();
-    var level = !vol ? 0 : vol<0.5 ? 1 : 2;
-    var text = this.player_.muted() ? 'Unmute' : 'Mute';
-    if (this.controlText() != text)
-        this.controlText(text);
-    for (i = 0; i < 2; i++)
-        vjs.toggleClass(el, 'vjs-vol-'+i, i==level);
-    var start = window.performance && window.performance.now();
-    var masks = el.querySelectorAll('.vjs-volume-mask');
-    var from = vol ? 20 : 0, to = vol ? 0 : 20;
-    var curr = masks[0].getAttribute('transform');
-    var m = curr && curr.match(/translate\((\d*)/);
-    if (m && m[1]==to)
-        return;
-    var animate = function(time){
-        var v = from + (to-from) * Math.min((time-start)/250, 1);
-        for (i = 0; i < masks.length; i++)
-            masks[i].setAttribute('transform', 'translate('+v+','+v+')');
-        if (v!=to)
-            window.requestAnimationFrame(animate);
-    };
-    if (!start || !window.requestAnimationFrame)
-        return void animate();
-    window.requestAnimationFrame(animate);
 };
 
 var Button = vjs.getComponent('Button');
