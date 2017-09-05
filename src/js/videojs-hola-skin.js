@@ -44,7 +44,7 @@ var skin = '.vjs5-hola-skin';
 var custom_css = skin+':hover .vjs-big-play-button .vjs-button-icon {'
     +'    fill: @play_button_color;'
     +'}'
-    +skin+' .vjs-progress-control .vjs-play-progress,'
+    +skin+':not(.vjs-ad-playing) .vjs-progress-control .vjs-play-progress,'
     +skin+' .vjs-progress-control .vjs-mouse-display:before,'
     +skin+' .vjs-progress-control .vjs-play-progress:before,'
     +skin+' .vjs-captions-toggle>.vjs-button-icon:after {'

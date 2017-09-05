@@ -292,6 +292,7 @@
             &:before {
                 content: none;
                 .hola-circle-icon;
+                font-size: 1.6em;
             }
             &:after {
                 display: none;
@@ -309,14 +310,18 @@
             background: @active-color;
         }
         .vjs-progress-holder {
+            height: 3px;
             margin: 0 @progress-gap-size;
-        }
-        &:hover .vjs-progress-holder {
-            // 3/5 goes from video.js/src/components/_progress.scss
-            margin: 0 (@progress-gap-size * 3/5);
+            transition: height 0.1s ease, margin 0.1s ease;
+            & .vjs-load-progress,
+            & .vjs-load-progress div,
+            & .vjs-play-progress,
+            & .vjs-tooltip-progress-bar {
+                height: 100%;
+            }
         }
     }
-    .vjs-progress-control:hover {
+    &:not(.vjs-ad-playing) .vjs-progress-control:hover {
         .vjs-play-progress,
         .vjs-mouse-display {
             &:before {
@@ -329,7 +334,6 @@
                 position: absolute;
                 top: -0.333333333333333em;
                 right: -0.5em;
-                font-size: 0.9em;
                 background: #bbb;
                 opacity: 0.7;
             }
@@ -343,6 +347,10 @@
         }
         .vjs-mouse-display-tooltip {
             display: block;
+        }
+        .vjs-progress-holder {
+            font-size: 1em;
+            height: 5px;
         }
     }
 
@@ -589,9 +597,9 @@
         width: auto;
         min-width: 0;
         padding: 0;
-        font-size: 1.2em;
-        line-height: 3em;
-        color: @text-color-main;
+        font-size: 1.3em;
+        line-height: (3.6em/1.3);
+        color: #eee;
     }
     .vjs-time-control.vjs-current-time {
         order: 2;
@@ -800,15 +808,6 @@
             }
         }
     }
-    .video-js .vjs-progress-holder {
-        height: 0.4em;
-        & .vjs-load-progress,
-        & .vjs-load-progress div,
-        & .vjs-play-progress,
-        & .vjs-tooltip-progress-bar {
-            height: 0.4em;
-        }
-    }
     .ima-ad-container {
         .vjs-volume-menu-button.vjs-volume-menu-button-horizontal {
             height: 3em;
@@ -877,6 +876,14 @@
         &.vjs-user-inactive.vjs-playing .bumpable-ima-ad-container {
             margin-top: 0px;
         }
+        .vjs-progress-control .vjs-progress-holder {
+            height: 5px;
+        }
+        &:not(.vjs-ad-playing) .vjs-progress-control:hover {
+            &:hover .vjs-progress-holder {
+                height: 8px;
+            }
+        }
     }
 
     .vjs-controls-watermark,
@@ -926,7 +933,7 @@
         left: 0;
         width: 100%;
         opacity: 1;
-        transition: visibility 0.1s opacity 0.1s;
+        transition: visibility 0.1s, opacity 0.1s;
         .vjs-video-title {
             position: absolute;
             left: 12px;
