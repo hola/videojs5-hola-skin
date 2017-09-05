@@ -136,8 +136,14 @@ HolaSkin.prototype.init = function(){
     volume_slider.insertAdjacentHTML('beforeend', slider_gaps);
     volume_btn.on('mouseenter', function(){
         volume_btn.addClass('vjs-show-volume-button'); });
+    var interval, report_activity = player.reportUserActivity.bind(player);
+    control_bar.on('mouseenter', function(){
+        interval = this.setInterval(report_activity, 250); });
     control_bar.on('mouseleave', function(){
-        volume_btn.removeClass('vjs-show-volume-button'); });
+        if (interval)
+            this.clearInterval(interval);
+        volume_btn.removeClass('vjs-show-volume-button');
+    });
     var spacer_el = control_bar.customControlSpacer.el();
     control_bar.on('mousemove', function(e){
         var r = spacer_el.getBoundingClientRect();
