@@ -350,6 +350,17 @@ LoadingSpinner.prototype.createEl = function(){
     return el;
 };
 
+var Tooltip = vjs.getComponent('Tooltip');
+var tooltip_show = Tooltip.prototype.show;
+Tooltip.prototype.show = function(){
+    if (this.timeout)
+    {
+        this.clearTimeout(this.timeout);
+        this.timeout = 0;
+    }
+    return tooltip_show.apply(this, arguments);
+};
+
 var defaults = {
     className: 'vjs5-hola-skin',
     css: '/css/videojs-hola-skin.css',
