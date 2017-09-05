@@ -3,6 +3,7 @@
 
 .vjs5-hola-skin {
     font-family: @font-family;
+    -webkit-font-smoothing: antialiased;
     .hola-circle-icon {
         display: block;
         width: 1em;
@@ -84,6 +85,7 @@
     .vjs-control-bar {
         height: @control-width;
         background: none;
+        .text-shadow;
         // spacer to keep fullscreen button on right
         &>.vjs-spacer {
             display: block;
@@ -162,6 +164,7 @@
         margin: 0;
     }
     .vjs-menu {
+        .text-shadow;
         &-item {
             text-align: left;
             padding-left: 0.5em;
@@ -941,7 +944,7 @@
             padding-top: (1.2em/1.8);
             color: #eee;
             font-size: 1.8em;
-            text-shadow: 0 0 2px rgba(0,0,0,.5);
+            .text-shadow;
         }
     }
     &.vjs-has-started.vjs-user-inactive.vjs-playing {
