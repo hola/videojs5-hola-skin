@@ -136,21 +136,30 @@
             height: 11px;
         }
     }
+    .vjs-tooltip,
+    .vjs-control-bar .vjs-progress-control .vjs-volume-display-tooltip,
+    .vjs-control-bar .vjs-progress-control .vjs-mouse-display-tooltip {
+        @font-size: 1.3em;
+        top: (-2.4/@font-size);
+        padding: (0.5/@font-size) (0.9/@font-size);
+        border-radius: (0.2/@font-size);
+        font-size: @font-size;
+        font-family: @font-family;
+        line-height: (1.5/@font-size);
+        font-weight: 500;
+        text-align: center;
+        text-shadow: none;
+        clip: auto;
+        pointer-events: none;
+        color: #eee;
+        .background-color-with-alpha(@control-bg-color, 0.9);
+    }
     .vjs-tooltip {
         top: -3em;
         left: 0;
         width: auto;
         height: auto;
         margin: 0;
-        padding: 0.5em;
-        border-radius: .3em;
-        text-align: center;
-        .background-color-with-alpha(@control-bg-color, 0.8);
-        color: @text-color-main;
-        font-size: 1.2em;
-        font-family: @font-family;
-        text-shadow: none;
-        clip: auto;
     }
     .vjs-menu {
         &-item {
@@ -295,30 +304,9 @@
         }
         .vjs-mouse-display-tooltip {
             display: none;
-            top: -2em;
-            padding: 0.5em;
-            .background-color-with-alpha(@control-bg-color, 0.8);
         }
         .vjs-play-progress {
             background: @active-color;
-        }
-        &:hover {
-            .vjs-mouse-display {
-                background: transparent;
-                &:before {
-                    position: absolute;
-                    top: -0.333333333333333em;
-                    right: -0.5em;
-                    font-size: 0.9em;
-                    background: #bbb;
-                    opacity: 0.7;
-                }
-            }
-            .vjs-mouse-display-tooltip {
-                font-family: @font-family;
-                font-size: 1.2em;
-                pointer-events: none;
-            }
         }
         .vjs-progress-holder {
             margin: 0 @progress-gap-size;
@@ -333,6 +321,17 @@
         .vjs-mouse-display {
             &:before {
                 content: '';
+            }
+        }
+        .vjs-mouse-display {
+            background: transparent;
+            &:before {
+                position: absolute;
+                top: -0.333333333333333em;
+                right: -0.5em;
+                font-size: 0.9em;
+                background: #bbb;
+                opacity: 0.7;
             }
         }
         .vjs-play-progress:after,
@@ -436,13 +435,8 @@
             height: 1em;
             z-index: 1;
             background: #bbb;
-            opacity: 0.5;
+            opacity: 0.7;
         }
-    }
-    .vjs-volume-display-tooltip {
-        top: -2em;
-        font-size: 1.2em;
-        .background-color-with-alpha(@control-bg-color, 0.8);
     }
     .vjs-volume-menu-button {
         @width: @control-width;
