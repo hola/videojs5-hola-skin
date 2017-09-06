@@ -176,7 +176,7 @@ HolaSkin.prototype.init_volume_button = function(){
         var p = VolumeMenuButton.prototype;
         btn.off(obj, events, p[method]);
         btn.on(obj, events, fn);
-        p[method] = fn;
+        btn[method] = fn;
     };
     override(player, ['volumechange', 'loadstart'], 'volumeUpdate', function(){
         var i, el = this.el_, _this = this;
