@@ -123,19 +123,25 @@
                 display: none;
             }
         }
-        .vjs-live-display:before {
-            display: inline-block;
-            width: 7px;
-            height: 7px;
-            margin-right: 0.5em;
-            background: #f51717;
-            content: '';
-            border-radius: 50%;
+        .vjs-live-display {
+            font-size: 1.3em;
+            color: #eee;
+            text-shadow: none;
+            &:before {
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                margin-right: 0.4em;
+                vertical-align: 4%;
+                background: #f51717;
+                content: '';
+                border-radius: 50%;
+            }
         }
         &.vjs-large .vjs-live-display:before,
         &.vjs-fullscreen:not(.vjs-small) .vjs-live-display:before {
-            width: 11px;
-            height: 11px;
+            width: 10px;
+            height: 10px;
         }
     }
     .vjs-tooltip,
