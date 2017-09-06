@@ -210,7 +210,7 @@ HolaSkin.prototype.init_volume_button = function(){
     override(btn, ['tap', 'click'], 'handleClick', function(){
         if (prevent_click)
             return;
-        this.player_.muted(!this.player_.muted() && this.player_.volume());
+        this.player_.muted(!this.player_.muted() && !!this.player_.volume());
         if (!this.player_.muted() && !this.player_.volume())
             this.player_.volume(1);
     });
