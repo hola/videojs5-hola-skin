@@ -125,6 +125,10 @@ HolaSkin.prototype.init = function(){
             return;
         _this.has_played = has_pos;
         _this.update_state(player);
+    })
+    .on('mouseleave', function(){
+        if (!player.hasClass('vjs-settings-expanded'))
+            player.userActive(false);
     });
     this.update_state(player);
     var control_bar = player.controlBar;
