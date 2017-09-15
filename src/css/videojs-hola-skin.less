@@ -832,6 +832,25 @@
             }
         }
     }
+    .vjs-modal-dialog {
+        .vjs-close-button {
+            top: 1.2em;
+            right: 1.2em;
+            width: 3.6em;
+            height: 3.6em;
+            opacity: 0.8;
+            background-image: url(@close-glyph);
+            background-repeat: no-repeat;
+            background-size: 2.4em;
+            background-position: center center;
+            &:hover {
+                opacity: 1;
+            }
+            &:before {
+                content: none;
+            }
+        }
+    }
 }
 // options-related elements
 .vjs5-hola-skin {
