@@ -41,7 +41,7 @@ var play_button_svg = '<svg height="100%" width="100%" viewBox="0 14 96 68">'
 var slider_gaps = '<div class="vjs-slider-gap-left"></div>'
     +'<div class="vjs-slider-gap-right"></div>';
 var skin = '.vjs5-hola-skin';
-var custom_css = skin+':hover .vjs-big-play-button .vjs-button-icon {'
+var custom_css = skin+' .vjs-big-play-button:hover .vjs-button-icon {'
     +'    fill: @play_button_color;'
     +'}'
     +skin+':not(.vjs-ad-playing) .vjs-progress-control .vjs-play-progress,'
