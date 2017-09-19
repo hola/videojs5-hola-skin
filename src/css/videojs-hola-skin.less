@@ -31,7 +31,6 @@
         font-size: 1em;
         border: 0;
         opacity: 1;
-        z-index: 1112;
         &:before {
             content: none;
         }
@@ -54,6 +53,9 @@
         .vjs-big-play-button:focus {
             background: none;
         }
+    }
+    &:not(.vjs-has-started) .vjs-big-play-button {
+        z-index: 1112;
     }
     &.vjs-paused.vjs-pos-ended {
         .vjs-big-play-button, .vjs-poster {
