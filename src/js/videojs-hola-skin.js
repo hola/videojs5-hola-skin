@@ -88,8 +88,6 @@ HolaSkin.prototype.apply = function(){
 };
 
 HolaSkin.prototype.resize = function(){
-    if (!this.opt.no_vjs_large)
-        this.player.toggleClass('vjs-large', this.el.offsetWidth>=768);
     this.player.toggleClass('vjs-small', this.el.offsetWidth<=480);
 };
 
