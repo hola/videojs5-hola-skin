@@ -54,6 +54,15 @@
             background: none;
         }
     }
+    &.vjs-error-hidden {
+        .vjs-big-play-button,
+        .vjs-share-button {
+            display: none !important;
+        }
+        * {
+            cursor: default;
+        }
+    }
     &.vjs-ima-ad:not(.vjs-has-started) .vjs-big-play-button {
         z-index: 1112;
     }
