@@ -278,10 +278,13 @@ BigPlayButton.prototype.createEl = function(){
 vjs.registerComponent('ControlsWatermark', vjs.extend(Button, {
     constructor: function(player, opt){
         Button.apply(this, arguments);
+        if (opt.tooltip)
+            this.controlText(opt.tooltip);
     },
     createEl: function(){
         var opt = this.options_;
-        var el = vjs.createEl('div', {className: 'vjs-controls-watermark'});
+        var el = vjs.createEl('div', {className:
+            'vjs-controls-watermark vjs-control'});
         if (!opt.image)
             return el;
         var container = opt.url ? vjs.createEl('a', {href: opt.url,
@@ -290,6 +293,10 @@ vjs.registerComponent('ControlsWatermark', vjs.extend(Button, {
             el.insertBefore(container, el.firstChild);
         container.appendChild(vjs.createEl('img', {src: opt.image}));
         return el;
+    },
+    handleClick: function(){
+        if (this.options_.url)
+            this.player_.pause();
     },
     buildCSSClass: function(){
         return 'vjs-controls-watermark '+
