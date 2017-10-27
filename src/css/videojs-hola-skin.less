@@ -561,7 +561,9 @@
     .vjs-menu-button-inline.vjs-show-volume-button,
     &.vjs-no-flex .vjs-menu-button-inline:hover,
     &.vjs-no-flex .vjs-menu-button-inline.vjs-slider-active {
-        width: 10em;
+      &:not(.vjs-no-volume) {
+            width: 10em;
+        }
     }
 
     .vjs-fullscreen-control {
