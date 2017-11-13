@@ -63,6 +63,13 @@
             cursor: default;
         }
     }
+    &.vjs-error {
+        .vjs-big-play-button,
+        .vjs-share-button,
+        .vjs-top-bar {
+            display: none !important;
+        }
+    }
     &.vjs-ima-ad:not(.vjs-has-started) .vjs-big-play-button {
         z-index: 1112;
     }
