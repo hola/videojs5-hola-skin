@@ -110,6 +110,7 @@
     .vjs-control-bar {
         height: @control-width;
         background: none;
+        overflow: visible;
         .text-shadow;
         // spacer to keep fullscreen button on right
         &>.vjs-spacer {
@@ -317,12 +318,14 @@
         height: 1.5em;
         margin: 0;
         padding: 0;
+        overflow: visible;
         -webkit-align-items: flex-end;
         -ms-flex-align: flex-end;
         align-items: flex-end;
         .vjs-play-progress,
         .vjs-mouse-display {
             font-family: @font-family;
+            overflow: visible;
             &:before {
                 content: none;
                 .hola-circle-icon;
@@ -346,6 +349,7 @@
         .vjs-progress-holder {
             height: 3px;
             margin: 0 @progress-gap-size;
+            overflow: visible;
             transition: height 0.1s ease, margin 0.1s ease;
             & .vjs-load-progress,
             & .vjs-load-progress div,
@@ -443,6 +447,7 @@
             width: 100%;
         }
         .vjs-volume-level {
+            overflow: visible;
             background-color: #fff;
         }
         .vjs-slider-gap-left {
@@ -468,6 +473,7 @@
     .vjs-volume-bar .vjs-volume-display {
         top: 0;
         background: transparent;
+        overflow: visible;
         &:before {
             content: '';
             position: absolute;
