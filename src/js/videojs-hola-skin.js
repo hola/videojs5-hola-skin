@@ -94,6 +94,8 @@ HolaSkin.prototype.resize = function(){
 HolaSkin.prototype.init = function(){
     var _this = this;
     var player = this.player;
+    if (vjs.browser.IS_ANDROID || vjs.browser.IS_IOS)
+        player.addClass('vjs-mobile');
     this.init_volume_button();
     this.has_played = false;
     var play_el = player.controlBar.playToggle.el();
@@ -130,7 +132,14 @@ HolaSkin.prototype.init = function(){
     });
     this.update_state(player);
     var control_bar = player.controlBar;
-    var progress_holder = control_bar.progressControl.seekBar.el();
+    var progress_control = control_bar.progressControl;
+    var progress_holder = progress_control.seekBar.el();
+    progress_control.on('touchstart', function(){
+        progress_control.addClass('vjs-touch');
+    });
+    progress_control.on('touchend', function(){
+        progress_control.removeClass('vjs-touch');
+    });
     progress_holder.insertAdjacentHTML('beforeend', slider_gaps);
     player.addChild('PlayAnimation');
     var volume_btn = control_bar.volumeMenuButton;

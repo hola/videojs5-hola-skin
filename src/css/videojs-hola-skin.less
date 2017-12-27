@@ -359,7 +359,8 @@
             }
         }
     }
-    &:not(.vjs-ad-playing) .vjs-progress-control:hover {
+    &:not(.vjs-ad-playing):not(.vjs-mobile) .vjs-progress-control:hover,
+    &:not(.vjs-ad-playing) .vjs-progress-control.vjs-touch {
         .vjs-play-progress,
         .vjs-mouse-display {
             &:before {
