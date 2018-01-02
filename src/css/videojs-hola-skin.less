@@ -359,7 +359,7 @@
             }
         }
     }
-    &:not(.vjs-ad-playing):not(.vjs-mobile) .vjs-progress-control:hover,
+    &:not(.vjs-ad-playing) .vjs-progress-control:hover,
     &:not(.vjs-ad-playing) .vjs-progress-control.vjs-touch {
         .vjs-play-progress,
         .vjs-mouse-display {
@@ -392,7 +392,13 @@
             height: 5px;
         }
     }
-
+    &:not(.vjs-ad-playing).vjs-mobile .vjs-progress-control {
+        .vjs-play-progress:before {
+            content: '';
+            top: auto;
+            bottom: -0.333333333333333em;
+        }
+    }
     .vjs-live-control {
         line-height: 3.6em;
         order: 4;
