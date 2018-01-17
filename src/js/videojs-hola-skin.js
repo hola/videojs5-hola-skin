@@ -58,11 +58,25 @@ function add_css(url, ver){
     document.getElementsByTagName('head')[0].appendChild(link);
 }
 
+var Component = vjs.getComponent('Component');
+var Player = vjs.getComponent('Player');
+var ControlBar = vjs.getComponent('ControlBar');
+var Button = vjs.getComponent('Button');
+var MenuButton = vjs.getComponent('MenuButton');
+var VolumeMenuButton = vjs.getComponent('VolumeMenuButton');
+var FullscreenToggle = vjs.getComponent('FullscreenToggle');
+var BigPlayButton = vjs.getComponent('BigPlayButton');
+var SeekBar = vjs.getComponent('SeekBar');
+var LoadingSpinner = vjs.getComponent('LoadingSpinner');
+var Tooltip = vjs.getComponent('Tooltip');
+
 var HolaSkin = function(player, opt){
     var _this = this;
     this.player = player;
     this.el = player.el();
     this.opt = opt;
+    // XXX alexeym: get rid of hardcoded value;
+    this.ui_size = 200;
     this.classes_added = [];
     player.on('dispose', function(){ _this.dispose(); });
     player.on('ready', function(){ _this.init(); });
@@ -70,6 +84,7 @@ var HolaSkin = function(player, opt){
     player.on('resize', resize);
     player.on('fullscreenchange', function(){ setTimeout(resize); });
     window.addEventListener('resize', resize);
+    window.addEventListener('orientationchange', resize);
     this.apply();
     this.resize();
 };
@@ -85,10 +100,182 @@ HolaSkin.prototype.apply = function(){
         if (this.player.addClass(c))
             this.classes_added.push(c);
     }
+    if (this.opt.className=='vjs-ios-skin')
+        this.patch_controls_ios();
+    else
+        this.patch_controls_default();
+};
+HolaSkin.prototype.patch_controls_default = function(){
+    var controlbar_createEl = ControlBar.prototype.createEl;
+    ControlBar.prototype.createEl = function(){
+        var el = controlbar_createEl.call(this);
+        el.appendChild(vjs.createEl('div',
+            {className: 'vjs-gradient vjs-bottom-gradient'}));
+        return el;
+    };
+    VolumeMenuButton.prototype.createEl = function(){
+        var el = MenuButton.prototype.createEl.call(this);
+        var id = this.player_.id();
+        var svg = volume_icon_svg
+            .replace(/{vjs-volume-mask1}/g, 'vjs-volume-mask1_'+id)
+            .replace(/{vjs-volume-mask2}/g, 'vjs-volume-mask2_'+id);
+        var icon = this.icon_ = vjs.createEl('div',
+            {className: 'vjs-button-icon', innerHTML: svg});
+        el.insertBefore(icon, el.firstChild);
+        return el;
+    };
+    VolumeMenuButton.prototype.tooltipHandler = function(){
+        return this.icon_;
+    };
+    FullscreenToggle.prototype.controlText_ = 'Full screen';
+    FullscreenToggle.prototype.createEl = function(){
+        var el = Button.prototype.createEl.call(this);
+        el.insertBefore(vjs.createEl('div', {
+            className: 'vjs-button-icon vjs-fullscreen-icon',
+            innerHTML: fullscreen_svg,
+        }), el.firstChild);
+        el.insertBefore(vjs.createEl('div', {
+            className: 'vjs-button-icon vjs-exit-fullscreen-icon',
+            innerHTML: exit_fullscreen_svg,
+        }), el.firstChild);
+        return el;
+    };
+    FullscreenToggle.prototype.updateHint = function(){
+        this.controlText(this.player_.isFullscreen() ? 'Exit full screen' :
+            'Full screen');
+    };
+    BigPlayButton.prototype.createEl = function(){
+        var el = Button.prototype.createEl.call(this);
+        el.appendChild(vjs.createEl('div', {
+            className: 'vjs-button-icon',
+            innerHTML: play_button_svg,
+        }));
+        return el;
+    };
+    var orig_createEl = SeekBar.prototype.createEl;
+    SeekBar.prototype.createEl = function(){
+        var el = orig_createEl.call(this);
+        el.appendChild(vjs.createEl('div', {className: 'vjs-slider-padding'}));
+        return el;
+    };
+    var spinner_createEl = LoadingSpinner.prototype.createEl;
+    LoadingSpinner.prototype.createEl = function(){
+        var el = spinner_createEl.call(this);
+        var rotator = vjs.createEl('div', {className: 'vjs-spinner-rotator'});
+        rotator.appendChild(vjs.createEl('div', {
+            className: 'vjs-spinner-left'}));
+        rotator.appendChild(vjs.createEl('div', {
+            className: 'vjs-spinner-right'}));
+        el.appendChild(rotator);
+        return el;
+    };
+    var tooltip_show = Tooltip.prototype.show;
+    Tooltip.prototype.show = function(){
+        if (this.timeout)
+        {
+            this.clearTimeout(this.timeout);
+            this.timeout = 0;
+        }
+        return tooltip_show.apply(this, arguments);
+    };
+};
+
+HolaSkin.prototype.get_ui_zoom = function(){
+    var orientation = window.orientation;
+    if (orientation!==undefined)
+    {
+        orientation = orientation===90||orientation==-90 ? 'horizontal' :
+            'vertical';
+    }
+    var scale = 1;
+    var screen = window.screen;
+    if (!orientation||!screen)
+        return this.ui_zoom = scale;
+    var width_available = orientation=='vertical' ? screen.availWidth :
+        screen.availHeight;
+    if (width_available)
+        scale = window.innerWidth/width_available;
+    return this.ui_zoom = scale;
+};
+
+HolaSkin.prototype.patch_controls_ios = function(){
+    if (this.opt.className!='vjs-ios-skin')
+        return;
+    var _this = this;
+    var prefix = 'vjs-ios-';
+    function init_control(el, icon, need_box){
+        var bg = vjs.createEl('div', {className: prefix+'background-tint'});
+        bg.appendChild(vjs.createEl('div', {className: prefix+'blur'}));
+        bg.appendChild(vjs.createEl('div', {className: prefix+'tint'}));
+        el.appendChild(bg);
+        if (icon)
+        {
+            el.appendChild(vjs.createEl('div', {className: 'vjs-button-icon',
+                innerHTML: typeof icon=='string' ? icon : ''}));
+        }
+        if (need_box!==false)
+            el.className += ' vjs-ios-control-box';
+        el.style.zoom = _this.get_ui_zoom();
+    }
+    var external_controls = this.external_controls = [
+        'volumeMenuButton', 'fullscreenToggle'];
+    ControlBar.prototype.options_.children = [
+        'playToggle',
+        'currentTimeDisplay',
+        'progressControl',
+        'remainingTimeDisplay',
+    ].concat(external_controls);
+    var controls_create_el = ControlBar.prototype.createEl;
+    ControlBar.prototype.createEl = function(){
+        var el = controls_create_el.call(this);
+        init_control(el, null, false);
+        return el;
+    };
+    var init_children = ControlBar.prototype.initChildren;
+    ControlBar.prototype.initChildren = function(){
+        var res = init_children.call(this);
+        var _this = this;
+        external_controls.forEach(function(name){
+            var control = _this[name];
+            if (control&&control.el_)
+                _this.player_.el_.appendChild(control.el_);
+        });
+        return res;
+    };
+    var volume_create_el = VolumeMenuButton.prototype.createEl;
+    VolumeMenuButton.prototype.createEl = function(){
+        var el = volume_create_el.call(this);
+        init_control(el, true);
+        return el;
+    };
+    var fullscreen_create_el = FullscreenToggle.prototype.createEl;
+    FullscreenToggle.prototype.createEl = function(){
+        var el = fullscreen_create_el.call(this);
+        init_control(el, true);
+        return el;
+    };
+    var bigplaybutton_create_el = BigPlayButton.prototype.createEl;
+    BigPlayButton.prototype.createEl = function(){
+        var el = bigplaybutton_create_el.call(this);
+        init_control(el, true, false);
+        return el;
+    };
 };
 
 HolaSkin.prototype.resize = function(){
     this.player.toggleClass('vjs-small', this.el.offsetWidth<=480);
+    var _this = this;
+    ['controlBar', 'bigPlayButton'].concat(this.external_controls)
+    .forEach(function(name){
+        var control_bar = _this.player.controlBar;
+        var control = _this.player[name]||(control_bar&&control_bar[name]);
+        if (!control)
+            return;
+        var el = control.el();
+        if (!el)
+            return;
+        el.style.zoom = _this.get_ui_zoom();
+    });
 };
 
 HolaSkin.prototype.init = function(){
@@ -155,12 +342,16 @@ HolaSkin.prototype.init = function(){
             this.clearInterval(interval);
         volume_btn.removeClass('vjs-show-volume-button');
     });
-    var spacer_el = control_bar.customControlSpacer.el();
-    control_bar.on('mousemove', function(e){
-        var r = spacer_el.getBoundingClientRect();
-        if (e.clientX>r.left || e.clientY<r.top)
-            volume_btn.removeClass('vjs-show-volume-button');
-    });
+    var spacer = control_bar.customControlSpacer;
+    var spacer_el = spacer&&spacer.el();
+    if (spacer_el)
+    {
+        control_bar.on('mousemove', function(e){
+            var r = spacer_el.getBoundingClientRect();
+            if (e.clientX>r.left || e.clientY<r.top)
+                volume_btn.removeClass('vjs-show-volume-button');
+        });
+    }
     if (this.opt.title)
         player.addChild('TopBar', {title: this.opt.title});
 };
@@ -235,53 +426,7 @@ HolaSkin.prototype.dispose = function(){
     while (this.classes_added.length)
         this.player.removeClass(this.classes_added.pop());
     window.removeEventListener('resize', this._resize);
-};
-
-var MenuButton = vjs.getComponent('MenuButton');
-var VolumeMenuButton = vjs.getComponent('VolumeMenuButton');
-VolumeMenuButton.prototype.createEl = function(){
-    var el = MenuButton.prototype.createEl.call(this);
-    var id = this.player_.id();
-    var svg = volume_icon_svg
-        .replace(/{vjs-volume-mask1}/g, 'vjs-volume-mask1_'+id)
-        .replace(/{vjs-volume-mask2}/g, 'vjs-volume-mask2_'+id);
-    var icon = this.icon_ = vjs.createEl('div',
-        {className: 'vjs-button-icon', innerHTML: svg});
-    el.insertBefore(icon, el.firstChild);
-    return el;
-};
-VolumeMenuButton.prototype.tooltipHandler = function(){
-    return this.icon_;
-};
-
-var Button = vjs.getComponent('Button');
-var FullscreenToggle = vjs.getComponent('FullscreenToggle');
-FullscreenToggle.prototype.controlText_ = 'Full screen';
-FullscreenToggle.prototype.createEl = function(){
-    var el = Button.prototype.createEl.call(this);
-    el.insertBefore(vjs.createEl('div', {
-        className: 'vjs-button-icon vjs-fullscreen-icon',
-        innerHTML: fullscreen_svg,
-    }), el.firstChild);
-    el.insertBefore(vjs.createEl('div', {
-        className: 'vjs-button-icon vjs-exit-fullscreen-icon',
-        innerHTML: exit_fullscreen_svg,
-    }), el.firstChild);
-    return el;
-};
-FullscreenToggle.prototype.updateHint = function(){
-    this.controlText(this.player_.isFullscreen() ? 'Exit full screen' :
-        'Full screen');
-};
-
-var BigPlayButton = vjs.getComponent('BigPlayButton');
-BigPlayButton.prototype.createEl = function(){
-    var el = Button.prototype.createEl.call(this);
-    el.appendChild(vjs.createEl('div', {
-        className: 'vjs-button-icon',
-        innerHTML: play_button_svg,
-    }));
-    return el;
+    window.removeEventListener('orientationchange', this._resize);
 };
 
 vjs.registerComponent('ControlsWatermark', vjs.extend(Button, {
@@ -313,24 +458,6 @@ vjs.registerComponent('ControlsWatermark', vjs.extend(Button, {
     }
 }));
 
-var SeekBar = vjs.getComponent('SeekBar');
-var orig_createEl = SeekBar.prototype.createEl;
-SeekBar.prototype.createEl = function(){
-    var el = orig_createEl.call(this);
-    el.appendChild(vjs.createEl('div', {className: 'vjs-slider-padding'}));
-    return el;
-};
-
-var ControlBar = vjs.getComponent('ControlBar');
-var controlbar_createEl = ControlBar.prototype.createEl;
-ControlBar.prototype.createEl = function(){
-    var el = controlbar_createEl.call(this);
-    el.appendChild(vjs.createEl('div',
-        {className: 'vjs-gradient vjs-bottom-gradient'}));
-    return el;
-};
-
-var Component = vjs.getComponent('Component');
 vjs.registerComponent('PlayAnimation', vjs.extend(Component, {
     constructor: function(player, opt){
         Component.apply(this, arguments);
@@ -362,28 +489,6 @@ vjs.registerComponent('TopBar', vjs.extend(Component, {
         return el;
     },
 }));
-
-var LoadingSpinner = vjs.getComponent('LoadingSpinner');
-var spinner_createEl = LoadingSpinner.prototype.createEl;
-LoadingSpinner.prototype.createEl = function(){
-    var el = spinner_createEl.call(this);
-    var rotator = vjs.createEl('div', {className: 'vjs-spinner-rotator'});
-    rotator.appendChild(vjs.createEl('div', {className: 'vjs-spinner-left'}));
-    rotator.appendChild(vjs.createEl('div', {className: 'vjs-spinner-right'}));
-    el.appendChild(rotator);
-    return el;
-};
-
-var Tooltip = vjs.getComponent('Tooltip');
-var tooltip_show = Tooltip.prototype.show;
-Tooltip.prototype.show = function(){
-    if (this.timeout)
-    {
-        this.clearTimeout(this.timeout);
-        this.timeout = 0;
-    }
-    return tooltip_show.apply(this, arguments);
-};
 
 var defaults = {
     className: 'vjs5-hola-skin',
