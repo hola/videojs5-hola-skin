@@ -190,7 +190,6 @@ HolaSkin.prototype.get_ui_zoom = function(){
         orientation = orientation===90||orientation==-90 ? 'horizontal' :
             'vertical';
     }
-    var scale = 1;
     var screen = window.screen;
     if (!orientation||!screen)
         return this.ui_zoom = scale;
