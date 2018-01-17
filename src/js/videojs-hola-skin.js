@@ -181,6 +181,9 @@ HolaSkin.prototype.patch_controls_default = function(){
 };
 
 HolaSkin.prototype.get_ui_zoom = function(){
+    var scale = 1;
+    if (this.player&&!this.player.hasClass('vjs-ios-skin'))
+        return scale;
     var orientation = window.orientation;
     if (orientation!==undefined)
     {
