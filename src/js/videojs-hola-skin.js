@@ -183,7 +183,7 @@ HolaSkin.prototype.patch_controls_default = function(){
 HolaSkin.prototype.get_ui_zoom = function(){
     var scale = 1;
     if (this.player&&!this.player.hasClass('vjs-ios-skin'))
-        return scale;
+        return this.ui_zoom = scale;
     var orientation = window.orientation;
     if (orientation!==undefined)
     {
@@ -226,6 +226,7 @@ HolaSkin.prototype.patch_controls_ios = function(){
         'currentTimeDisplay',
         'progressControl',
         'remainingTimeDisplay',
+        'durationDisplay'
     ].concat(external_controls);
     var controls_create_el = ControlBar.prototype.createEl;
     ControlBar.prototype.createEl = function(){
@@ -261,6 +262,20 @@ HolaSkin.prototype.patch_controls_ios = function(){
         var el = bigplaybutton_create_el.call(this);
         init_control(el, true, false);
         return el;
+    };
+    var seekbar_calculate = SeekBar.prototype.calculateDistance;
+    SeekBar.prototype.calculateDistance = function(event){
+        var zoom = _this.ui_zoom;
+        var fake_event = {};
+        fake_event.pageY = event.pageY / zoom;
+        fake_event.pageX = event.pageX / zoom;
+        if (event.changedTouches&&event.changedTouches[0]) {
+            var touch = {};
+            touch.pageX = event.changedTouches[0].pageX / zoom;
+            touch.pageY = event.changedTouches[0].pageY / zoom;
+            fake_event.changedTouches = [touch];
+        }
+        return seekbar_calculate.call(this, fake_event);
     };
 };
 
