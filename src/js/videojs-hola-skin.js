@@ -69,7 +69,6 @@ var BigPlayButton = vjs.getComponent('BigPlayButton');
 var SeekBar = vjs.getComponent('SeekBar');
 var LoadingSpinner = vjs.getComponent('LoadingSpinner');
 var Tooltip = vjs.getComponent('Tooltip');
-var ShareButton = vjs.getComponent('ShareButton');
 
 var HolaSkin = function(player, opt){
     var _this = this;
@@ -87,7 +86,6 @@ var HolaSkin = function(player, opt){
     window.addEventListener('resize', resize);
     window.addEventListener('orientationchange', resize);
     this.apply();
-    this.resize();
 };
 
 HolaSkin.prototype.apply = function(){
@@ -271,24 +269,16 @@ HolaSkin.prototype.patch_controls_ios = function(){
         }
         return seekbar_calculate.call(this, fake_event);
     };
-    if (ShareButton)
-    {
-        var share_create_el = ShareButton.prototype.createEl;
-        ShareButton.prototype.createEl = function(){
-            var el = share_create_el.call(this);
-            init_control(el, true);
-            return el;
-        };
-    }
 };
 
 HolaSkin.prototype.resize = function(){
     this.player.toggleClass('vjs-small', this.el.offsetWidth<=480);
     var _this = this;
-    ['controlBar', 'bigPlayButton'].concat(this.external_controls)
-    .forEach(function(name){
+    ['controlBar', 'bigPlayButton', 'ShareButton']
+    .concat(this.external_controls).forEach(function(name){
         var control_bar = _this.player.controlBar;
-        var control = _this.player[name]||(control_bar&&control_bar[name]);
+        var control = _this.player[name]||(control_bar&&control_bar[name])||
+            _this.player.getChild(name);
         if (!control)
             return;
         var el = control.el();
@@ -301,6 +291,7 @@ HolaSkin.prototype.resize = function(){
 HolaSkin.prototype.init = function(){
     var _this = this;
     var player = this.player;
+    this.resize();
     if (vjs.browser.IS_ANDROID || vjs.browser.IS_IOS)
         player.addClass('vjs-mobile');
     this.init_volume_button();

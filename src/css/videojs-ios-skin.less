@@ -22,7 +22,6 @@ color: @ios-primary-color;
 .vjs-duration,
 .vjs-time-divider,
 .vjs-custom-control-spacer,
-.vjs-playback-rate,
 .vjs-chapters-button,
 .vjs-descriptions-button,
 .vjs-subtitles-button,
@@ -97,7 +96,8 @@ color: @ios-primary-color;
 // add similar background for the menus
 .vjs-menu>.vjs-menu-content,
 .vjs-info-overlay,
-.vjs-rightclick-popup {
+.vjs-rightclick-popup,
+&.video-js .vjs-button.vjs-share-button {
     background: transparent;
     color: @ios-primary-color;
     box-shadow: none;
@@ -124,6 +124,11 @@ color: @ios-primary-color;
     &>* {
         position: relative;
         z-index: 2;
+    }
+}
+&.video-js .vjs-button.vjs-share-button {
+    &, &:before, &:after {
+        border-radius: 50%;
     }
 }
 .vjs-control:before,
@@ -346,13 +351,5 @@ color: @ios-primary-color;
 .videoAdUiPreSkipButton {
     background: @ios-secondary-color;
     border-radius: 8px;
-}
-.vjs-button.vjs-share-button {
-    top: 45px;
-    background: transparent;
-    &>.vjs-ios-background-tint,
-    &>.vjs-ios-background-tint>div {
-        border-radius: 50%;
-    }
 }
 }
