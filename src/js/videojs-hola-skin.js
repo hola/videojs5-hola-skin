@@ -221,13 +221,6 @@ HolaSkin.prototype.patch_controls_ios = function(){
     }
     var external_controls = this.external_controls = [
         'volumeMenuButton', 'fullscreenToggle'];
-    ControlBar.prototype.options_.children = [
-        'playToggle',
-        'currentTimeDisplay',
-        'progressControl',
-        'remainingTimeDisplay',
-        'durationDisplay'
-    ].concat(external_controls);
     var controls_create_el = ControlBar.prototype.createEl;
     ControlBar.prototype.createEl = function(){
         var el = controls_create_el.call(this);
