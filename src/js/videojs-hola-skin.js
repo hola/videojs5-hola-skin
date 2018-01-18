@@ -69,6 +69,7 @@ var BigPlayButton = vjs.getComponent('BigPlayButton');
 var SeekBar = vjs.getComponent('SeekBar');
 var LoadingSpinner = vjs.getComponent('LoadingSpinner');
 var Tooltip = vjs.getComponent('Tooltip');
+var ShareButton = vjs.getComponent('ShareButton');
 
 var HolaSkin = function(player, opt){
     var _this = this;
@@ -270,6 +271,15 @@ HolaSkin.prototype.patch_controls_ios = function(){
         }
         return seekbar_calculate.call(this, fake_event);
     };
+    if (ShareButton)
+    {
+        var share_create_el = ShareButton.prototype.createEl;
+        ShareButton.prototype.createEl = function(){
+            var el = share_create_el.call(this);
+            init_control(el, true);
+            return el;
+        };
+    }
 };
 
 HolaSkin.prototype.resize = function(){

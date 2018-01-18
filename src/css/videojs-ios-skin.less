@@ -1,6 +1,7 @@
 @import url('variables.less');
 
 .vjs-ios-skin {
+color: @ios-primary-color;
 .vjs-control-bar {
     box-sizing: border-box;
     width: auto;
@@ -18,6 +19,17 @@
 .vjs-tooltip {
     display: none;
 }
+.vjs-duration,
+.vjs-time-divider,
+.vjs-custom-control-spacer,
+.vjs-playback-rate,
+.vjs-chapters-button,
+.vjs-descriptions-button,
+.vjs-subtitles-button,
+.vjs-captions-button,
+.vjs-audio-button {
+    display: none !important;
+}
 .vjs-control-bar,
 .vjs-control.vjs-ios-control-box {
     position: absolute;
@@ -32,8 +44,8 @@
         z-index: 2;
     }
 }
-.vjs-control-bar>.vjs-control:last-child {
-    margin-right: 9px;
+.vjs-control-bar {
+    padding-right: 9px;
 }
 .vjs-ios-control-box {
     display: none;
@@ -82,6 +94,38 @@
     background-color: rgba(255, 255, 255, 0.14);
     mix-blend-mode: lighten;
 }
+// add similar background for the menus
+.vjs-menu>.vjs-menu-content,
+.vjs-info-overlay,
+.vjs-rightclick-popup {
+    background: transparent;
+    color: @ios-primary-color;
+    box-shadow: none;
+    &, &:before, &:after {
+        border-radius: 8px;
+    }
+    &:before, &:after {
+        content: ' ';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0 !important;
+        mix-blend-mode: lighten;
+    }
+    &:before {
+        background-color: rgba(0, 0, 0, 0.85);
+    }
+    &:after {
+        background-color: rgba(255, 255, 255, 0.14);
+    }
+    &>* {
+        position: relative;
+        z-index: 2;
+    }
+}
 .vjs-control:before,
 .vjs-big-play-button:before {
     content: '';
@@ -97,6 +141,8 @@
     transition: transform 150ms;
     &>svg {
         fill: @ios-primary-color;
+        width: 100%;
+        height: 100%;
     }
 }
 .vjs-control:hover>.vjs-button-icon,
@@ -163,9 +209,14 @@
     mask-image: @icon;
     -webkit-mask-image: @icon;
 }
+.vjs-menu {
+    background: transparent;
+}
 .vjs-menu li:hover,
-.vjs-menu li:focus {
-    background: @ios-secondary-color;
+.vjs-menu li:focus,
+.vjs-menu .vjs-menu-item.vjs-selected:hover,
+.vjs-menu .vjs-menu-item.vjs-selected:focus {
+    background-color: @ios-secondary-color;
 }
 .vjs-menu-item-link>.vjs-menu-link {
     display: block;
@@ -188,16 +239,8 @@
     display: block;
     line-height: normal;
 }
-.vjs-duration,
-.vjs-time-divider,
-.vjs-custom-control-spacer,
-.vjs-playback-rate,
-.vjs-chapters-button,
-.vjs-descriptions-button,
-.vjs-subtitles-button,
-.vjs-captions-button,
-.vjs-audio-button {
-    display: none !important;
+&.vjs-live .vjs-remaining-time {
+    display: none;
 }
 .vjs-volume-menu-button {
     top: 0;
@@ -240,6 +283,13 @@
 .vjs-mouse-display-tooltip {
     display: none !important;
 }
+.vjs-live-control {
+    flex: none;
+    width: 42px;
+}
+.vjs-live-display {
+    margin: 0 auto;
+}
 .vjs-slider {
     background-color: rgba(255, 255, 255, 0.1);
 }
@@ -277,5 +327,32 @@
 .vjs-play-progress:after {
     content: '';
     display: none !important;
+}
+&.vjs-ad-playing .vjs-ios-background-tint {
+    display: block !important;
+}
+&.vjs-ad-playing.vjs-user-inactive:not(.vjs-ad-paused) {
+    .vjs-control-bar>.vjs-ios-background-tint {
+        opacity: 1 !important;
+        visibility: visible !important;
+        height: 10px;
+        top: -5px;
+    }
+}
+.videoAdUiPreSkipContainer {
+    bottom: 27px;
+    margin-right: 6px;
+}
+.videoAdUiPreSkipButton {
+    background: @ios-secondary-color;
+    border-radius: 8px;
+}
+.vjs-button.vjs-share-button {
+    top: 45px;
+    background: transparent;
+    &>.vjs-ios-background-tint,
+    &>.vjs-ios-background-tint>div {
+        border-radius: 50%;
+    }
 }
 }
