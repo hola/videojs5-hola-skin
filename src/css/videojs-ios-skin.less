@@ -93,14 +93,22 @@ color: @ios-primary-color;
     background-color: rgba(255, 255, 255, 0.14);
     mix-blend-mode: lighten;
 }
-// add similar background for the menus
+// clear possible background for all menus
 .vjs-menu>.vjs-menu-content,
+.vjs-settings-menu,
 .vjs-info-overlay,
 .vjs-rightclick-popup,
 &.video-js .vjs-button.vjs-share-button {
     background: transparent;
     color: @ios-primary-color;
     box-shadow: none;
+}
+// add similar background for the menus
+.vjs-menu:not(.vjs-settings-menu)>.vjs-menu-content,
+.vjs-settings-menu,
+.vjs-info-overlay,
+.vjs-rightclick-popup,
+&.video-js .vjs-button.vjs-share-button {
     &, &:before, &:after {
         border-radius: 8px;
     }
