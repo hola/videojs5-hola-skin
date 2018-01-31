@@ -269,6 +269,18 @@ HolaSkin.prototype.patch_controls_ios = function(){
         }
         return seekbar_calculate.call(this, fake_event);
     };
+    var seekbar_mousemove = SeekBar.prototype.handleMouseMove;
+    SeekBar.prototype.handleMouseMove = function(event){
+        seekbar_mousemove.call(this, event);
+        if (this.update)
+            this.update();
+    };
+    SeekBar.prototype.getPercent = function(){
+        var percent = (this.player_.scrubbing()) ?
+            this.player_.getCache().currentTime / this.player_.duration() :
+            this.player_.currentTime() / this.player_.duration();
+        return percent >= 1 ? 1 : percent;
+    };
 };
 
 HolaSkin.prototype.resize = function(){
