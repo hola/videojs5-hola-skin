@@ -220,6 +220,9 @@ color: @ios-primary-color;
     mask-image: @icon;
     -webkit-mask-image: @icon;
 }
+.vjs-play-control {
+    width: 43px;
+}
 .vjs-menu {
     background: transparent;
 }
@@ -257,7 +260,12 @@ color: @ios-primary-color;
     display: block;
     line-height: normal;
 }
-&.vjs-live .vjs-remaining-time {
+&.vjs-live .vjs-remaining-time,
+&.vjs-live .vjs-time-control,
+&.vjs-live .vjs-duration,
+&.vjs-live .vjs-current-time,
+&.vjs-live .vjs-time-divider,
+&.vjs-live .vjs-progress-control {
     display: none;
 }
 .vjs-volume-menu-button {
@@ -303,10 +311,11 @@ color: @ios-primary-color;
 }
 .vjs-live-control {
     flex: none;
-    width: 42px;
+    width: auto;
+    font-size: 12px;
 }
 .vjs-live-display {
-    margin: 0 auto;
+    margin: 0;
 }
 .vjs-slider {
     background-color: rgba(255, 255, 255, 0.1);

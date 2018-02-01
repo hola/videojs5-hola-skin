@@ -271,16 +271,60 @@ HolaSkin.prototype.patch_controls_ios = function(){
     };
     var seekbar_mousemove = SeekBar.prototype.handleMouseMove;
     SeekBar.prototype.handleMouseMove = function(event){
-        seekbar_mousemove.call(this, event);
+        var duration = this.player_.duration();
+        var distance = this.calculateDistance(event);
+        this.scrubbing_distance = distance;
+        if (duration)
+        {
+            _this.scrubbing_percent = 0;
+            var newTime = distance*duration;
+            if (newTime===duration)
+                newTime = newTime - 0.1;
+            this.player_.currentTime(newTime);
+        }
+        else
+            _this.scrubbing_percent = distance;
         if (this.update)
             this.update();
+        // Immediate update for the time labels
+        // disabled because native iOS player does not do this
+        if (0)
+        {
+        this.player_.controlBar.currentTimeDisplay.updateContent();
+        this.player_.controlBar.remainingTimeDisplay.updateContent();
+        }
     };
     SeekBar.prototype.getPercent = function(){
-        var percent = (this.player_.scrubbing()) ?
-            this.player_.getCache().currentTime / this.player_.duration() :
-            this.player_.currentTime() / this.player_.duration();
+        var duration = this.player_.duration();
+        var percent;
+        if (duration||!_this.scrubbing_percent)
+        {
+            percent = (this.player_.scrubbing()) ?
+                this.scrubbing_distance :
+                this.player_.currentTime() / duration;
+        }
+        else
+            percent = _this.scrubbing_percent;
         return percent >= 1 ? 1 : percent;
     };
+};
+
+HolaSkin.prototype.update_scrubbing = function(){
+    if (!this.scrubbing_percent)
+        return;
+    var duration = this.player.duration();
+    if (duration===Infinity)
+    {
+        this.scrubbing_percent = 0;
+        return;
+    }
+    if (!duration||this.player.hasClass('vjs-waiting'))
+        return;
+    var newTime = this.scrubbing_percent*duration;
+    if (newTime===duration)
+        newTime = newTime - 0.1;
+    this.scrubbing_percent = 0;
+    this.player.currentTime(newTime);
 };
 
 HolaSkin.prototype.resize = function(){
@@ -310,6 +354,7 @@ HolaSkin.prototype.init = function(){
     this.has_played = false;
     var play_el = player.controlBar.playToggle.el();
     play_el.appendChild(vjs.createEl('div', {className: 'vjs-button-icon'}));
+    var update_scrubbing = this.update_scrubbing.bind(this);
     player.on('play', function(){
         _this.is_ended = false;
         _this.update_state(player);
@@ -333,13 +378,18 @@ HolaSkin.prototype.init = function(){
         var has_pos = !!player.currentTime();
         if (has_pos==_this.has_played)
             return;
+        update_scrubbing();
         _this.has_played = has_pos;
         _this.update_state(player);
     })
     .on('mouseleave', function(){
         if (!player.hasClass('vjs-settings-expanded'))
             player.userActive(false);
-    });
+    })
+    .one('loadmetadata', update_scrubbing)
+    .one('canplay', update_scrubbing)
+    .one('canplaythrough', update_scrubbing)
+    .one('playing', update_scrubbing);
     this.update_state(player);
     var control_bar = player.controlBar;
     var progress_control = control_bar.progressControl;
