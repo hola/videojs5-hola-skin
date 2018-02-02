@@ -78,6 +78,7 @@ var HolaSkin = function(player, opt){
     // XXX alexeym: get rid of hardcoded value;
     this.ui_size = 200;
     this.classes_added = [];
+    this.controls_min_width = [];
     player.on('dispose', function(){ _this.dispose(); });
     player.on('ready', function(){ _this.init(); });
     var resize = this._resize = this.resize.bind(this);
@@ -218,6 +219,10 @@ HolaSkin.prototype.patch_controls_ios = function(){
             el.className += ' vjs-ios-control-box';
         el.style.zoom = _this.get_ui_zoom();
     }
+    // values are found empirically from the native iOS player
+    this.controls_min_width = [{name: 'skipBackward', min_width: 306},
+        {name: 'skipForward', min_width: 335},
+        {name: 'currentTimeDisplay', min_width: 260}];
     var external_controls = this.external_controls = [
         'volumeMenuButton', 'fullscreenToggle'];
     var controls = ControlBar.prototype.options_.children;
@@ -355,11 +360,13 @@ HolaSkin.prototype.resize = function(){
         el.style.zoom = zoom;
     });
     var s_width = width/zoom;
-    // values are found empirically from the native iOS player
-    get_child('skipBackward').toggleClass('vjs-hidden', s_width<306);
-    get_child('skipForward').toggleClass('vjs-hidden', s_width<335);
-    get_child('currentTimeDisplay').toggleClass('vjs-hidden', s_width<260);
-    // XXX alexeym: show only play/pause button if s_width<201
+    this.controls_min_width.forEach(function(item){
+        var control = get_child(item.name);
+        if (!control)
+            return;
+        control.toggleClass('vjs-hidden', s_width<item.min_width);
+    });
+    // XXX alexeym TODO: show only play/pause button if s_width<201
 };
 
 HolaSkin.prototype.init = function(){
