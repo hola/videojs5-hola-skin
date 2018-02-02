@@ -220,6 +220,13 @@ HolaSkin.prototype.patch_controls_ios = function(){
     }
     var external_controls = this.external_controls = [
         'volumeMenuButton', 'fullscreenToggle'];
+    var controls = ControlBar.prototype.options_.children;
+    var play_index = controls.indexOf('playToggle');
+    if (play_index!=-1)
+    {
+        controls.splice(play_index+1, 0, 'skipForward');
+        controls.splice(play_index, 0, 'skipBackward');
+    }
     var controls_create_el = ControlBar.prototype.createEl;
     ControlBar.prototype.createEl = function(){
         var el = controls_create_el.call(this);
@@ -328,20 +335,31 @@ HolaSkin.prototype.update_scrubbing = function(){
 };
 
 HolaSkin.prototype.resize = function(){
-    this.player.toggleClass('vjs-small', this.el.offsetWidth<=480);
-    var _this = this;
+    var player = this.player;
+    var width = this.el.offsetWidth;
+    player.toggleClass('vjs-small', width<=480);
+    function get_child(name){
+        var control_bar = player.controlBar;
+        return player[name]||(control_bar&&control_bar[name])||
+            player.getChild(name);
+    }
+    var zoom = this.get_ui_zoom();
     ['controlBar', 'bigPlayButton', 'ShareButton']
     .concat(this.external_controls).forEach(function(name){
-        var control_bar = _this.player.controlBar;
-        var control = _this.player[name]||(control_bar&&control_bar[name])||
-            _this.player.getChild(name);
+        var control = get_child(name);
         if (!control)
             return;
         var el = control.el();
         if (!el)
             return;
-        el.style.zoom = _this.get_ui_zoom();
+        el.style.zoom = zoom;
     });
+    var s_width = width/zoom;
+    // values are found empirically from the native iOS player
+    get_child('skipBackward').toggleClass('vjs-hidden', s_width<306);
+    get_child('skipForward').toggleClass('vjs-hidden', s_width<335);
+    get_child('currentTimeDisplay').toggleClass('vjs-hidden', s_width<260);
+    // XXX alexeym: show only play/pause button if s_width<201
 };
 
 HolaSkin.prototype.init = function(){
@@ -562,6 +580,29 @@ vjs.registerComponent('TopBar', vjs.extend(Component, {
         return el;
     },
 }));
+
+vjs.registerComponent('SkipForward', vjs.extend(Button, {
+    skip: 15,
+    className: 'vjs-skip-forward',
+    createEl: function(){
+        var el = Button.prototype.createEl.call(this);
+        var icon = vjs.createEl('div',
+            {className: 'vjs-button-icon', innerHTML: ''});
+        el.insertBefore(icon, el.firstChild);
+        return el;
+    },
+    buildCSSClass: function(){
+        var parent_class = Button.prototype.buildCSSClass.call(this);
+        return this.className+' vjs-skip-button '+parent_class;
+    },
+    handleClick: function(){
+        var current = this.player_.currentTime();
+        this.player_.currentTime(current+this.skip);
+    },
+}));
+var SkipForward = vjs.getComponent('SkipForward');
+vjs.registerComponent('SkipBackward', vjs.extend(SkipForward, {skip: -15,
+    className: 'vjs-skip-back'}));
 
 var defaults = {
     className: 'vjs5-hola-skin',
