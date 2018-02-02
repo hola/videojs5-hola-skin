@@ -393,12 +393,24 @@ color: @ios-primary-color;
 &.vjs-ad-playing .vjs-ios-background-tint {
     display: block !important;
 }
+&.vjs-ad-playing .vjs-control-bar .ima-countdown-div {
+    left: 0;
+}
 &.vjs-ad-playing.vjs-user-inactive:not(.vjs-ad-paused) {
+    .vjs-control-bar {
+        padding: 0 3px;
+    }
     .vjs-control-bar>.vjs-ios-background-tint {
         opacity: 1 !important;
         visibility: visible !important;
         height: 10px;
         top: -5px;
+    }
+    .vjs-play-control,
+    .vjs-skip-button,
+    .vjs-current-time,
+    .vjs-remaining-time {
+        display: none;
     }
 }
 .videoAdUiPreSkipContainer {
