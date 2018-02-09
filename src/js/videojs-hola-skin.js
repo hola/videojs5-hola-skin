@@ -225,7 +225,7 @@ HolaSkin.prototype.patch_controls_ios = function(){
         'volumeMenuButton', 'fullscreenToggle'];
     var controls = ControlBar.prototype.options_.children;
     var play_index = controls.indexOf('playToggle');
-    if (play_index!=-1)
+    if (!this.opt.hide_skip_buttons && play_index!=-1)
     {
         controls.splice(play_index+1, 0, 'skipForward');
         controls.splice(play_index, 0, 'skipBackward');
