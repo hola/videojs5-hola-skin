@@ -75,8 +75,6 @@ var HolaSkin = function(player, opt){
     this.player = player;
     this.el = player.el();
     this.opt = opt;
-    // XXX alexeym: get rid of hardcoded value;
-    this.ui_size = 200;
     this.classes_added = [];
     this.controls_min_width = [];
     player.on('dispose', function(){ _this.dispose(); });
@@ -281,8 +279,26 @@ HolaSkin.prototype.patch_controls_ios = function(){
         }
         return seekbar_calculate.call(this, fake_event);
     };
+    // hack to improve seeking on Android
+    // handle touch events from progress-control component
+    var seekbar_mousedown = SeekBar.prototype.handleMouseDown;
+    SeekBar.prototype.handleMouseDown = function(event){
+        if (this.mouse_down_pressed)
+            return;
+        this.mouse_down_pressed = true;
+        seekbar_mousedown.call(this, event);
+    };
+    var seekbar_mouseup = SeekBar.prototype.handleMouseUp;
+    SeekBar.prototype.handleMouseUp = function(event){
+        if (!this.mouse_down_pressed)
+            return;
+        this.mouse_down_pressed = false;
+        seekbar_mouseup.call(this, event);
+    };
     var seekbar_mousemove = SeekBar.prototype.handleMouseMove;
     SeekBar.prototype.handleMouseMove = function(event){
+        if (!this.mouse_down_pressed)
+            return;
         var duration = this.player_.duration();
         var distance = this.calculateDistance(event);
         this.scrubbing_distance = distance;
@@ -418,11 +434,19 @@ HolaSkin.prototype.init = function(){
     this.update_state(player);
     var control_bar = player.controlBar;
     var progress_control = control_bar.progressControl;
-    var progress_holder = progress_control.seekBar.el();
-    progress_control.on('touchstart', function(){
+    var seek_bar = progress_control.seekBar;
+    var progress_holder = seek_bar.el();
+    progress_control.on('touchstart', function(e){
         progress_control.addClass('vjs-touch');
+        // hack to improve seeking on Android
+        // handle touch events from progress-control component
+        seek_bar.handleMouseDown(e);
     });
-    progress_control.on('touchend', function(){
+    progress_control.on('touchmove', function(e){
+        seek_bar.handleMouseMove(e);
+    });
+    progress_control.on('touchend', function(e){
+        seek_bar.handleMouseUp(e);
         progress_control.removeClass('vjs-touch');
     });
     progress_holder.insertAdjacentHTML('beforeend', slider_gaps);
