@@ -80,12 +80,13 @@ var HolaSkin = function(player, opt){
     player.on('dispose', function(){ _this.dispose(); });
     player.on('ready', function(){ _this.init(); });
     var resize = this._resize = this.resize.bind(this);
-    var zoom = this._zoom = this.on_touch_zoom.bind(this);
+    var zoom_end = this._zoom_end = this.on_touch_end.bind(this);
     player.on('resize', resize);
     player.on('fullscreenchange', function(){ setTimeout(resize); });
     window.addEventListener('resize', resize);
     window.addEventListener('orientationchange', resize);
-    document.addEventListener('touchend', zoom);
+    this.scale = 1;
+    document.addEventListener('touchend', zoom_end);
     this.apply();
 };
 
@@ -196,6 +197,9 @@ HolaSkin.prototype.get_ui_zoom = function(){
     var scale = 1;
     if (this.player&&!this.player.hasClass('vjs-ios-skin'))
         return this.ui_zoom = scale;
+    var viewport = window.visualViewport;
+    if (viewport&&viewport.scale)
+        return this.ui_zoom = 1/viewport.scale;
     var screen = window.screen;
     if (!screen)
         return this.ui_zoom = scale;
@@ -363,10 +367,23 @@ HolaSkin.prototype.update_scrubbing = function(){
     this.player.currentTime(newTime);
 };
 
-HolaSkin.prototype.on_touch_zoom = function(e){
-    if (!e||!e.touches||e.touches.length!=2)
+HolaSkin.prototype.on_touch_end = function(e){
+    var scale = this.get_ui_zoom();
+    if (this._zoom_bounce)
+        clearTimeout(this._zoom_bounce);
+    if (this.scale==scale)
+    {
+        // XXX alexeym: hack for animation when zoom via double-tap
+        if (e)
+            this._zoom_bounce = setTimeout(this._zoom_end, 500);
         return;
-    this.resize();
+    }
+    var zooming_out = this.scale<scale;
+    this.scale = scale;
+    this._resize();
+    // XXX alexeym: hack for bounce-on-zoom animation when zooming out
+    if (zooming_out)
+        this._zoom_bounce = setTimeout(this._resize, 500);
 };
 
 HolaSkin.prototype.resize = function(){
@@ -563,7 +580,9 @@ HolaSkin.prototype.dispose = function(){
         this.player.removeClass(this.classes_added.pop());
     window.removeEventListener('resize', this._resize);
     window.removeEventListener('orientationchange', this._resize);
-    document.removeEventListener('touchend', this._zoom);
+    document.removeEventListener('touchend', this._zoom_end);
+    if (this._zoom_bounce)
+        this._zoom_bounce = clearTimeout(this._zoom_bounce);
 };
 
 vjs.registerComponent('ControlsWatermark', vjs.extend(Button, {
