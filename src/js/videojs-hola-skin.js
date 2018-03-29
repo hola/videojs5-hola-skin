@@ -80,10 +80,12 @@ var HolaSkin = function(player, opt){
     player.on('dispose', function(){ _this.dispose(); });
     player.on('ready', function(){ _this.init(); });
     var resize = this._resize = this.resize.bind(this);
+    var zoom = this._zoom = this.on_touch_zoom.bind(this);
     player.on('resize', resize);
     player.on('fullscreenchange', function(){ setTimeout(resize); });
     window.addEventListener('resize', resize);
     window.addEventListener('orientationchange', resize);
+    document.addEventListener('touchend', zoom);
     this.apply();
 };
 
@@ -178,21 +180,27 @@ HolaSkin.prototype.patch_controls_default = function(){
     };
 };
 
+function need_invert(){
+    var screen = window.screen;
+    if (!screen)
+        return false;
+    // ios safari always use values for screen.avail*
+    // from vertical rotation while android chrome change it
+    // depending on the orientation
+    var s = screen.availHeight > screen.availWidth;
+    var w = window.innerHeight > window.innerWidth;
+    return s!=w;
+}
+
 HolaSkin.prototype.get_ui_zoom = function(){
     var scale = 1;
     if (this.player&&!this.player.hasClass('vjs-ios-skin'))
         return this.ui_zoom = scale;
-    var orientation = window.orientation;
-    if (orientation!==undefined)
-    {
-        orientation = orientation===90||orientation==-90 ? 'horizontal' :
-            'vertical';
-    }
     var screen = window.screen;
-    if (!orientation||!screen)
+    if (!screen)
         return this.ui_zoom = scale;
-    var width_available = orientation=='vertical' ? screen.availWidth :
-        screen.availHeight;
+    var width_available = need_invert() ? screen.availHeight :
+        screen.availWidth;
     if (width_available)
         scale = window.innerWidth/width_available;
     return this.ui_zoom = scale;
@@ -353,6 +361,12 @@ HolaSkin.prototype.update_scrubbing = function(){
         newTime = newTime - 0.1;
     this.scrubbing_percent = 0;
     this.player.currentTime(newTime);
+};
+
+HolaSkin.prototype.on_touch_zoom = function(e){
+    if (!e||!e.touches||e.touches.length!=2)
+        return;
+    this.resize();
 };
 
 HolaSkin.prototype.resize = function(){
@@ -549,6 +563,7 @@ HolaSkin.prototype.dispose = function(){
         this.player.removeClass(this.classes_added.pop());
     window.removeEventListener('resize', this._resize);
     window.removeEventListener('orientationchange', this._resize);
+    document.removeEventListener('touchend', this._zoom);
 };
 
 vjs.registerComponent('ControlsWatermark', vjs.extend(Button, {
