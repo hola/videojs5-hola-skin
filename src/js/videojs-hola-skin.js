@@ -194,12 +194,17 @@ function need_invert(){
 }
 
 HolaSkin.prototype.get_ui_zoom = function(){
+    function clamp(zoom){
+        // XXX alexeym: disable zoom < 1 because of wrong handling
+        // for some elements
+        return Math.max(1, zoom);
+    }
     var scale = 1;
     if (this.player&&!this.player.hasClass('vjs-ios-skin'))
         return this.ui_zoom = scale;
     var viewport = window.visualViewport;
     if (viewport&&viewport.scale)
-        return this.ui_zoom = 1/viewport.scale;
+        return this.ui_zoom = clamp(1/viewport.scale);
     var screen = window.screen;
     if (!screen)
         return this.ui_zoom = scale;
@@ -207,7 +212,7 @@ HolaSkin.prototype.get_ui_zoom = function(){
         screen.availWidth;
     if (width_available)
         scale = window.innerWidth/width_available;
-    return this.ui_zoom = scale;
+    return this.ui_zoom = clamp(scale);
 };
 
 HolaSkin.prototype.patch_controls_ios = function(){
