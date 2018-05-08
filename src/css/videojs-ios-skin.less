@@ -70,8 +70,12 @@ color: @ios-primary-color;
 }
 &.vjs-controls-disabled .vjs-ios-control-box,
 &.vjs-using-native-controls .vjs-ios-control-box,
-&.vjs-error .vjs-ios-control-box {
-  display: none !important;
+&.vjs-error {
+    .vjs-share-button,
+    .vjs-loading-spinner,
+    .vjs-ios-control-box {
+        display: none !important;
+    }
 }
 .vjs-ios-background-tint {
     pointer-events: none;

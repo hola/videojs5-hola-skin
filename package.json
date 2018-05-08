@@ -27,6 +27,7 @@
     ".jshintrc"
   ],
   "devDependencies": {
+    "@hola.org/video.js": "^5.10.2-27",
     "async": "~0.2.9",
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.4.0",
@@ -37,7 +38,6 @@
     "grunt-contrib-watch": "~0.4.0",
     "grunt-version": "~1.0.0",
     "load-grunt-tasks": "~0.4.0",
-    "npm-run-all": "^3.1.0",
-    "@hola.org/video.js": ">=5.10.2-16 <5.10.2"
+    "npm-run-all": "^3.1.0"
   }
 }
