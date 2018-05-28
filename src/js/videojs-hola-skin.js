@@ -59,7 +59,6 @@ function add_css(url, ver){
 }
 
 var Component = vjs.getComponent('Component');
-var Player = vjs.getComponent('Player');
 var ControlBar = vjs.getComponent('ControlBar');
 var Button = vjs.getComponent('Button');
 var MenuButton = vjs.getComponent('MenuButton');
@@ -69,44 +68,12 @@ var BigPlayButton = vjs.getComponent('BigPlayButton');
 var SeekBar = vjs.getComponent('SeekBar');
 var LoadingSpinner = vjs.getComponent('LoadingSpinner');
 var Tooltip = vjs.getComponent('Tooltip');
+var patched = false;
 
-var HolaSkin = function(player, opt){
-    var _this = this;
-    this.player = player;
-    this.el = player.el();
-    this.opt = opt;
-    this.classes_added = [];
-    this.controls_min_width = [];
-    player.on('dispose', function(){ _this.dispose(); });
-    player.on('ready', function(){ _this.init(); });
-    var resize = this._resize = this.resize.bind(this);
-    var zoom_end = this._zoom_end = this.on_touch_end.bind(this);
-    player.on('resize', resize);
-    player.on('fullscreenchange', function(){ setTimeout(resize); });
-    window.addEventListener('resize', resize);
-    window.addEventListener('orientationchange', resize);
-    this.scale = 1;
-    document.addEventListener('touchend', zoom_end);
-    this.apply();
-};
-
-HolaSkin.prototype.apply = function(){
-    var c, classes = [this.opt.className];
-    if (this.opt.show_controls_before_start)
-        classes.push('vjs-show-controls-before-start');
-    if (this.opt.show_time_for_live)
-        classes.push('vjs-show-time-for-live');
-    while (c = classes.shift())
-    {
-        if (this.player.addClass(c))
-            this.classes_added.push(c);
-    }
-    if (this.opt.className=='vjs-ios-skin')
-        this.patch_controls_ios();
-    else
-        this.patch_controls_default();
-};
-HolaSkin.prototype.patch_controls_default = function(){
+function patch_controls_default(){
+    if (patched)
+        return;
+    patched = true;
     var controlbar_createEl = ControlBar.prototype.createEl;
     ControlBar.prototype.createEl = function(){
         var el = controlbar_createEl.call(this);
@@ -179,48 +146,36 @@ HolaSkin.prototype.patch_controls_default = function(){
         }
         return tooltip_show.apply(this, arguments);
     };
-};
-
-function need_invert(){
-    var screen = window.screen;
-    if (!screen)
-        return false;
-    // ios safari always use values for screen.avail*
-    // from vertical rotation while android chrome change it
-    // depending on the orientation
-    var s = screen.availHeight > screen.availWidth;
-    var w = window.innerHeight > window.innerWidth;
-    return s!=w;
 }
 
-HolaSkin.prototype.get_ui_zoom = function(){
+function get_ui_zoom(player){
     function clamp(zoom){
         // XXX alexeym: disable zoom < 1 because of wrong handling
         // for some elements
         return Math.max(1, zoom);
     }
     var scale = 1;
-    if (this.player&&!this.player.hasClass('vjs-ios-skin'))
-        return this.ui_zoom = scale;
+    if (player && !player.hasClass('vjs-ios-skin'))
+        return player.ui_zoom = scale;
     var viewport = window.visualViewport;
     if (viewport&&viewport.scale)
-        return this.ui_zoom = clamp(1/viewport.scale);
+        return player.ui_zoom = clamp(1/viewport.scale);
     var screen = window.screen;
     if (!screen)
-        return this.ui_zoom = scale;
+        return player.ui_zoom = scale;
     var width_available = need_invert() ? screen.availHeight :
         screen.availWidth;
     if (width_available)
         scale = window.innerWidth/width_available;
-    return this.ui_zoom = clamp(scale);
-};
+    return player.ui_zoom = clamp(scale);
+}
 
-HolaSkin.prototype.patch_controls_ios = function(){
-    if (this.opt.className!='vjs-ios-skin')
+function patch_controls_ios(opt){
+    if (patched)
         return;
-    var _this = this;
+    patched = true;
     var prefix = 'vjs-ios-';
-    function init_control(el, icon, need_box){
+    function init_control(player, el, icon, need_box){
         var bg = vjs.createEl('div', {className: prefix+'background-tint'});
         bg.appendChild(vjs.createEl('div', {className: prefix+'blur'}));
         bg.appendChild(vjs.createEl('div', {className: prefix+'tint'}));
@@ -232,17 +187,11 @@ HolaSkin.prototype.patch_controls_ios = function(){
         }
         if (need_box!==false)
             el.className += ' vjs-ios-control-box';
-        el.style.zoom = _this.get_ui_zoom();
+        el.style.zoom = get_ui_zoom(player);
     }
-    // values are found empirically from the native iOS player
-    this.controls_min_width = [{name: 'skipBackward', min_width: 306},
-        {name: 'skipForward', min_width: 335},
-        {name: 'currentTimeDisplay', min_width: 260}];
-    var external_controls = this.external_controls = [
-        'volumeMenuButton', 'fullscreenToggle'];
     var controls = ControlBar.prototype.options_.children;
     var play_index = controls.indexOf('playToggle');
-    if (!this.opt.hide_skip_buttons && play_index!=-1)
+    if (!opt.hide_skip_buttons && play_index!=-1)
     {
         controls.splice(play_index+1, 0, 'skipForward');
         controls.splice(play_index, 0, 'skipBackward');
@@ -250,14 +199,14 @@ HolaSkin.prototype.patch_controls_ios = function(){
     var controls_create_el = ControlBar.prototype.createEl;
     ControlBar.prototype.createEl = function(){
         var el = controls_create_el.call(this);
-        init_control(el, null, false);
+        init_control(this.player_, el, null, false);
         return el;
     };
     var init_children = ControlBar.prototype.initChildren;
     ControlBar.prototype.initChildren = function(){
         var res = init_children.call(this);
         var _this = this;
-        external_controls.forEach(function(name){
+        ['volumeMenuButton', 'fullscreenToggle'].forEach(function(name){
             var control = _this[name];
             if (control&&control.el_)
                 _this.player_.el_.appendChild(control.el_);
@@ -267,28 +216,29 @@ HolaSkin.prototype.patch_controls_ios = function(){
     var volume_create_el = VolumeMenuButton.prototype.createEl;
     VolumeMenuButton.prototype.createEl = function(){
         var el = volume_create_el.call(this);
-        init_control(el, true);
+        init_control(this.player_, el, true);
         return el;
     };
     var fullscreen_create_el = FullscreenToggle.prototype.createEl;
     FullscreenToggle.prototype.createEl = function(){
         var el = fullscreen_create_el.call(this);
-        init_control(el, true);
+        init_control(this.player_, el, true);
         return el;
     };
     var bigplaybutton_create_el = BigPlayButton.prototype.createEl;
     BigPlayButton.prototype.createEl = function(){
         var el = bigplaybutton_create_el.call(this);
-        init_control(el, true, false);
+        init_control(this.player_, el, true, false);
         return el;
     };
     var seekbar_calculate = SeekBar.prototype.calculateDistance;
     SeekBar.prototype.calculateDistance = function(event){
-        var zoom = _this.ui_zoom;
+        var zoom = this.player_.ui_zoom;
         var fake_event = {};
         fake_event.pageY = event.pageY / zoom;
         fake_event.pageX = event.pageX / zoom;
-        if (event.changedTouches&&event.changedTouches[0]) {
+        if (event.changedTouches&&event.changedTouches[0])
+        {
             var touch = {};
             touch.pageX = event.changedTouches[0].pageX / zoom;
             touch.pageY = event.changedTouches[0].pageY / zoom;
@@ -312,7 +262,6 @@ HolaSkin.prototype.patch_controls_ios = function(){
         this.mouse_down_pressed = false;
         seekbar_mouseup.call(this, event);
     };
-    var seekbar_mousemove = SeekBar.prototype.handleMouseMove;
     SeekBar.prototype.handleMouseMove = function(event){
         if (!this.mouse_down_pressed)
             return;
@@ -321,14 +270,14 @@ HolaSkin.prototype.patch_controls_ios = function(){
         this.scrubbing_distance = distance;
         if (duration)
         {
-            _this.scrubbing_percent = 0;
+            this.player_.scrubbing_percent = 0;
             var newTime = distance*duration;
             if (newTime===duration)
                 newTime = newTime - 0.1;
             this.player_.currentTime(newTime);
         }
         else
-            _this.scrubbing_percent = distance;
+            this.player_.scrubbing_percent = distance;
         if (this.update)
             this.update();
         // Immediate update for the time labels
@@ -342,38 +291,90 @@ HolaSkin.prototype.patch_controls_ios = function(){
     SeekBar.prototype.getPercent = function(){
         var duration = this.player_.duration();
         var percent;
-        if (duration||!_this.scrubbing_percent)
+        if (duration || !this.player_.scrubbing_percent)
         {
-            percent = (this.player_.scrubbing()) ?
+            percent = this.player_.scrubbing() ?
                 this.scrubbing_distance :
                 this.player_.currentTime() / duration;
         }
         else
-            percent = _this.scrubbing_percent;
+            percent = this.player_.scrubbing_percent;
         return percent >= 1 ? 1 : percent;
     };
+}
+
+var HolaSkin = function(player, opt){
+    var _this = this;
+    this.player = player;
+    this.el = player.el();
+    this.opt = opt;
+    this.classes_added = [];
+    var ios_skin = opt.className=='vjs-ios-skin';
+    // values are found empirically from the native iOS player
+    this.controls_min_width = ios_skin ?
+        [{name: 'skipBackward', min_width: 306},
+        {name: 'skipForward', min_width: 335},
+        {name: 'currentTimeDisplay', min_width: 260}] : [];
+    this.external_controls = ios_skin ?
+        ['volumeMenuButton', 'fullscreenToggle'] : [];
+    player.on('dispose', function(){ _this.dispose(); });
+    player.on('ready', function(){ _this.init(); });
+    var resize = this._resize = this.resize.bind(this);
+    var zoom_end = this._zoom_end = this.on_touch_end.bind(this);
+    player.on('resize', resize);
+    player.on('fullscreenchange', function(){ setTimeout(resize); });
+    window.addEventListener('resize', resize);
+    window.addEventListener('orientationchange', resize);
+    this.scale = 1;
+    document.addEventListener('touchend', zoom_end);
+    this.apply();
 };
 
+HolaSkin.prototype.apply = function(){
+    var c, classes = [this.opt.className];
+    if (this.opt.show_controls_before_start)
+        classes.push('vjs-show-controls-before-start');
+    if (this.opt.show_time_for_live)
+        classes.push('vjs-show-time-for-live');
+    while (c = classes.shift())
+    {
+        if (this.player.addClass(c))
+            this.classes_added.push(c);
+    }
+};
+
+function need_invert(){
+    var screen = window.screen;
+    if (!screen)
+        return false;
+    // ios safari always use values for screen.avail*
+    // from vertical rotation while android chrome change it
+    // depending on the orientation
+    var s = screen.availHeight > screen.availWidth;
+    var w = window.innerHeight > window.innerWidth;
+    return s!=w;
+}
+
 HolaSkin.prototype.update_scrubbing = function(){
-    if (!this.scrubbing_percent)
+    if (!this.player.scrubbing_percent)
         return;
     var duration = this.player.duration();
     if (duration===Infinity)
     {
-        this.scrubbing_percent = 0;
+        this.player.scrubbing_percent = 0;
         return;
     }
     if (!duration||this.player.hasClass('vjs-waiting'))
         return;
-    var newTime = this.scrubbing_percent*duration;
+    var newTime = this.player.scrubbing_percent*duration;
     if (newTime===duration)
         newTime = newTime - 0.1;
-    this.scrubbing_percent = 0;
+    this.player.scrubbing_percent = 0;
     this.player.currentTime(newTime);
 };
 
 HolaSkin.prototype.on_touch_end = function(e){
-    var scale = this.get_ui_zoom();
+    var scale = get_ui_zoom(this.player);
     if (this._zoom_bounce)
         clearTimeout(this._zoom_bounce);
     if (this.scale==scale)
@@ -397,10 +398,10 @@ HolaSkin.prototype.resize = function(){
     player.toggleClass('vjs-small', width<=480);
     function get_child(name){
         var control_bar = player.controlBar;
-        return player[name]||(control_bar&&control_bar[name])||
+        return player[name] || control_bar&&control_bar[name] ||
             player.getChild(name);
     }
-    var zoom = this.get_ui_zoom();
+    var zoom = get_ui_zoom(player);
     ['controlBar', 'bigPlayButton', 'ShareButton']
     .concat(this.external_controls).forEach(function(name){
         var control = get_child(name);
@@ -694,6 +695,10 @@ vjs.plugin('hola_skin', function(options){
             .replace(/@seek_bar_color/g, opt.seek_bar_color||'#00b7f1');
         require('browserify-css').createStyle(custom_css);
     }
+    if (opt.className=='vjs-ios-skin')
+        patch_controls_ios(opt);
+    else
+        patch_controls_default();
     new HolaSkin(this, opt);
 });
 
