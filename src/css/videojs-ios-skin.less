@@ -60,7 +60,8 @@ color: @ios-primary-color;
   opacity: 1;
   transition: visibility 0.1s, opacity 0.1s;
 }
-&.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-ios-control-box {
+&.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-ios-control-box,
+&.vjs-has-started.vjs-user-inactive.vjs-ad-playing:not(.vjs-ad-paused) .vjs-ios-control-box {
   visibility: hidden;
   opacity: 0;
   transition: visibility 1.0s, opacity 1.0s;
@@ -76,6 +77,10 @@ color: @ios-primary-color;
     .vjs-ios-control-box {
         display: none !important;
     }
+}
+&.vjs-ima-non-linear .vjs-ios-control-box,
+&.video-js.vjs-ad-playing .vjs-ios-control-box {
+  z-index: 1112;
 }
 .vjs-ios-background-tint {
     pointer-events: none;
