@@ -539,7 +539,9 @@ HolaSkin.prototype.init_volume_button = function(){
         btn.on(obj, events, fn);
         btn[method] = fn;
     };
-    override(player, ['volumechange', 'loadstart'], 'volumeUpdate', function(){
+    override(player, ['volumechange', 'advolumechange', 'loadstart'],
+        'volumeUpdate', function()
+    {
         var i, el = this.el_, _this = this;
         var vol = !this.player_.muted() && this.player_.volume();
         var level = !vol ? 0 : vol<0.5 ? 1 : 2;
