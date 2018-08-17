@@ -307,14 +307,29 @@ color: @ios-primary-color;
     display: block;
     line-height: normal;
 }
-&.vjs-live .vjs-remaining-time,
-&.vjs-live .vjs-time-control,
-&.vjs-live .vjs-duration,
-&.vjs-live .vjs-current-time,
-&.vjs-live .vjs-time-divider,
-&.vjs-live .vjs-progress-control,
-&.vjs-live .vjs-skip-button {
-    display: none;
+&.vjs-live {
+    &:not(.vjs-dvr) .vjs-progress-control,
+    .vjs-remaining-time,
+    .vjs-time-control,
+    .vjs-duration,
+    .vjs-current-time,
+    .vjs-time-divider,
+    .vjs-skip-button {
+        display: none;
+    }
+    .vjs-live-display {
+        line-height: normal;
+        &:before {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-right: 4px;
+            vertical-align: 1px;
+            background: #f51717;
+            content: '';
+            border-radius: 50%;
+        }
+    }
 }
 .vjs-volume-menu-button {
     top: 0;
